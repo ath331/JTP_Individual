@@ -4,8 +4,8 @@
 
 int main()
 {
-	//std::cout << "Hi" << std::endl;
+	std::cout << "Hi" << std::endl;
 	CConsoleLogger secondConsole;
 	secondConsole.Create("secondConsole");
-	secondConsole.printf("EndKey : Enter");
+	secondConsole.printf("EndKey : Enter\n");
 }

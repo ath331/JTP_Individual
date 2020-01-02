@@ -1,2 +1,0 @@
-PlayGame.exe파일
-ConsoleLoggerHelper.exe (콘솔 두개 해주는exe)
