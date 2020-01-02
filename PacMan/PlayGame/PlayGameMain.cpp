@@ -5,7 +5,7 @@
 int main()
 {
 	std::cout << "Hi" << std::endl;
-	/*CConsoleLogger secondConsole;
+	CConsoleLogger secondConsole;
 	secondConsole.Create("secondConsole");
-	secondConsole.print("Hi2");*/
+	secondConsole.printf("EndKey : Enter");
 }
