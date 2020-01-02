@@ -2,9 +2,9 @@
 # Created by https://www.gitignore.io/api/c++,visualstudio
 # Edit at https://www.gitignore.io/?templates=c++,visualstudio
 
-PacMan\.vs\PacMan\v16\.suo
-PacMan\.vs\PacMan\v16\Browse.VC.db
-PacMan\PlayGame\x64\Debug\PlayGame.tlog\link.write.1.tlog
+PacMan/.vs/PacMan/v16/.suo
+PacMan/.vs/PacMan/v16/Browse.VC.db
+PacMan/PlayGame/x64/Debug/PlayGame.tlog/link.write.1.tlog
 
 ### C++ ###
 # Prerequisites
