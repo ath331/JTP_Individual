@@ -1,2 +1,2 @@
 PlayGame.exe파일
-ConsoleLoggerHelper.exe (콘솔 두개뜨게 해주는exe)
+ConsoleLoggerHelper.exe (콘솔 두개 해주는exe)
