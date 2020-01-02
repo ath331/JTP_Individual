@@ -33,7 +33,7 @@
 private:
 
 
-	_붙이기
+	-네임앞에 "_" 붙이기 ex) int _sum = 0;   int _SumInt(int a, int b);
 
 
 
