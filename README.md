@@ -1,4 +1,4 @@
-# JTP_INDIVIDUAL
+# Server_PacMan_Simulator
 
 
 
