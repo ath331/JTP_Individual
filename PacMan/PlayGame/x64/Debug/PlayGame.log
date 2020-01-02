@@ -1,0 +1,18 @@
+﻿  ConsoleLogger.cpp
+C:\Users\ICT03_19\Desktop\AnT\Projects\Github\JTP_individual\PacMan\PlayGame\ConsoleLogger\ConsoleLogger.h(220,1): warning C4267: '인수': 'size_t'에서 'DWORD'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\ICT03_19\Desktop\AnT\Projects\Github\JTP_individual\PacMan\PlayGame\ConsoleLogger\ConsoleLogger.cpp(64,54): warning C4311: '형식 캐스트': 'CConsoleLogger *'에서 'int'(으)로 포인터가 잘립니다.
+C:\Users\ICT03_19\Desktop\AnT\Projects\Github\JTP_individual\PacMan\PlayGame\ConsoleLogger\ConsoleLogger.cpp(64,54): warning C4302: '형식 캐스트': 'CConsoleLogger *'에서 'int'(으)로 잘립니다.
+C:\Users\ICT03_19\Desktop\AnT\Projects\Github\JTP_individual\PacMan\PlayGame\ConsoleLogger\ConsoleLogger.cpp(143,57): warning C4267: '인수': 'size_t'에서 'DWORD'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\ICT03_19\Desktop\AnT\Projects\Github\JTP_individual\PacMan\PlayGame\ConsoleLogger\ConsoleLogger.cpp(157,58): warning C4267: '인수': 'size_t'에서 'DWORD'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\ICT03_19\Desktop\AnT\Projects\Github\JTP_individual\PacMan\PlayGame\ConsoleLogger\ConsoleLogger.cpp(215,63): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\ICT03_19\Desktop\AnT\Projects\Github\JTP_individual\PacMan\PlayGame\ConsoleLogger\ConsoleLogger.cpp(253,63): warning C4311: '형식 캐스트': 'HANDLE'에서 'long'(으)로 포인터가 잘립니다.
+C:\Users\ICT03_19\Desktop\AnT\Projects\Github\JTP_individual\PacMan\PlayGame\ConsoleLogger\ConsoleLogger.cpp(253,63): warning C4302: '형식 캐스트': 'HANDLE'에서 'long'(으)로 잘립니다.
+C:\Users\ICT03_19\Desktop\AnT\Projects\Github\JTP_individual\PacMan\PlayGame\ConsoleLogger\ConsoleLogger.cpp(268,57): warning C4311: '형식 캐스트': 'HANDLE'에서 'long'(으)로 포인터가 잘립니다.
+C:\Users\ICT03_19\Desktop\AnT\Projects\Github\JTP_individual\PacMan\PlayGame\ConsoleLogger\ConsoleLogger.cpp(268,57): warning C4302: '형식 캐스트': 'HANDLE'에서 'long'(으)로 잘립니다.
+C:\Users\ICT03_19\Desktop\AnT\Projects\Github\JTP_individual\PacMan\PlayGame\ConsoleLogger\ConsoleLogger.cpp(269,47): warning C4311: '형식 캐스트': 'HANDLE'에서 'long'(으)로 포인터가 잘립니다.
+  PlayGameMain.cpp
+C:\Users\ICT03_19\Desktop\AnT\Projects\Github\JTP_individual\PacMan\PlayGame\ConsoleLogger\ConsoleLogger.cpp(269,47): warning C4302: '형식 캐스트': 'HANDLE'에서 'long'(으)로 잘립니다.
+  코드를 생성하고 있습니다...
+C:\Users\ICT03_19\Desktop\AnT\Projects\Github\JTP_individual\PacMan\PlayGame\ConsoleLogger\ConsoleLogger.h(220,1): warning C4267: '인수': 'size_t'에서 'DWORD'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+PlayGameMain.obj : error LNK2019: "public: int __cdecl CConsoleLogger::print(char const *,int)" (?print@CConsoleLogger@@QEAAHPEBDH@Z) 외부 기호(참조 위치: main 함수)에서 확인하지 못했습니다.
+C:\Users\ICT03_19\Desktop\AnT\Projects\Github\JTP_individual\PacMan\x64\Debug\PlayGame.exe : fatal error LNK1120: 1개의 확인할 수 없는 외부 참조입니다.
