@@ -6,6 +6,8 @@ PacMan/.vs/PacMan/v16/.suo
 PacMan/.vs/PacMan/v16/Browse.VC.db
 PacMan/PlayGame/x64/Debug/PlayGame.tlog/link.write.1.tlog
 
+*.tlog
+
 ### C++ ###
 # Prerequisites
 *.d
