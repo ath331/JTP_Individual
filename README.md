@@ -1,6 +1,6 @@
 ## Game구조(MG = Manager)
 
-	-GameMG가 MapMaker class, CharMG class를 관리한다.
+	-GameMG가 MapMaker lass, CharMG class를 관리한다.
 	
 	-CharMG는 Character class를 관리한다.
 	
