@@ -63,5 +63,4 @@ private:
 
 
 ## Game구조
-[GameStructLink][link]
-[link]: https://github.com/ath331/JTP_Individual/tree/master/PacMan/PlayGame "Go GameStructLink"
+[GameStructLink](https://github.com/ath331/JTP_Individual/tree/master/PacMan/PlayGame)
