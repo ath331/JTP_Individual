@@ -1,6 +1,10 @@
 #include <iostream>
+#include "GameMG/GameMG.h"
 
 int main()
 {
-	std::cout << "aa" << std::endl;
+	GameMG gameMG;
+	gameMG.Init();
+	gameMG.Update();
+	gameMG.Draw();
 }
