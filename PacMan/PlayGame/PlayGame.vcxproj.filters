@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="ConsoleLogger">
+      <UniqueIdentifier>{b41606a9-545f-485a-9944-b6c9b3aa0573}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameMG">
+      <UniqueIdentifier>{290389b7-9513-414c-a69a-dff0dfa9f675}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameMG\Map">
+      <UniqueIdentifier>{070a478a-b905-4f22-9734-488b13892b3e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameMG\CharMG">
+      <UniqueIdentifier>{933ca0ab-1a35-4797-8a86-9462b71addbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameMG\CharMG\Char">
+      <UniqueIdentifier>{d8cf943d-01c0-4559-bede-1272df172ccd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameMG\Map\Load">
+      <UniqueIdentifier>{45a990c5-98d7-4fc2-afae-d479ecce54da}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="PlayGameMain.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="ConsoleLogger\ConsoleLogger.cpp">
+      <Filter>ConsoleLogger</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMG\CharMG\Character\Character.cpp">
+      <Filter>GameMG\CharMG\Char</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMG\GameMG.cpp">
+      <Filter>GameMG</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMG\Map\MapMaker.cpp">
+      <Filter>GameMG\Map</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMG\CharMG\CharMG.cpp">
+      <Filter>GameMG\CharMG</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMG\Map\Load\LoadMaker.cpp">
+      <Filter>GameMG\Map\Load</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ConsoleLogger\ConsoleLogger.h">
+      <Filter>ConsoleLogger</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMG\CharMG\Character\Character.h">
+      <Filter>GameMG\CharMG\Char</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMG\GameMG.h">
+      <Filter>GameMG</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMG\Map\MapMaker.h">
+      <Filter>GameMG\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMG\CharMG\CharMG.h">
+      <Filter>GameMG\CharMG</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMG\Map\MapEnum.h">
+      <Filter>GameMG\Map</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMG\Map\Load\LoadMaker.h">
+      <Filter>GameMG\Map\Load</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMG\Map\Load\LoadEnum.h">
+      <Filter>GameMG\Map\Load</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
