@@ -5,6 +5,5 @@ int main()
 {
 	GameMG gameMG;
 	gameMG.Init();
-	gameMG.Update();
 	gameMG.Draw();
 }
