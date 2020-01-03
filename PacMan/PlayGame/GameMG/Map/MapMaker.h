@@ -1,8 +1,8 @@
 #pragma once
 #include "MapEnum.h"
 
-const static int MAX_MAP_SIZE_X = 25;
-const static int MAX_MAP_SIZE_Y = 25;
+const static int MAX_MAP_SIZE_X = 50;
+const static int MAX_MAP_SIZE_Y = 50;
 
 using namespace EnumMap;
 
@@ -25,7 +25,7 @@ private:
 	void _CalculateWallRatio();
 
 	void _MakePrison();
-
+	void _MakePotal();
 	void _MakeLoad();
 };
 

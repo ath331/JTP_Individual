@@ -14,23 +14,18 @@ void MapMaker::Init(MapField map[][MAX_MAP_SIZE_Y])
 	for (int x = 0; x < _mapSizeX; x++)
 	{
 		for (int y = 0; y < _mapSizeY; y++)
-		{		
-			////벽생성(테두리)
-			//if (x == 0 || y == 0 || x == _mapSizeX - 1 || y == _mapSizeY - 1)
-			//{
-			//	_map[x][y] = MapField::WALL;
-			//}
-
-			//else if (_map[x][y] == MapField::EMPTY)
-			//{
-			//	if (_IsChangeWall())
-			//		_map[x][y] = MapField::WALL;
-			//}
+		{
+			//벽생성(테두리)
+			if (x == 0 || y == 0 || x == _mapSizeX - 1 || y == _mapSizeY - 1)
+			{
+				_map[x][y] = MapField::WALL;
+			}
 		}
 	}
 
-	//_MakeLoad();
+	_MakePotal();
 	_MakePrison();
+	//_MakeLoad();
 }
 
 void MapMaker::_CopyArr(MapField array1[][MAX_MAP_SIZE_Y], MapField array2[][MAX_MAP_SIZE_Y])
@@ -54,26 +49,29 @@ void MapMaker::_MakePrison()
 
 	{
 		//빈공간 생성
-		_map[centerX][centerY] = MapField::EMPTY;
-		_map[centerX - 1][centerY] = MapField::EMPTY;
-		_map[centerX][centerY + 1] = MapField::EMPTY;
-		_map[centerX][centerY - 1] = MapField::EMPTY;
+		_map[centerX][centerY] = MapField::PRISON_ZONE;
+		_map[centerX - 1][centerY] = MapField::PRISON_ZONE;
+		_map[centerX][centerY + 1] = MapField::PRISON_ZONE;
+		_map[centerX][centerY - 1] = MapField::PRISON_ZONE;
 	}
 	{
 		//감옥 벽생성
-		_map[centerX][centerY + 2] = MapField::WALL;
-		_map[centerX][centerY - 2] = MapField::WALL;
-		_map[centerX + 1][centerY] = MapField::WALL;
+		_map[centerX][centerY + 2] = MapField::PRISON_WALL;
+		_map[centerX][centerY - 2] = MapField::PRISON_WALL;
+		_map[centerX + 1][centerY] = MapField::PRISON_WALL;
 
-		_map[centerX + 1][centerY + 1] = MapField::WALL;
-		_map[centerX - 1][centerY + 1] = MapField::WALL;
-		_map[centerX + 1][centerY - 2] = MapField::WALL;
-		_map[centerX + 1][centerY + 2] = MapField::WALL;
+		_map[centerX + 1][centerY + 1] = MapField::PRISON_WALL;
+		_map[centerX - 1][centerY + 1] = MapField::PRISON_WALL;
+		_map[centerX + 1][centerY - 2] = MapField::PRISON_WALL;
+		_map[centerX + 1][centerY + 2] = MapField::PRISON_WALL;
 
-		_map[centerX + 1][centerY - 1] = MapField::WALL;
-		_map[centerX - 1][centerY + 2] = MapField::WALL;
-		_map[centerX - 1][centerY - 1] = MapField::WALL;
-		_map[centerX - 1][centerY - 2] = MapField::WALL;
+		_map[centerX + 1][centerY - 1] = MapField::PRISON_WALL;
+		_map[centerX - 1][centerY + 2] = MapField::PRISON_WALL;
+		_map[centerX - 1][centerY - 1] = MapField::PRISON_WALL;
+		_map[centerX - 1][centerY - 2] = MapField::PRISON_WALL;
+	}
+	{
+		//감옥 주위에 길생성
 
 	}
 }
@@ -84,6 +82,17 @@ void MapMaker::_CalculateWallRatio()
 	_wallNum = (_emptyWall / 100) * _wallRatio;
 	if (_wallNum <= 0)
 		_wallNum = 1;
+}
+
+void MapMaker::_MakePotal()
+{
+	int centerY = _mapSizeY / 2;
+
+	for (int i = 0; i < 2; i++)
+	{
+		_map[centerY + i][_mapSizeX - 1] = MapField::PORTAL;
+		_map[centerY + i][0] = MapField::PORTAL;
+	}
 }
 
 void MapMaker::_MakeLoad()
@@ -102,7 +111,7 @@ void MapMaker::_MakeLoad()
 void MapMaker::InputMapInfo()
 {
 	std::cout << "MAX SIZE = " << MAX_MAP_SIZE_X << std::endl;
-	std::cout << "Input [MapSize_X],  [MapSize_Y],  [WallRatio(%)] : " << std::endl;
+	std::cout << "Input MapSize_X,  MapSize_Y,  WallRatio(%) : " << std::endl;
 	std::cin >> _mapSizeX >> _mapSizeY >> _wallRatio;
 	_CalculateWallRatio();
 }
@@ -113,11 +122,12 @@ void MapMaker::Draw()
 	{
 		for (int y = 0; y < MAX_MAP_SIZE_Y; y++)
 		{
-			if (_map[x][y] == MapField::EMPTY)
+			if (_map[x][y] == MapField::EMPTY || _map[x][y] == MapField::PRISON_ZONE)
 				std::cout << "  ";
-			else if (_map[x][y] == MapField::WALL)
+			else if (_map[x][y] == MapField::PORTAL)
+				std::cout << "  ";
+			else if (_map[x][y] == MapField::WALL || _map[x][y] == MapField::PRISON_WALL)
 				std::cout << "■";
-
 		}
 		std::cout << std::endl;
 	}

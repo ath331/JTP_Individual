@@ -6,5 +6,9 @@ namespace EnumMap
 	{
 		EMPTY = 0,
 		WALL,
+		LOAD,
+		PORTAL,
+		PRISON_WALL,
+		PRISON_ZONE,
 	};
 }
