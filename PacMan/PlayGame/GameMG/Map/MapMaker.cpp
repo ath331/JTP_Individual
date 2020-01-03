@@ -25,7 +25,7 @@ void MapMaker::Init(MapField map[][MAX_MAP_SIZE_Y])
 
 	_MakePotal();
 	_MakePrison();
-	//_MakeLoad();
+	_MakeLoad();
 	_MakeFieldWall();
 }
 
@@ -98,7 +98,21 @@ void MapMaker::_MakePotal()
 
 void MapMaker::_MakeLoad()
 {
-	boost::thread_group tg;
+	int prisonLoadStartX = (_mapSizeX / 2) - 3;
+	int prisonLoadStartY = (_mapSizeY / 2) - 2;
+	int prisonLoadEndX = (_mapSizeX / 2) + 4;
+	int prisonLoadEndY = (_mapSizeY / 2) + 3;
+
+	for (int y = prisonLoadStartY; y < prisonLoadEndY; y++)
+	{
+		for (int x = prisonLoadStartX; x < prisonLoadEndX; x++)
+		{
+			if (_map[y][x] == MapField::EMPTY)
+				_map[y][x] = MapField::LOAD;
+		}
+
+	}
+	//boost::thread_group tg;
 	//LoadMaker* _loadMaker[4];
 	//for (int i = 1; i <= 4; i++) //상하좌우 4개의 스레드 필요
 	//{
@@ -140,7 +154,7 @@ void MapMaker::Draw()
 		{
 			if (_map[x][y] == MapField::EMPTY || _map[x][y] == MapField::PRISON_ZONE)
 				std::cout << "  ";
-			else if (_map[x][y] == MapField::PORTAL)
+			else if (_map[x][y] == MapField::PORTAL || _map[x][y] == MapField::LOAD)
 				std::cout << "  ";
 			else if (_map[x][y] == MapField::WALL || _map[x][y] == MapField::PRISON_WALL)
 				std::cout << "■";
