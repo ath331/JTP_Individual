@@ -6,5 +6,6 @@ namespace EnumMap
 	{
 		EMPTY = 0,
 		WALL,
+		TEMP,
 	};
 }

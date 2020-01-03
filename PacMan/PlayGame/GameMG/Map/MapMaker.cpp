@@ -3,47 +3,78 @@
 #include "Load/LoadMaker.h"
 
 #include <iostream>
+
 #include <boost/bind.hpp>
 #include <boost/thread/thread.hpp>
 
 void MapMaker::Init(MapField map[][MAX_MAP_SIZE_Y])
 {
+	_copy(map, _map);
+
 	for (int x = 0; x < _mapSizeX; x++)
 	{
 		for (int y = 0; y < _mapSizeY; y++)
 		{
-			//寒积己(抛滴府)
-			if (x == 0 || y == 0 || x == _mapSizeX - 1 || y == _mapSizeY - 1)
-			{
-				map[x][y] = MapField::WALL;
-			}
+			////寒积己(抛滴府)
+			//if (x == 0 || y == 0 || x == _mapSizeX - 1 || y == _mapSizeY - 1)
+			//{
+			//	_map[x][y] = MapField::WALL;
+			//}
 
-			if (map[x][y] == MapField::EMPTY)
-			{
-				if (_IsChangeWall())
-					map[x][y] = MapField::WALL;
-			}
+			//else if (_map[x][y] == MapField::EMPTY)
+			//{
+			//	if (_IsChangeWall())
+			//		_map[x][y] = MapField::WALL;
+			//}
 		}
 	}
 
 	//_MakeLoad();
+	_MakePrison();
 }
 
-bool MapMaker::_IsChangeWall()
+void MapMaker::_copy(MapField array1[][MAX_MAP_SIZE_Y], MapField array2[][MAX_MAP_SIZE_Y])
 {
-	if (_wallNum <= 0)
-		return false;
-
-	else
+	MapField* p1, * endp1;
+	MapField* p2;
+	p1 = &array1[0][0];
+	p2 = &array2[0][0];
+	endp1 = &array1[MAX_MAP_SIZE_X - 1][MAX_MAP_SIZE_X - 1];
+	while (p1 <= endp1)
 	{
-		int num = rand();
-		if (num % 4 == 1)
-		{
-			_wallNum--;
-			return true;
-		}
-		else
-			return false;
+		*p2 = *p1;
+		p1++; p2++;
+	}
+}
+
+void MapMaker::_MakePrison()
+{
+	int centerX = _mapSizeX / 2;
+	int centerY = _mapSizeY / 2;
+
+	{
+		//后傍埃 积己
+		_map[centerX][centerY] = MapField::EMPTY;
+		_map[centerX - 1][centerY] = MapField::EMPTY;
+		_map[centerX][centerY + 1] = MapField::EMPTY;
+		_map[centerX][centerY - 1] = MapField::EMPTY;
+	}
+	{
+		//皑苛 寒积己
+		_map[centerX][centerY + 2] = MapField::WALL;
+		_map[centerX][centerY - 2] = MapField::WALL;
+		_map[centerX + 1][centerY] = MapField::WALL;
+
+		_map[centerX + 1][centerY + 1] = MapField::WALL;
+		_map[centerX - 1][centerY + 1] = MapField::WALL;
+		_map[centerX + 1][centerY - 2] = MapField::WALL;
+		_map[centerX + 1][centerY + 2] = MapField::WALL;
+
+		_map[centerX + 1][centerY - 1] = MapField::WALL;
+		_map[centerX - 1][centerY + 2] = MapField::WALL;
+		_map[centerX - 1][centerY - 1] = MapField::WALL;
+		_map[centerX - 1][centerY - 2] = MapField::WALL;
+
 	}
 }
 
@@ -70,22 +101,25 @@ void MapMaker::_MakeLoad()
 
 void MapMaker::InputMapInfo()
 {
-	std::cout << "MAX SIZE = 25" << std::endl;
+	std::cout << "MAX SIZE = " << MAX_MAP_SIZE_X << std::endl;
 	std::cout << "Input [MapSize_X],  [MapSize_Y],  [WallRatio(%)] : " << std::endl;
 	std::cin >> _mapSizeX >> _mapSizeY >> _wallRatio;
 	_CalculateWallRatio();
 }
 
-void MapMaker::Draw(MapField map[][MAX_MAP_SIZE_Y])
+void MapMaker::Draw()
 {
 	for (int x = 0; x < MAX_MAP_SIZE_X; x++)
 	{
 		for (int y = 0; y < MAX_MAP_SIZE_Y; y++)
 		{
-			if (map[x][y] == MapField::EMPTY)
+			if (_map[x][y] == MapField::EMPTY)
 				std::cout << "  ";
-			else if (map[x][y] == MapField::WALL)
+			else if (_map[x][y] == MapField::WALL)
 				std::cout << "♂";
+			else if (_map[x][y] == MapField::TEMP)
+				std::cout << "≠";
+
 		}
 		std::cout << std::endl;
 	}

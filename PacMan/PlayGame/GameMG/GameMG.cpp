@@ -13,5 +13,5 @@ void GameMG::Update()
 
 void GameMG::Draw()
 {
-	_mapMaker.Draw(_mapField);
+	_mapMaker.Draw();
 }
