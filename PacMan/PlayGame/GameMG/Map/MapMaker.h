@@ -27,5 +27,6 @@ private:
 	void _MakePrison();
 	void _MakePotal();
 	void _MakeLoad();
+	void _MakeFieldWall();
 };
 

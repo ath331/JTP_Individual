@@ -26,6 +26,7 @@ void MapMaker::Init(MapField map[][MAX_MAP_SIZE_Y])
 	_MakePotal();
 	_MakePrison();
 	//_MakeLoad();
+	_MakeFieldWall();
 }
 
 void MapMaker::_CopyArr(MapField array1[][MAX_MAP_SIZE_Y], MapField array2[][MAX_MAP_SIZE_Y])
@@ -106,6 +107,21 @@ void MapMaker::_MakeLoad()
 	//	tg.create_thread(boost::bind(&LoadMaker::MakeLoad, _loadMaker));
 	//}
 	//tg.join_all();
+}
+
+void MapMaker::_MakeFieldWall()
+{
+	for (int x = 0; x < _mapSizeX; x++)
+	{
+		for (int y = 0; y < _mapSizeY; y++)
+		{
+			//벽생성(테두리)
+			if (_map[y][x] == MapField::EMPTY)
+			{
+				_map[y][x] = MapField::WALL;
+			}
+		}
+	}
 }
 
 void MapMaker::InputMapInfo()
