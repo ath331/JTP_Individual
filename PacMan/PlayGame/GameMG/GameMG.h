@@ -16,5 +16,4 @@ private:
 	CharMG _charMG;
 
 	EnumMap::MapField _mapField[MAX_MAP_SIZE_X][MAX_MAP_SIZE_Y] = { EnumMap::MapField::EMPTY };
-	void _InitMapField();
 };
