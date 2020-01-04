@@ -1,7 +1,7 @@
 #pragma once
 
-const static int MAX_MAP_SIZE_X = 50;
-const static int MAX_MAP_SIZE_Y = 50;
+const static int MAX_MAP_SIZE_X = 47;
+const static int MAX_MAP_SIZE_Y = 47;
 
 namespace EnumMap
 {

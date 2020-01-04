@@ -73,13 +73,7 @@ void MapMaker::_MakePrison()
 	}
 }
 
-void MapMaker::_CalculateWallRatio()
-{
-	_emptyWall = (_mapSizeX * _mapSizeY) - _mapSizeX - _mapSizeX - _mapSizeY - _mapSizeY + 4; //테두리를 제외하고 빈공간의 개수만 구한다 +4는 모서리부분이 두번빠지므로 보정하는 값
-	_wallNum = (_emptyWall / 100) * _wallRatio;
-	if (_wallNum <= 0)
-		_wallNum = 1;
-}
+
 
 void MapMaker::_MakePotal()
 {
@@ -114,7 +108,7 @@ void MapMaker::_MakeLoad()
 		}
 	}
 
-	loadMaker.Init(_wallNum,_mapSizeX,_mapSizeY);
+	loadMaker.Init(_wallRatio,_mapSizeX,_mapSizeY);
 	loadMaker.MakeLoad(_map);
 }
 
@@ -138,7 +132,6 @@ void MapMaker::InputMapInfo()
 	std::cout << "MAX SIZE = " << MAX_MAP_SIZE_X << std::endl;
 	std::cout << "Input MapSize_X,  MapSize_Y,  WallRatio(%) : " << std::endl;
 	std::cin >> _mapSizeX >> _mapSizeY >> _wallRatio;
-	_CalculateWallRatio();
 }
 
 void MapMaker::Draw()

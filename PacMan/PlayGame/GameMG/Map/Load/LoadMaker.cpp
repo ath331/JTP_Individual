@@ -1,15 +1,20 @@
 #include "LoadMaker.h"
 
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <vector>
 
-void LoadMaker::Init(const int wallNum, const int mapSizeX, const int mapSizeY)
+void LoadMaker::Init(const int wallRatio, const int mapSizeX, const int mapSizeY)
 {
-	_wallNum = wallNum;
+	srand((unsigned int)time(NULL));
+
+	_wallRatio = wallRatio;
 	_mapSizeX = mapSizeX;
 	_mapSizeY = mapSizeY;
 }
 
-void LoadMaker::MakeLoad(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X])
+void LoadMaker::MakeLoad(MapField map[][MAX_MAP_SIZE_X])
 {
 	//정사각형의 가로줄 세팅
 	int startX = 1;
@@ -59,21 +64,81 @@ void LoadMaker::MakeLoad(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X])
 		}
 	}
 
+	_MakeBasicLoad(map);
 	_MakeAdditionalLoad(map);
 }
 
-void LoadMaker::_MakeAdditionalLoad(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X])
+void LoadMaker::_MakeBasicLoad(MapField map[][MAX_MAP_SIZE_X])
 {
 	//기본적인 길 세팅
-	for (int y = 1; y < _mapSizeY - 1; y++)
+	for (int y = 1; y < _mapSizeY; y++)
 	{
-		for (int x = 1; x < _mapSizeX - 1; x++)
+		for (int x = 1; x < _mapSizeX; x++)
 		{
 			if (map[_mapSizeY / 2][x] == EnumMap::MapField::EMPTY)
 				map[_mapSizeY / 2][x] = EnumMap::MapField::LOAD;
 
 			if (map[y][_mapSizeX / 2] == EnumMap::MapField::EMPTY)
 				map[y][_mapSizeX / 2] = EnumMap::MapField::LOAD;
+		}
+	}
+}
+void LoadMaker::_MakeAdditionalLoad(MapField map[][MAX_MAP_SIZE_X])
+{
+	int curWallNum = 0;
+
+	for (int y = 0; y < _mapSizeY; y++)
+	{
+		for (int x = 0; x < _mapSizeX; x++)
+		{
+			if (map[y][x] == MapField::EMPTY)
+			{
+				curWallNum++;
+			}
+		}
+	}
+
+	struct tempPosXY
+	{
+		int posX, posY;
+	};
+	std::vector<tempPosXY> tempPosVec(curWallNum);
+	int i = 0;
+	for (int y = 0; y < _mapSizeY; y++)
+	{
+		for (int x = 0; x < _mapSizeX; x++)
+		{
+			if (map[y][x] == MapField::EMPTY)
+			{
+				tempPosVec[i].posX = x;
+				tempPosVec[i].posY = y;
+				i++;
+			}
+		}
+	}
+
+	//남아있어야하는 장애물의 수
+	int temp = (curWallNum / 100) * _wallRatio;
+	int wallNum = curWallNum - temp;
+
+	while (wallNum > 0)
+	{
+		int randNum = rand() % tempPosVec.size();
+		int tempX = tempPosVec[randNum].posX;
+		int tempY = tempPosVec[randNum].posY;
+
+		map[tempY][tempX] = MapField::LOAD;
+
+		int i = 0;
+		for (auto iter = tempPosVec.begin(); iter < tempPosVec.end(); iter++)
+		{
+			if (i == randNum)
+			{
+				iter = tempPosVec.erase(iter);
+				wallNum--;
+				break;
+			}
+			i++;
 		}
 	}
 }
