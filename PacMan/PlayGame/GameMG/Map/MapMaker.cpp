@@ -93,6 +93,11 @@ void MapMaker::_MakePotal()
 	{
 		_map[centerY - i][_mapSizeX - 1] = MapField::PORTAL;
 		_map[centerY - i][0] = MapField::PORTAL;
+		if (_mapSizeY % 2 == 1)
+		{
+			_map[centerY + i][_mapSizeX - 1] = MapField::PORTAL;
+			_map[centerY + i][0] = MapField::PORTAL;
+		}
 	}
 }
 
