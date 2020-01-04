@@ -91,8 +91,8 @@ void MapMaker::_MakePotal()
 
 	for (int i = 0; i < 2; i++)
 	{
-		_map[centerY + i][_mapSizeX - 1] = MapField::PORTAL;
-		_map[centerY + i][0] = MapField::PORTAL;
+		_map[centerY - i][_mapSizeX - 1] = MapField::PORTAL;
+		_map[centerY - i][0] = MapField::PORTAL;
 	}
 }
 
