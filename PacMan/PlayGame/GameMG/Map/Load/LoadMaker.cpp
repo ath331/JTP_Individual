@@ -58,10 +58,22 @@ void LoadMaker::MakeLoad(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X])
 			startX -= 2;
 		}
 	}
+
+	_MakeAdditionalLoad(map);
 }
 
 void LoadMaker::_MakeAdditionalLoad(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X])
 {
+	//기본적인 길 세팅
+	for (int y = 1; y < _mapSizeY - 1; y++)
+	{
+		for (int x = 1; x < _mapSizeX - 1; x++)
+		{
+			if (map[_mapSizeY / 2][x] == EnumMap::MapField::EMPTY)
+				map[_mapSizeY / 2][x] = EnumMap::MapField::LOAD;
 
+			if (map[y][_mapSizeX / 2] == EnumMap::MapField::EMPTY)
+				map[y][_mapSizeX / 2] = EnumMap::MapField::LOAD;
+		}
+	}
 }
-
