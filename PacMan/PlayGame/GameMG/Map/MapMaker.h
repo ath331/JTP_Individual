@@ -1,8 +1,6 @@
 #pragma once
 #include "MapEnum.h"
-
-const static int MAX_MAP_SIZE_X = 50;
-const static int MAX_MAP_SIZE_Y = 50;
+#include "Load/LoadMaker.h"
 
 using namespace EnumMap;
 
@@ -13,6 +11,7 @@ public:
 	void Init(MapField map[][MAX_MAP_SIZE_Y]);
 	void Draw();
 private:
+	LoadMaker loadMaker;
 	MapField _map[MAX_MAP_SIZE_X][MAX_MAP_SIZE_Y];
 	int _mapSizeX = 0;
 	int _mapSizeY = 0;

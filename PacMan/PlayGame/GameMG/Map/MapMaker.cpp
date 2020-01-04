@@ -1,11 +1,7 @@
 #include "MapMaker.h"
 #include "MapEnum.h"
-#include "Load/LoadMaker.h"
 
 #include <iostream>
-
-#include <boost/bind.hpp>
-#include <boost/thread/thread.hpp>
 
 void MapMaker::Init(MapField map[][MAX_MAP_SIZE_Y])
 {
@@ -31,8 +27,8 @@ void MapMaker::Init(MapField map[][MAX_MAP_SIZE_Y])
 
 void MapMaker::_CopyArr(MapField array1[][MAX_MAP_SIZE_Y], MapField array2[][MAX_MAP_SIZE_Y])
 {
-	MapField* p1, * endp1;
-	MapField* p2;
+	MapField* p1 = nullptr, * endp1 = nullptr;
+	MapField* p2 = nullptr;
 	p1 = &array1[0][0];
 	p2 = &array2[0][0];
 	endp1 = &array1[MAX_MAP_SIZE_X - 1][MAX_MAP_SIZE_X - 1];
@@ -108,6 +104,7 @@ void MapMaker::_MakeLoad()
 	int prisonLoadEndX = (_mapSizeX / 2) + 4;
 	int prisonLoadEndY = (_mapSizeY / 2) + 3;
 
+	//감옥주위 길생성(필수)
 	for (int y = prisonLoadStartY; y < prisonLoadEndY; y++)
 	{
 		for (int x = prisonLoadStartX; x < prisonLoadEndX; x++)
@@ -115,17 +112,10 @@ void MapMaker::_MakeLoad()
 			if (_map[y][x] == MapField::EMPTY)
 				_map[y][x] = MapField::LOAD;
 		}
-
 	}
-	//boost::thread_group tg;
-	//LoadMaker* _loadMaker[4];
-	//for (int i = 1; i <= 4; i++) //상하좌우 4개의 스레드 필요
-	//{
-	//	_loadMaker[i - 1] = new LoadMaker;
-	//	_loadMaker[i-1]->Init(&_wallNum, (EnumLoad::LoadWay)i);
-	//	tg.create_thread(boost::bind(&LoadMaker::MakeLoad, _loadMaker));
-	//}
-	//tg.join_all();
+
+	loadMaker.Init(_wallNum,_mapSizeX,_mapSizeY);
+	loadMaker.MakeLoad(_map);
 }
 
 void MapMaker::_MakeFieldWall()
@@ -153,9 +143,9 @@ void MapMaker::InputMapInfo()
 
 void MapMaker::Draw()
 {
-	for (int x = 0; x < MAX_MAP_SIZE_X; x++)
+	for (int x = 0; x < _mapSizeX; x++)
 	{
-		for (int y = 0; y < MAX_MAP_SIZE_Y; y++)
+		for (int y = 0; y < _mapSizeY; y++)
 		{
 			if (_map[x][y] == MapField::EMPTY || _map[x][y] == MapField::PRISON_ZONE)
 				std::cout << "  ";

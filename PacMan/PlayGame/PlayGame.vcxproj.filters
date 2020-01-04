@@ -77,8 +77,5 @@
     <ClInclude Include="GameMG\Map\Load\LoadMaker.h">
       <Filter>GameMG\Map\Load</Filter>
     </ClInclude>
-    <ClInclude Include="GameMG\Map\Load\LoadEnum.h">
-      <Filter>GameMG\Map\Load</Filter>
-    </ClInclude>
   </ItemGroup>
 </Project>
