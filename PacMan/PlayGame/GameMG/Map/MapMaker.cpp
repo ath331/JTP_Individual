@@ -147,7 +147,7 @@ void MapMaker::Draw()
 			else if (_map[x][y] == MapField::WALL || _map[x][y] == MapField::PRISON_WALL)
 				std::cout << "¡á";
 			else if (_map[x][y] == MapField::ITEM_COIN)
-				std::cout << "¡Ù";
+				std::cout << "* ";
 			else if(_map[x][y] == MapField::ITEM_Debuff)
 				std::cout << "¡Ú";
 		}
