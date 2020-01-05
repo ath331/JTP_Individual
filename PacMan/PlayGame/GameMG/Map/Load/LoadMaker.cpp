@@ -118,7 +118,7 @@ void LoadMaker::_MakeAdditionalLoad(MapField map[][MAX_MAP_SIZE_X])
 	}
 
 	//남아있어야하는 장애물의 수
-	int temp = (curWallNum / 100) * _wallRatio;
+	int temp = ((float)curWallNum / 100.0f) * _wallRatio;
 	int wallNum = curWallNum - temp;
 
 	while (wallNum > 0)

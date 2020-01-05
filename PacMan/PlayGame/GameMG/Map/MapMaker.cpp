@@ -24,7 +24,7 @@ void MapMaker::Init(MapField map[][MAX_MAP_SIZE_Y])
 	_MakeLoad();
 	_MakeFieldWall();
 
-	//_MakeItem();
+	_MakeItem();
 }
 
 void MapMaker::_CopyArr(MapField array1[][MAX_MAP_SIZE_Y], MapField array2[][MAX_MAP_SIZE_Y])
@@ -118,7 +118,7 @@ void MapMaker::_MakeFieldWall()
 	{
 		for (int y = 0; y < _mapSizeY; y++)
 		{
-			//벽생성(테두리)
+			//벽생성(남은 EMPTY는 모두 WALL이다)
 			if (_map[y][x] == MapField::EMPTY)
 			{
 				_map[y][x] = MapField::WALL;
