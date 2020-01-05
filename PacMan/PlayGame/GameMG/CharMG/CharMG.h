@@ -6,10 +6,9 @@ using namespace EnumMap;
 class CharMG
 {
 public:
-	void Init(MapField map[][MAX_MAP_SIZE_X]);
+	void Init(MapField map[][MAX_MAP_SIZE_X], int mapSizeX, int mapSizeY);
 	void InputCharInfo();
 	void Update();
-	void Draw();
 private:
 	MapField _map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X];
 	void _CopyArr(MapField array1[][MAX_MAP_SIZE_X], MapField array2[][MAX_MAP_SIZE_X]);

@@ -2,17 +2,14 @@
 
 #include <iostream>
 
-void CharMG::Init(MapField map[][MAX_MAP_SIZE_X])
+void CharMG::Init(MapField map[][MAX_MAP_SIZE_X], int mapSizeX, int mapSizeY)
 {
 	_CopyArr(map, _map);
-
-	int mapSizeX = sizeof(map[0]) / sizeof(MapField);
-	int mapSizeY = sizeof(map) / sizeof(map[0]);
 
 	_mapSizeX = mapSizeX;
 	_mapSizeY = mapSizeY;
 
-	_MakePlayerPos(map, _mapSizeX / 2, (_mapSizeY / 2 + 2));
+	_MakePlayerPos(_map, _mapSizeX / 2, (_mapSizeY / 2 + 2));
 }
 void CharMG::Update()
 {
@@ -24,19 +21,6 @@ void CharMG::InputCharInfo()
 	std::cout << "Input CharInfo_ speed(float), enemyNum(int)" << std::endl;
 	std::cin >> _speed >> _enemyNum;
 
-}
-void CharMG::Draw()
-{
-	for (int y = 1; y < _mapSizeY; y++)
-	{
-		for (int x = 1; x < _mapSizeX; x++)
-		{
-			if (_map[y][x] == MapField::PLAYER_START)
-				std::cout << "¡ã" << std::endl;
-			if (_map[y][x] == MapField::ENEMY)
-				std::cout << "¡â" << std::endl;
-		}
-	}
 }
 
 void CharMG::_MakePlayerPos(MapField map[][MAX_MAP_SIZE_X], int posX, int posY)

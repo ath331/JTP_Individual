@@ -3,7 +3,7 @@
 
 using namespace EnumMap;
 
-class LoadMaker
+class RoadMaker
 {
 public:
 	void Init(const int wallRatio, const int mapSizeX, const int mapSizeY);

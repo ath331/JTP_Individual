@@ -1,11 +1,11 @@
-#include "LoadMaker.h"
+#include "RoadMaker.h"
 
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
 #include <vector>
 
-void LoadMaker::Init(const int wallRatio, const int mapSizeX, const int mapSizeY)
+void RoadMaker::Init(const int wallRatio, const int mapSizeX, const int mapSizeY)
 {
 	srand((unsigned int)time(NULL));
 
@@ -14,7 +14,7 @@ void LoadMaker::Init(const int wallRatio, const int mapSizeX, const int mapSizeY
 	_mapSizeY = mapSizeY;
 }
 
-void LoadMaker::MakeLoad(MapField map[][MAX_MAP_SIZE_X])
+void RoadMaker::MakeLoad(MapField map[][MAX_MAP_SIZE_X])
 {
 	//정사각형의 가로줄 세팅
 	int startX = 1;
@@ -68,7 +68,7 @@ void LoadMaker::MakeLoad(MapField map[][MAX_MAP_SIZE_X])
 	_MakeAdditionalLoad(map);
 }
 
-void LoadMaker::_MakeBasicLoad(MapField map[][MAX_MAP_SIZE_X])
+void RoadMaker::_MakeBasicLoad(MapField map[][MAX_MAP_SIZE_X])
 {
 	//기본적인 길 세팅
 	for (int y = 1; y < _mapSizeY; y++)
@@ -83,7 +83,7 @@ void LoadMaker::_MakeBasicLoad(MapField map[][MAX_MAP_SIZE_X])
 		}
 	}
 }
-void LoadMaker::_MakeAdditionalLoad(MapField map[][MAX_MAP_SIZE_X])
+void RoadMaker::_MakeAdditionalLoad(MapField map[][MAX_MAP_SIZE_X])
 {
 	int curWallNum = 0;
 

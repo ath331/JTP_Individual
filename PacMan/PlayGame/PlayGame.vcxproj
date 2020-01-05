@@ -151,8 +151,8 @@
     <ClCompile Include="GameMG\CharMG\CharMG.cpp" />
     <ClCompile Include="GameMG\GameMG.cpp" />
     <ClCompile Include="GameMG\Map\Item\ItemMaker.cpp" />
-    <ClCompile Include="GameMG\Map\Load\LoadMaker.cpp" />
     <ClCompile Include="GameMG\Map\MapMaker.cpp" />
+    <ClCompile Include="GameMG\Map\Road\RoadMaker.cpp" />
     <ClCompile Include="PlayGameMain.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -161,9 +161,9 @@
     <ClInclude Include="GameMG\CharMG\CharMG.h" />
     <ClInclude Include="GameMG\GameMG.h" />
     <ClInclude Include="GameMG\Map\Item\ItemMaker.h" />
-    <ClInclude Include="GameMG\Map\Load\LoadMaker.h" />
     <ClInclude Include="GameMG\Map\MapEnum.h" />
     <ClInclude Include="GameMG\Map\MapMaker.h" />
+    <ClInclude Include="GameMG\Map\Road\RoadMaker.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
