@@ -1,4 +1,3 @@
-#include <iostream>
 #include "GameMG/GameMG.h"
 
 int main()

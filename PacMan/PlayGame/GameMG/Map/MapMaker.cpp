@@ -23,6 +23,8 @@ void MapMaker::Init(MapField map[][MAX_MAP_SIZE_Y])
 	_MakePrison();
 	_MakeLoad();
 	_MakeFieldWall();
+
+	//_MakeItem();
 }
 
 void MapMaker::_CopyArr(MapField array1[][MAX_MAP_SIZE_Y], MapField array2[][MAX_MAP_SIZE_Y])
@@ -73,8 +75,6 @@ void MapMaker::_MakePrison()
 	}
 }
 
-
-
 void MapMaker::_MakePotal()
 {
 	int centerY = _mapSizeY / 2;
@@ -108,8 +108,8 @@ void MapMaker::_MakeLoad()
 		}
 	}
 
-	loadMaker.Init(_wallRatio,_mapSizeX,_mapSizeY);
-	loadMaker.MakeLoad(_map);
+	_loadMaker.Init(_wallRatio,_mapSizeX,_mapSizeY);
+	_loadMaker.MakeLoad(_map);
 }
 
 void MapMaker::_MakeFieldWall()
@@ -130,8 +130,8 @@ void MapMaker::_MakeFieldWall()
 void MapMaker::InputMapInfo()
 {
 	std::cout << "MAX SIZE = " << MAX_MAP_SIZE_X << std::endl;
-	std::cout << "Input MapSize_X,  MapSize_Y,  WallRatio(%) : " << std::endl;
-	std::cin >> _mapSizeX >> _mapSizeY >> _wallRatio;
+	std::cout << "Input MapSize_X,  MapSize_Y,  WallRatio(%), ItemNum : " << std::endl;
+	std::cin >> _mapSizeX >> _mapSizeY >> _wallRatio >> _itemNum;
 }
 
 void MapMaker::Draw()
@@ -146,7 +146,19 @@ void MapMaker::Draw()
 				std::cout << "  ";
 			else if (_map[x][y] == MapField::WALL || _map[x][y] == MapField::PRISON_WALL)
 				std::cout << "¡á";
+			else if (_map[x][y] == MapField::ITEM_COIN)
+				std::cout << "¡Ù";
+			else if(_map[x][y] == MapField::ITEM_Debuff)
+				std::cout << "¡Ú";
 		}
 		std::cout << std::endl;
 	}
+}
+
+
+void MapMaker::_MakeItem()
+{
+	_itemMaker.Init(_itemNum,_mapSizeX,_mapSizeY);
+	_itemMaker.SettingItemDebuff(_map);
+	_itemMaker.SettingItemCoin(_map);
 }

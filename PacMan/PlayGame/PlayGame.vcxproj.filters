@@ -31,6 +31,9 @@
     <Filter Include="GameMG\Map\Load">
       <UniqueIdentifier>{45a990c5-98d7-4fc2-afae-d479ecce54da}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameMG\Map\Item">
+      <UniqueIdentifier>{f14e5c0a-3037-4e15-a2ad-e3040839c60d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PlayGameMain.cpp">
@@ -54,6 +57,9 @@
     <ClCompile Include="GameMG\Map\Load\LoadMaker.cpp">
       <Filter>GameMG\Map\Load</Filter>
     </ClCompile>
+    <ClCompile Include="GameMG\Map\Item\ItemMaker.cpp">
+      <Filter>GameMG\Map\Item</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConsoleLogger\ConsoleLogger.h">
@@ -76,6 +82,9 @@
     </ClInclude>
     <ClInclude Include="GameMG\Map\Load\LoadMaker.h">
       <Filter>GameMG\Map\Load</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMG\Map\Item\ItemMaker.h">
+      <Filter>GameMG\Map\Item</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
