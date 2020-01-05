@@ -4,11 +4,12 @@
 
 void GameMG::Init()
 {
-	std::fill(&_mapField[0][0], &_mapField[MAX_MAP_SIZE_X - 1][MAX_MAP_SIZE_Y], EnumMap::MapField::EMPTY);
+	std::fill(&_mapField[0][0], &_mapField[MAX_MAP_SIZE_Y - 1 ][MAX_MAP_SIZE_X], EnumMap::MapField::EMPTY);
 
-	std::cout << "Input MapSize_ X(int), Y(int) : " << std::endl;
+	std::cout << "Input MapSize_ : " << std::endl;
 	std::cout << "MAX SIZE = " << MAX_MAP_SIZE_X << std::endl;
-	std::cin >> _mapSizeX >> _mapSizeY;
+	std::cin >> _mapSizeX;
+	_mapSizeY = _mapSizeX;
 
 	_mapMaker.InputMapInfo();
 	_mapMaker.Init(_mapField, _mapSizeX, _mapSizeY);
@@ -37,9 +38,9 @@ void GameMG::Draw()
 				std::cout << "* ";
 			else if (_mapField[y][x] == MapField::ITEM_Debuff)
 				std::cout << "¡Ú";
-			else if (_mapField[y][x] == MapField::PLAYER_START)
+			else if (_mapField[y][x] == MapField::PLAYER_)
 				std::cout << "¡ã";
-			else if (_mapField[y][x] == MapField::ENEMY)
+			else if (_mapField[y][x] == MapField::ENEMY_)
 				std::cout << "¡â";
 		}
 		std::cout << std::endl;

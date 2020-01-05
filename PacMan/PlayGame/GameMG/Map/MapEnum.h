@@ -18,7 +18,7 @@ namespace EnumMap
 		ITEM_COIN,
 		ITEM_Debuff,
 		/////////////////
-		PLAYER_START,
-		ENEMY,
+		PLAYER_,
+		ENEMY_,
 	};
 }

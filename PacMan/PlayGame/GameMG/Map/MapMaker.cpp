@@ -10,14 +10,14 @@ void MapMaker::Init(MapField map[][MAX_MAP_SIZE_X], int mapSizeX, int mapSizeY)
 	_mapSizeX = mapSizeX;
 	_mapSizeY = mapSizeY;
 
-	for (int x = 0; x < _mapSizeX; x++)
+	for (int y = 0; y < _mapSizeY; y++)
 	{
-		for (int y = 0; y < _mapSizeY; y++)
+		for (int x = 0; x < _mapSizeX; x++)
 		{
 			//벽생성(테두리)
 			if (x == 0 || y == 0 || x == _mapSizeX - 1 || y == _mapSizeY - 1)
 			{
-				_map[x][y] = MapField::WALL;
+				_map[y][x] = MapField::WALL;
 			}
 		}
 	}
@@ -30,7 +30,6 @@ void MapMaker::Init(MapField map[][MAX_MAP_SIZE_X], int mapSizeX, int mapSizeY)
 	_MakeItem();
 
 	_CopyArr(_map, map);
-
 }
 
 void MapMaker::_CopyArr(MapField array1[][MAX_MAP_SIZE_X], MapField array2[][MAX_MAP_SIZE_X])
