@@ -34,4 +34,6 @@ void CharMG::Update()
 void CharMG::_MakePlayerPos(MapField map[][MAX_MAP_SIZE_X], int posX, int posY)
 {
 	map[posX][posY] = MapField::PLAYER_;
+	Character* enemyCharacter = new Character;
+	charVec.push_back(enemyCharacter);
 }
