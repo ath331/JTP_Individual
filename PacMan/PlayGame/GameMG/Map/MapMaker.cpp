@@ -69,10 +69,6 @@ void MapMaker::_MakePrison()
 		_map[centerX - 1][centerY - 1] = MapField::PRISON_WALL;
 		_map[centerX - 1][centerY - 2] = MapField::PRISON_WALL;
 	}
-	{
-		//감옥 주위에 길생성
-
-	}
 }
 
 void MapMaker::_MakePotal()
