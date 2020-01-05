@@ -8,8 +8,8 @@ void GameMG::Init()
 
 	_mapMaker.InputMapInfo();
 	_mapMaker.Init(_mapField);
+	_charMG.InputCharInfo();
 	_charMG.Init(_mapField);
-	_charMG.InputCharInfo(5.0f);
 }
 
 void GameMG::Update()

@@ -25,6 +25,9 @@ void MapMaker::Init(MapField map[][MAX_MAP_SIZE_Y])
 	_MakeFieldWall();
 
 	_MakeItem();
+
+	_CopyArr(_map, map);
+
 }
 
 void MapMaker::_CopyArr(MapField array1[][MAX_MAP_SIZE_Y], MapField array2[][MAX_MAP_SIZE_Y])

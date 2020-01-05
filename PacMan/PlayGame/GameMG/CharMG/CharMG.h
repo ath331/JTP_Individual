@@ -7,15 +7,18 @@ class CharMG
 {
 public:
 	void Init(MapField map[][MAX_MAP_SIZE_X]);
-	void InputCharInfo(float speed);
+	void InputCharInfo();
 	void Update();
 	void Draw();
 private:
-	MapField _map[MAX_MAP_SIZE_X][MAX_MAP_SIZE_X];
+	MapField _map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X];
+	void _CopyArr(MapField array1[][MAX_MAP_SIZE_X], MapField array2[][MAX_MAP_SIZE_X]);
+
+	int _mapSizeX = 0;
+	int _mapSizeY = 0;
 
 	int _enemyNum = 0;
 	int _speed = 0;
 
-	void _CopyArr(MapField array1[][MAX_MAP_SIZE_Y], MapField array2[][MAX_MAP_SIZE_Y]);
-
+	void _MakePlayerPos(MapField map[][MAX_MAP_SIZE_X],int posX,int posY);
 };
