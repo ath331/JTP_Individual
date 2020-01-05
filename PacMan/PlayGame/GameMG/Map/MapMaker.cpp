@@ -3,9 +3,9 @@
 
 #include <iostream>
 
-void MapMaker::Init(MapField map[][MAX_MAP_SIZE_Y])
+void MapMaker::Init()
 {
-	_CopyArr(map, _map);
+	std::fill(&_map[0][0], &_map[MAX_MAP_SIZE_X - 1][MAX_MAP_SIZE_Y], MapField::EMPTY);
 
 	for (int x = 0; x < _mapSizeX; x++)
 	{
@@ -25,20 +25,6 @@ void MapMaker::Init(MapField map[][MAX_MAP_SIZE_Y])
 	_MakeFieldWall();
 
 	_MakeItem();
-}
-
-void MapMaker::_CopyArr(MapField array1[][MAX_MAP_SIZE_Y], MapField array2[][MAX_MAP_SIZE_Y])
-{
-	MapField* p1 = nullptr, * endp1 = nullptr;
-	MapField* p2 = nullptr;
-	p1 = &array1[0][0];
-	p2 = &array2[0][0];
-	endp1 = &array1[MAX_MAP_SIZE_X - 1][MAX_MAP_SIZE_X - 1];
-	while (p1 <= endp1)
-	{
-		*p2 = *p1;
-		p1++; p2++;
-	}
 }
 
 void MapMaker::_MakePrison()
@@ -68,10 +54,6 @@ void MapMaker::_MakePrison()
 		_map[centerX - 1][centerY + 2] = MapField::PRISON_WALL;
 		_map[centerX - 1][centerY - 1] = MapField::PRISON_WALL;
 		_map[centerX - 1][centerY - 2] = MapField::PRISON_WALL;
-	}
-	{
-		//감옥 주위에 길생성
-
 	}
 }
 
