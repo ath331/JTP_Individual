@@ -26,7 +26,7 @@ public:
 	int GetCurPosY();
 
 	void SetCharPos(int posX, int posY);
-	void MoveCharacter(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X]);
+	void MoveCharacter(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X]); //_MoveChactet를 외부에서 호출하기 위한 함수
 private:
 	MapField _charState = MapField::PLAYER_;
 	MapField _map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X];
@@ -39,6 +39,8 @@ private:
 	void _SetCurPosY(int posY);
 
 	bool _IsPlayer();
+	bool _IsWall(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X],int x,int y);
+	void _MoveChacter(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], int x, int y); //실질적인 움직임 함수
 
 	MoveDirection _curDirection = MoveDirection::DOWN;
 	void _SetCurDirection(MoveDirection direction);

@@ -8,6 +8,7 @@ void Character::Init(MapField charState, int startX, int startY)
 	_startX = startX;
 	_startY = startY;
 	_charState = charState;
+	_curDirection = _GetRandomDirection();
 }
 
 bool Character::_IsPlayer()
@@ -17,28 +18,44 @@ bool Character::_IsPlayer()
 	else
 		return false;
 }
+bool Character::_IsWall(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], int x, int y)
+{
+	if (map[_curPosX + x][_curPosY + y] == MapField::WALL || map[_curPosX + x][_curPosY + y] == MapField::PRISON_WALL)
+		return true;
+	else
+		return false;
+}
+void Character::_MoveChacter(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], int x, int y)
+{
+	if(!_IsWall(map,x,y))
+	{
+		if (_IsPlayer())
+		{
+			map[_curPosX][_curPosY] = MapField::LOAD;
+		}
+		map[_curPosX + x][_curPosY + y] = MapField::PLAYER_;
+		SetCharPos(_curPosX + x, _curPosY + y);
+	}
+	else
+		_curDirection = _GetRandomDirection();
+}
 
 void Character::MoveCharacter(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X])
 {
 	switch (_curDirection)
 	{
 	case UP:
+		_MoveChacter(map, 0, -1);
 		break;
 	case DOWN:
-		if (map[_curPosX][_curPosY + 1] != MapField::WALL)
-		{
-			if (_IsPlayer())
-			{
-				map[_curPosX][_curPosY] = MapField::LOAD;
-			}
-			map[_curPosX][_curPosY + 1] = MapField::PLAYER_;
-			SetCharPos(_curPosX, _curPosY + 1);
-		}
+		_MoveChacter(map, 0, 1);
 		break;
 	case LEFT:
+		_MoveChacter(map, -1, 0);
 		break;
 	case RIGHT:
-		break;
+		_MoveChacter(map, 1, 0);
+
 	default:
 		break;
 	}
