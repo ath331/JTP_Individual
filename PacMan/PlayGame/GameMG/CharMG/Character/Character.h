@@ -5,7 +5,7 @@ using namespace EnumMap;
 
 enum MoveDirection
 {
-	UP = 0,
+	UP,
 	DOWN,
 	LEFT,
 	RIGHT,
@@ -21,13 +21,16 @@ public:
 class Character
 {
 public:
-	void Init(MapField charState,int startX, int startY);
+	void Init(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X],MapField charState,int startX, int startY);
 	int GetCurPosX();
 	int GetCurPosY();
 
 	void SetCharPos(int posX, int posY);
-	void MoveCharacter(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X]); //_MoveChactet를 외부에서 호출하기 위한 함수
+	void MoveCharacter(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X]); //_MoveChacater를 외부에서 호출하기 위한 함수
 private:
+	bool _possibleDirectionArr[4] = { false,true,true,true };
+
+	void _CopyArr(MapField array1[][MAX_MAP_SIZE_X], MapField array2[][MAX_MAP_SIZE_X]);
 	MapField _charState = MapField::PLAYER_;
 	MapField _map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X];
 
@@ -44,6 +47,7 @@ private:
 
 	MoveDirection _curDirection = MoveDirection::DOWN;
 	void _SetCurDirection(MoveDirection direction);
+	void _PossibleDirection();
 
 	MoveDirection _GetRandomDirection();
 };

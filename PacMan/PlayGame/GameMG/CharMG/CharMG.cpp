@@ -40,7 +40,7 @@ void CharMG::_SetCharacterPos(int charNum, int posX, int posY)
 void CharMG::_MakePlayerPos(MapField map[][MAX_MAP_SIZE_X], int posX, int posY)
 {
 	Character* playerCharacter = new Character;
-	playerCharacter->Init(MapField::PLAYER_, posX, posY);
+	playerCharacter->Init(map, MapField::PLAYER_, posX, posY);
 	charVec.push_back(playerCharacter);
 
 	_SetCharacterPos(0, posX, posY);

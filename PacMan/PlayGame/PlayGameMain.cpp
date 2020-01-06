@@ -9,7 +9,7 @@ int main()
 	{
 		gameMG.Draw();
 		gameMG.Update();
-		Sleep(100);
+		Sleep(300);
 		system("cls");
 	}
 }
