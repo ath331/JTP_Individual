@@ -9,7 +9,7 @@ class Character;
 class CharMG
 {
 public:
-	void Init(MapField map[][MAX_MAP_SIZE_X], int mapSizeX, int mapSizeY);
+	void Init(bool* isGamePlaying, MapField map[][MAX_MAP_SIZE_X], int mapSizeX, int mapSizeY);
 	void InputCharInfo();
 	void Update(MapField map[][MAX_MAP_SIZE_X]);
 private:
@@ -21,5 +21,5 @@ private:
 
 	int _enemyNum = 0;
 
-	void _MakePlayerPos(MapField map[][MAX_MAP_SIZE_X],int posX,int posY);
+	void _MakePlayerPos(bool* isGamePlaying, MapField map[][MAX_MAP_SIZE_X],int posX,int posY);
 };

@@ -2,7 +2,7 @@
 
 #include <iostream>
 
-void GameMG::Init()
+void GameMG::Init(bool* isGamePlaying)
 {
 	std::fill(&_mapField[0][0], &_mapField[MAX_MAP_SIZE_Y - 1 ][MAX_MAP_SIZE_X], EnumMap::MapField::EMPTY);
 
@@ -14,7 +14,7 @@ void GameMG::Init()
 	_mapMaker.InputMapInfo();
 	_mapMaker.Init(_mapField, _mapSizeX, _mapSizeY);
 	_charMG.InputCharInfo();
-	_charMG.Init(_mapField, _mapSizeX, _mapSizeY);
+	_charMG.Init(isGamePlaying, _mapField, _mapSizeX, _mapSizeY);
 }
 
 void GameMG::Update()

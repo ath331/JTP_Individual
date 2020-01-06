@@ -7,10 +7,12 @@ int main()
 	COORD pos = { 3, 6 };
 	SetConsoleCursorPosition(hConsole, pos);*/
 
-	GameMG gameMG;
-	gameMG.Init();
+	bool isGamePlaying = true;
 
-	while (true)
+	GameMG gameMG;
+	gameMG.Init(&isGamePlaying);
+
+	while (isGamePlaying)
 	{
 		gameMG.Draw();
 		gameMG.Update();

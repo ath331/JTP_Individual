@@ -3,7 +3,7 @@
 #include <cstdlib>
 #include <ctime>
 
-void Character::Init(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], MapField charState, int startX, int startY, int mapSizeX, int mapSizeY)
+void Character::Init(bool* isGamePlaying, MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], MapField charState, int startX, int startY, int mapSizeX, int mapSizeY)
 {
 	_CopyArr(map, _map);
 	_mapSizeX = mapSizeX;
@@ -19,6 +19,7 @@ void Character::Init(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], MapField char
 	_PossibleDirection();
 
 	map[startX][startY] = charState;
+	_isGamePlaying = isGamePlaying;
 }
 
 bool Character::_IsPlayer()
@@ -62,7 +63,7 @@ void Character::_MoveChacter(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], int x
 
 		else if (_IsEnemy(map, x, y) && _IsPlayer())
 		{
-			//GameOver
+			_isGamePlaying = false;
 		}
 	}
 

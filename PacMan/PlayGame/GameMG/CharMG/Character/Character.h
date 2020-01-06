@@ -21,13 +21,14 @@ public:
 class Character
 {
 public:
-	void Init(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X],MapField charState,int startX, int startY,int mapSizeX, int mapSizeY);
+	void Init(bool* isGamePlaying,MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X],MapField charState,int startX, int startY,int mapSizeX, int mapSizeY);
 	int GetCurPosX();
 	int GetCurPosY();
 
 	void SetCharPos(int posX, int posY);
 	void MoveCharacter(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X]); //_MoveChacater를 외부에서 호출하기 위한 함수
 private:
+	bool _isGamePlaying;
 	bool _possibleDirectionArr[4] = { false,true,true,true };
 
 	void _CopyArr(MapField array1[][MAX_MAP_SIZE_X], MapField array2[][MAX_MAP_SIZE_X]);
