@@ -36,22 +36,11 @@ void Character::_MoveChacter(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], int x
 {
 	if (!_IsWall(map, x, y))
 	{
-		if (_IsPlayer())
-		{
-			map[_curPosX][_curPosY] = MapField::LOAD;
-		}
-		else
-		{
-			map[_curPosX][_curPosY] = MapField::LOAD;
-		}
-		/*else
-		{
-			MapField temp = map[_curPosX][_curPosY];
-			map[_curPosX][_curPosY] = MapField::LOAD;
-			map[_curPosX][_curPosY] = temp;
-		}*/
-
+		MapField temp = map[_curPosX+x][_curPosY+y];
 		map[_curPosX + x][_curPosY + y] = _charState;
+		map[_curPosX][_curPosY] = MapField::LOAD;
+		if (!_IsPlayer())
+			map[_curPosX][_curPosY] = temp;
 		SetCharPos(_curPosX + x, _curPosY + y);
 	}
 
