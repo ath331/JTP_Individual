@@ -109,60 +109,41 @@ void Character::MoveCharacter(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X])
 
 void Character::_PossibleDirection()
 {
-	//현재위치에서 갈수있는 방향을 체크. UP, DOWN, LEFT, RIGHT
+	//현재위치에서 벽이 아닌 방향을 체크. UP, DOWN, LEFT, RIGHT
+	//진행방향과 반대방향은 가지 않는다.(TODO : Enemy가 오는경우라면 반대 방향으로도 갈 수 있게 한다)
 	{
 		if (!_IsWall(_map, 0, -1))
 			_possibleDirectionArr[0] = true;
 		else
 			_possibleDirectionArr[0] = false;
-	}
-	{
+
 		if (!_IsWall(_map, 0, 1))
 			_possibleDirectionArr[1] = true;
 		else
 			_possibleDirectionArr[1] = false;
-	}
-	{
+
 		if (!_IsWall(_map, -1, 0))
 			_possibleDirectionArr[2] = true;
 		else
 			_possibleDirectionArr[2] = false;
-	}
-	{
+
 		if (!_IsWall(_map, 1, 0))
 			_possibleDirectionArr[3] = true;
 		else
 			_possibleDirectionArr[3] = false;
-	}
 
-	/*switch (_curDirection)
-	{
-	case UP:
-		_possibleDirectionArr[1] = false;
-		break;
-	case DOWN:
-		_possibleDirectionArr[0] = false;
-		break;
-	case LEFT:
-		_possibleDirectionArr[3] = false;
-		break;
-	case RIGHT:
-		_possibleDirectionArr[2] = false;
-		break;
-	default:
-		break;
-	}*/
+		int possibleDirectionNum = 0;
+		for (int i = 0; i < 4; i++)
+		{
+			if (_possibleDirectionArr[i] == true)
+				possibleDirectionNum++;
+		}
+
+	}
 }
 
 MoveDirection Character::_GetRandomDirection()
 {
-	int possibleDirectionNum = 0;
-	for (int i = 0; i < 4; i++)
-	{
-		if (_possibleDirectionArr[i] == true)
-			possibleDirectionNum++;
-	}
-
 	int randDirection = rand() % 4;
 	while (_possibleDirectionArr[randDirection] == false)
 	{
