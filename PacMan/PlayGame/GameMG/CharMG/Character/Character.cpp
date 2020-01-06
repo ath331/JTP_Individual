@@ -3,15 +3,18 @@
 #include <cstdlib>
 #include <ctime>
 
-void Character::Init(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], MapField charState, int startX, int startY)
+void Character::Init(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], MapField charState, int startX, int startY, int mapSizeX, int mapSizeY)
 {
 	_CopyArr(map, _map);
+	_mapSizeX = mapSizeX;
+	_mapSizeY = mapSizeY;
 
 	_startX = startX;
 	_startY = startY;
 	_curPosX = _startX;
 	_curPosY = _startY;
 	_charState = charState;
+
 	_curDirection = _GetRandomDirection();
 }
 
@@ -37,8 +40,34 @@ void Character::_MoveChacter(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], int x
 		{
 			map[_curPosX][_curPosY] = MapField::LOAD;
 		}
-		map[_curPosX + x][_curPosY + y] = MapField::PLAYER_;
+		else
+		{
+			map[_curPosX][_curPosY] = MapField::LOAD;
+		}
+		/*else
+		{
+			MapField temp = map[_curPosX][_curPosY];
+			map[_curPosX][_curPosY] = MapField::LOAD;
+			map[_curPosX][_curPosY] = temp;
+		}*/
+
+		map[_curPosX + x][_curPosY + y] = _charState;
 		SetCharPos(_curPosX + x, _curPosY + y);
+	}
+
+	if (_IsPotal(_map, x))
+	{
+		if (_curPosX + x == 0)
+		{
+			SetCharPos(_mapSizeX - 1, _curPosY);
+			_curDirection = MoveDirection::LEFT;
+		}
+		else if (_curPosX + x == _mapSizeX - 1)
+		{
+			SetCharPos(0, _curPosY);
+			_curDirection = MoveDirection::RIGHT;
+		}
+
 	}
 }
 
@@ -93,6 +122,24 @@ void Character::_PossibleDirection()
 		else
 			_possibleDirectionArr[3] = false;
 	}
+
+	switch (_curDirection)
+	{
+	case UP:
+		_possibleDirectionArr[1] = false;
+		break;
+	case DOWN:
+		_possibleDirectionArr[0] = false;
+		break;
+	case LEFT:
+		_possibleDirectionArr[3] = false;
+		break;
+	case RIGHT:
+		_possibleDirectionArr[2] = false;
+		break;
+	default:
+		break;
+	}
 }
 
 MoveDirection Character::_GetRandomDirection()
@@ -111,6 +158,14 @@ MoveDirection Character::_GetRandomDirection()
 	}
 
 	return (MoveDirection)randDirection;
+}
+
+bool Character::_IsPotal(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], int x)
+{
+	if (map[_curPosX + x][_curPosY] == MapField::PORTAL)
+		return true;
+	else
+		return false;
 }
 
 void Character::_CopyArr(MapField array1[][MAX_MAP_SIZE_X], MapField array2[][MAX_MAP_SIZE_X])

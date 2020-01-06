@@ -21,7 +21,7 @@ public:
 class Character
 {
 public:
-	void Init(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X],MapField charState,int startX, int startY);
+	void Init(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X],MapField charState,int startX, int startY,int mapSizeX, int mapSizeY);
 	int GetCurPosX();
 	int GetCurPosY();
 
@@ -33,16 +33,21 @@ private:
 	void _CopyArr(MapField array1[][MAX_MAP_SIZE_X], MapField array2[][MAX_MAP_SIZE_X]);
 	MapField _charState = MapField::PLAYER_;
 	MapField _map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X];
+	int _mapSizeX = 0;
+	int _mapSizeY = 0;
 
 	int _startX = 0;
 	int _startY = 0;
 	int _curPosX = 0;
 	int _curPosY = 0;
+
 	void _SetCurPosX(int posX);
 	void _SetCurPosY(int posY);
 
 	bool _IsPlayer();
-	bool _IsWall(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X],int x,int y);
+	bool _IsWall(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], int x, int y);
+	bool _IsPotal(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X],int x);
+
 	void _MoveChacter(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], int x, int y); //실질적인 움직임 함수
 
 	MoveDirection _curDirection = MoveDirection::DOWN;
