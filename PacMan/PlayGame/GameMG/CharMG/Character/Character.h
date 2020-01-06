@@ -45,6 +45,7 @@ private:
 	void _SetCurPosY(int posY);
 
 	bool _IsPlayer();
+	bool _IsEnemy(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], int x, int y);
 	bool _IsWall(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], int x, int y);
 	bool _IsPotal(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X],int x);
 

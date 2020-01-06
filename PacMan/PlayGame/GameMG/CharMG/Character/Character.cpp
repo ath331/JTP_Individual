@@ -35,16 +35,35 @@ bool Character::_IsWall(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], int x, int
 	else
 		return false;
 }
+bool Character::_IsEnemy(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], int x, int y)
+{
+	if (map[_curPosX + x][_curPosY + y] == MapField::ENEMY_)
+		return true;
+	else
+		return false;
+}
+
 void Character::_MoveChacter(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], int x, int y)
 {
 	if (!_IsWall(map, x, y))
 	{
-		MapField temp = map[_curPosX+x][_curPosY+y];
-		map[_curPosX + x][_curPosY + y] = _charState;
-		map[_curPosX][_curPosY] = MapField::LOAD;
-		if (!_IsPlayer())
-			map[_curPosX][_curPosY] = temp;
-		SetCharPos(_curPosX + x, _curPosY + y);
+		if (!_IsEnemy(map, x, y))
+		{
+			MapField temp = map[_curPosX + x][_curPosY + y];
+			map[_curPosX + x][_curPosY + y] = _charState;
+			map[_curPosX][_curPosY] = MapField::LOAD;
+
+			if (!_IsPlayer())
+			{
+				map[_curPosX][_curPosY] = temp;
+			}
+			SetCharPos(_curPosX + x, _curPosY + y);
+		}
+
+		else if (_IsEnemy(map, x, y) && _IsPlayer())
+		{
+			//GameOver
+		}
 	}
 
 	if (_IsPotal(_map, x))
