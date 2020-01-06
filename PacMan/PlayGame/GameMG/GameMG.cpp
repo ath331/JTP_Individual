@@ -19,7 +19,7 @@ void GameMG::Init()
 
 void GameMG::Update()
 {
-	_charMG.Update();
+	_charMG.Update(_mapField);
 }
 
 void GameMG::Draw()

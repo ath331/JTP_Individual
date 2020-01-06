@@ -11,7 +11,7 @@ class CharMG
 public:
 	void Init(MapField map[][MAX_MAP_SIZE_X], int mapSizeX, int mapSizeY);
 	void InputCharInfo();
-	void Update();
+	void Update(MapField map[][MAX_MAP_SIZE_X]);
 private:
 	MapField _map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X];
 	int _mapSizeX = 0;
@@ -20,7 +20,7 @@ private:
 	std::vector<Character*> charVec;
 
 	int _enemyNum = 0;
-	int _speed = 0;
 
+	void _SetCharacterPos(int charNum,int posX, int posY);
 	void _MakePlayerPos(MapField map[][MAX_MAP_SIZE_X],int posX,int posY);
 };
