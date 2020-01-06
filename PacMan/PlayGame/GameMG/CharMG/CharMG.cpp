@@ -27,9 +27,6 @@ void CharMG::Init(MapField map[][MAX_MAP_SIZE_X], int mapSizeX, int mapSizeY)
 
 		int startPosX = ((_mapSizeX / 2) - 1) + i;
 		int startPosY = _mapSizeY / 2;
-
-		_SetCharacterPos(0, startPosX, startPosY);
-		map[startPosX][startPosY] = MapField::ENEMY_;
 	}
 }
 
@@ -39,11 +36,6 @@ void CharMG::Update(MapField map[][MAX_MAP_SIZE_X])
 	{
 		(*iter)->MoveCharacter(map);
 	}
-}
-
-void CharMG::_SetCharacterPos(int charNum, int posX, int posY)
-{
-	charVec[charNum]->SetCharPos(posX, posY);
 }
 
 void CharMG::_MakePlayerPos(MapField map[][MAX_MAP_SIZE_X], int posX, int posY)

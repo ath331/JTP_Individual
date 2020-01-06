@@ -21,6 +21,5 @@ private:
 
 	int _enemyNum = 0;
 
-	void _SetCharacterPos(int charNum,int posX, int posY);
 	void _MakePlayerPos(MapField map[][MAX_MAP_SIZE_X],int posX,int posY);
 };

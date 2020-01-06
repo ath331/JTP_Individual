@@ -16,6 +16,9 @@ void Character::Init(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], MapField char
 	_charState = charState;
 
 	_curDirection = _GetRandomDirection();
+	_PossibleDirection();
+
+	map[startX][startY] = charState;
 }
 
 bool Character::_IsPlayer()
