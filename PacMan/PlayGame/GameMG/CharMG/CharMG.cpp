@@ -56,5 +56,5 @@ void CharMG::_MakePlayerPos(MapField map[][MAX_MAP_SIZE_X], int posX, int posY)
 	int playerCurPosX = charVec[0]->GetCurPosX();
 	int playerCurPosY = charVec[0]->GetCurPosY();
 
-	map[playerCurPosX][playerCurPosY] = MapField::PLAYER_;
+	//map[playerCurPosX][playerCurPosY] = MapField::PLAYER_;
 }

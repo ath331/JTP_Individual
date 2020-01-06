@@ -22,7 +22,7 @@ void MapMaker::Init(MapField map[][MAX_MAP_SIZE_X], int mapSizeX, int mapSizeY)
 		}
 	}
 
-	_MakePotal();
+	//_MakePotal();
 	_MakePrison();
 	_MakeLoad();
 	_MakeFieldWall();

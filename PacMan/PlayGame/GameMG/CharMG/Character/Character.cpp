@@ -123,7 +123,7 @@ void Character::_PossibleDirection()
 			_possibleDirectionArr[3] = false;
 	}
 
-	switch (_curDirection)
+	/*switch (_curDirection)
 	{
 	case UP:
 		_possibleDirectionArr[1] = false;
@@ -139,7 +139,7 @@ void Character::_PossibleDirection()
 		break;
 	default:
 		break;
-	}
+	}*/
 }
 
 MoveDirection Character::_GetRandomDirection()
