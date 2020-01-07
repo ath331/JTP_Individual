@@ -45,7 +45,7 @@ bool Character::_IsNextTileEnemy(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], i
 }
 bool Character::_IsNextTilePlayer(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], int x, int y)
 {
-	if (map[_curPosX + x][_curPosY + y] == MapField::PLAYER_)
+	if (map[_curPosX + x][_curPosY + y] == MapField::PLAYER_ || map[_curPosX][_curPosY] == MapField::PLAYER_)
 		return true;
 	else
 		return false;
