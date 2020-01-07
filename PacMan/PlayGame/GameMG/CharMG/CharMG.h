@@ -14,6 +14,7 @@ public:
 	void Update(MapField map[][MAX_MAP_SIZE_X]);
 private:
 	MapField _map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X];
+	MapField _copyMap[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X];
 	int _mapSizeX = 0;
 	int _mapSizeY = 0;
 
@@ -21,5 +22,6 @@ private:
 
 	int _enemyNum = 0;
 
+	void _CopyArr(MapField array1[][MAX_MAP_SIZE_X], MapField array2[][MAX_MAP_SIZE_X]);
 	void _MakePlayerPos(bool* isGamePlaying, MapField map[][MAX_MAP_SIZE_X],int posX,int posY);
 };

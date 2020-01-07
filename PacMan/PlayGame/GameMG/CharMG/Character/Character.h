@@ -26,14 +26,16 @@ public:
 	int GetCurPosY();
 
 	void SetCharPos(int posX, int posY);
-	void MoveCharacter(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X]); //_MoveChacater를 외부에서 호출하기 위한 함수
+	void MoveCharacter(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], MapField copyMap[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X]); //_MoveChacater를 외부에서 호출하기 위한 함수
 private:
+	int _enemyPath = 3;
 	bool* _isGamePlaying;
 	bool _possibleDirectionArr[4] = { false,true,true,true };
 
 	void _CopyArr(MapField array1[][MAX_MAP_SIZE_X], MapField array2[][MAX_MAP_SIZE_X]);
 	MapField _charState = MapField::PLAYER_;
 	MapField _map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X];
+
 	int _mapSizeX = 0;
 	int _mapSizeY = 0;
 
@@ -51,11 +53,11 @@ private:
 	bool _IsNextTileWall(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], int x, int y);
 	bool _IsNextTilePotal(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X],int x);
 
-	void _MoveChacter(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], int x, int y); //실질적인 움직임 함수
-
 	MoveDirection _curDirection = MoveDirection::DOWN;
-	void _SetCurDirection(MoveDirection direction);
-	void _PossibleDirection();
-
 	MoveDirection _GetRandomDirection();
+	void _MoveChacter(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], MapField copyMap[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], int x, int y); //실질적인 움직임 함수
+	void _PossibleDirection();
+	void _SetCurDirection(MoveDirection direction);
+	void _SetEnemyPath(MoveDirection curDirection, MapField copyMap[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X]);
+	bool _CheckEnemyPath(MoveDirection curDirection);
 };

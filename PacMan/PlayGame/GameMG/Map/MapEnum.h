@@ -20,5 +20,6 @@ namespace EnumMap
 		/////////////////
 		PLAYER_,
 		ENEMY_,
+		ENEMY_PATH,
 	};
 }

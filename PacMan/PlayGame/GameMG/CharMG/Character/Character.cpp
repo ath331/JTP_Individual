@@ -51,7 +51,32 @@ bool Character::_IsNextTilePlayer(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], 
 		return false;
 }
 
-void Character::_MoveChacter(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], int x, int y)
+void Character::_SetEnemyPath(MoveDirection curDirection, MapField copyMap[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X])
+{
+	switch (curDirection)
+	{
+	case UP:
+		for (int i = 0; i < _enemyPath; i++)
+			copyMap[_curPosX][_curPosY - i] = MapField::ENEMY_PATH;
+		break;
+	case DOWN:
+		for (int i = 0; i < _enemyPath; i++)
+			copyMap[_curPosX][_curPosY + i] = MapField::ENEMY_PATH;
+		break;
+	case LEFT:
+		for (int i = 0; i < _enemyPath; i++)
+			copyMap[_curPosX - i][_curPosY] = MapField::ENEMY_PATH;
+		break;
+	case RIGHT:
+		for (int i = 0; i < _enemyPath; i++)
+			copyMap[_curPosX + i][_curPosY] = MapField::ENEMY_PATH;
+		break;
+	default:
+		break;
+	}
+}
+
+void Character::_MoveChacter(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], MapField copyMap[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], int x, int y)
 {
 	if (!_IsNextTileWall(map, x, y))
 	{
@@ -79,7 +104,7 @@ void Character::_MoveChacter(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], int x
 		}
 	}
 
-	if (_IsNextTilePotal(_map, x))
+	if (_IsNextTilePotal(map, x))
 	{
 		if (_curPosX + x == 0)
 		{
@@ -95,7 +120,7 @@ void Character::_MoveChacter(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], int x
 	}
 }
 
-void Character::MoveCharacter(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X])
+void Character::MoveCharacter(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], MapField copyMap[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X])
 {
 	_PossibleDirection();
 	_curDirection = _GetRandomDirection();
@@ -103,16 +128,16 @@ void Character::MoveCharacter(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X])
 	switch (_curDirection)
 	{
 	case UP:
-		_MoveChacter(map, 0, -1);
+		_MoveChacter(map, copyMap, 0, -1);
 		break;
 	case DOWN:
-		_MoveChacter(map, 0, 1);
+		_MoveChacter(map, copyMap, 0, 1);
 		break;
 	case LEFT:
-		_MoveChacter(map, -1, 0);
+		_MoveChacter(map, copyMap, -1, 0);
 		break;
 	case RIGHT:
-		_MoveChacter(map, 1, 0);
+		_MoveChacter(map, copyMap, 1, 0);
 
 	default:
 		break;
@@ -147,8 +172,6 @@ void Character::_PossibleDirection()
 
 MoveDirection Character::_GetRandomDirection()
 {
-	//진행방향과 반대방향은 가지 않는다.(TODO : Enemy가 오는경우라면 반대 방향으로도 갈 수 있게 한다)
-
 	MoveDirection tempCurMoveDirection = _curDirection;
 
 	int randDirection = rand() % 4;
@@ -163,25 +186,34 @@ MoveDirection Character::_GetRandomDirection()
 		if (_possibleDirectionArr[i] == true)
 			possibleDirectionNum++;
 	}
+
 	if (possibleDirectionNum != 1) //진행방향이 뒤만 있는게 아니라면 뒤로 가지 않는다
 	{
 		switch ((MoveDirection)randDirection)
 		{
 		case UP:
 			if (_curDirection == DOWN)
+			{
 				randDirection = (int)tempCurMoveDirection;
+			}
 			break;
 		case DOWN:
 			if (_curDirection == UP)
+			{
 				randDirection = (int)tempCurMoveDirection;
+			}
 			break;
 		case LEFT:
 			if (_curDirection == RIGHT)
+			{
 				randDirection = (int)tempCurMoveDirection;
+			}
 			break;
 		case RIGHT:
 			if (_curDirection == LEFT)
+			{
 				randDirection = (int)tempCurMoveDirection;
+			}
 			break;
 
 		default:
@@ -191,6 +223,50 @@ MoveDirection Character::_GetRandomDirection()
 
 	return (MoveDirection)randDirection;
 }
+
+bool Character::_CheckEnemyPath(MoveDirection curDirection)
+{
+	switch (curDirection)
+	{
+	case UP:
+		for (int i = 0; i < _enemyPath; i++)
+		{
+			if (_map[_curPosX][_curPosY - i] == MapField::ENEMY_PATH)
+				return false;
+		}
+		return true;
+
+	case DOWN:
+		for (int i = 0; i < _enemyPath; i++)
+		{
+			if (_map[_curPosX][_curPosY + i] == MapField::ENEMY_PATH)
+				return false;
+		}
+		return true;
+
+	case LEFT:
+		for (int i = 0; i < _enemyPath; i++)
+		{
+			if (_map[_curPosX - i][_curPosY] == MapField::ENEMY_PATH)
+				return false;
+		}
+		return true;
+
+	case RIGHT:
+		for (int i = 0; i < _enemyPath; i++)
+		{
+			if (_map[_curPosX + i][_curPosY] == MapField::ENEMY_PATH)
+				return false;
+		}
+		return true;
+
+	default:
+		break;
+	}
+	return true;
+
+}
+
 
 bool Character::_IsNextTilePotal(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], int x)
 {

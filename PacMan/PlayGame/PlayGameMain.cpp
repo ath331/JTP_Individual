@@ -17,6 +17,6 @@ int main()
 		system("cls");
 		gameMG.Draw();
 		gameMG.Update();
-		Sleep(300);
+		Sleep(400);
 	}
 }
