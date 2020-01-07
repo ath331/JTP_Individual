@@ -14,9 +14,9 @@ int main()
 
 	while (isGamePlaying)
 	{
-		system("cls");
 		gameMG.Draw();
 		gameMG.Update();
 		Sleep(300);
+		system("cls");
 	}
 }

@@ -28,7 +28,7 @@ public:
 	void SetCharPos(int posX, int posY);
 	void MoveCharacter(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X]); //_MoveChacater를 외부에서 호출하기 위한 함수
 private:
-	bool* _isGamePlaying;
+	bool _isGamePlaying;
 	bool _possibleDirectionArr[4] = { false,true,true,true };
 
 	void _CopyArr(MapField array1[][MAX_MAP_SIZE_X], MapField array2[][MAX_MAP_SIZE_X]);
@@ -46,10 +46,9 @@ private:
 	void _SetCurPosY(int posY);
 
 	bool _IsPlayer();
-	bool _IsNextTileEnemy(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], int x, int y);
-	bool _IsNextTilePlayer(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], int x, int y);
-	bool _IsNextTileWall(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], int x, int y);
-	bool _IsNextTilePotal(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X],int x);
+	bool _IsEnemy(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], int x, int y);
+	bool _IsWall(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], int x, int y);
+	bool _IsPotal(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X],int x);
 
 	void _MoveChacter(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], int x, int y); //실질적인 움직임 함수
 
