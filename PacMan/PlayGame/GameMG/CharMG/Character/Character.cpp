@@ -145,27 +145,36 @@ MoveDirection Character::_GetRandomDirection()
 		randDirection = rand() % 4;
 	}
 
-	switch ((MoveDirection)randDirection)
+	int possibleDirectionNum = 0;
+	for (int i = 0; i < 4; i++)
 	{
-	case UP:
-		if (_curDirection == DOWN)
-			randDirection = (int)tempCurMoveDirection;
-		break;
-	case DOWN:
-		if (_curDirection == UP)
-			randDirection = (int)tempCurMoveDirection;
-		break;
-	case LEFT:
-		if (_curDirection == RIGHT)
-			randDirection = (int)tempCurMoveDirection;
-		break;
-	case RIGHT:
-		if (_curDirection == LEFT)
-			randDirection = (int)tempCurMoveDirection;
-		break;
+		if (_possibleDirectionArr[i] == true)
+			possibleDirectionNum++;
+	}
+	if (possibleDirectionNum != 1) //진행방향이 뒤만 있는게 아니라면 뒤로 가지 않는다
+	{
+		switch ((MoveDirection)randDirection)
+		{
+		case UP:
+			if (_curDirection == DOWN)
+				randDirection = (int)tempCurMoveDirection;
+			break;
+		case DOWN:
+			if (_curDirection == UP)
+				randDirection = (int)tempCurMoveDirection;
+			break;
+		case LEFT:
+			if (_curDirection == RIGHT)
+				randDirection = (int)tempCurMoveDirection;
+			break;
+		case RIGHT:
+			if (_curDirection == LEFT)
+				randDirection = (int)tempCurMoveDirection;
+			break;
 
-	default:
-		break;
+		default:
+			break;
+		}
 	}
 
 	return (MoveDirection)randDirection;
