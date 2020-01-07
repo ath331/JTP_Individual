@@ -29,16 +29,23 @@ bool Character::_IsPlayer()
 	else
 		return false;
 }
-bool Character::_IsWall(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], int x, int y)
+bool Character::_IsNextTileWall(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], int x, int y)
 {
 	if (map[_curPosX + x][_curPosY + y] == MapField::WALL || map[_curPosX + x][_curPosY + y] == MapField::PRISON_WALL)
 		return true;
 	else
 		return false;
 }
-bool Character::_IsEnemy(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], int x, int y)
+bool Character::_IsNextTileEnemy(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], int x, int y)
 {
 	if (map[_curPosX + x][_curPosY + y] == MapField::ENEMY_)
+		return true;
+	else
+		return false;
+}
+bool Character::_IsNextTilePlayer(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], int x, int y)
+{
+	if (map[_curPosX + x][_curPosY + y] == MapField::PLAYER_)
 		return true;
 	else
 		return false;
@@ -46,9 +53,9 @@ bool Character::_IsEnemy(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], int x, in
 
 void Character::_MoveChacter(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], int x, int y)
 {
-	if (!_IsWall(map, x, y))
+	if (!_IsNextTileWall(map, x, y))
 	{
-		if (!_IsEnemy(map, x, y))
+		if (!_IsNextTileEnemy(map, x, y))
 		{
 			MapField temp = map[_curPosX + x][_curPosY + y];
 			map[_curPosX + x][_curPosY + y] = _charState;
@@ -61,13 +68,18 @@ void Character::_MoveChacter(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], int x
 			SetCharPos(_curPosX + x, _curPosY + y);
 		}
 
-		else if (_IsEnemy(map, x, y) && _IsPlayer())
+		else if (_IsNextTileEnemy(map, x, y) && _IsPlayer())
 		{
-			_isGamePlaying = false;
+			*_isGamePlaying = false;
+		}
+
+		else if (_IsNextTilePlayer(map, x, y) && !_IsPlayer())
+		{
+			*_isGamePlaying = false;
 		}
 	}
 
-	if (_IsPotal(_map, x))
+	if (_IsNextTilePotal(_map, x))
 	{
 		if (_curPosX + x == 0)
 		{
@@ -111,22 +123,22 @@ void Character::_PossibleDirection()
 {
 	//현재위치에서 벽이 아닌 방향을 체크. UP, DOWN, LEFT, RIGHT
 	{
-		if (!_IsWall(_map, 0, -1))
+		if (!_IsNextTileWall(_map, 0, -1))
 			_possibleDirectionArr[0] = true;
 		else
 			_possibleDirectionArr[0] = false;
 
-		if (!_IsWall(_map, 0, 1))
+		if (!_IsNextTileWall(_map, 0, 1))
 			_possibleDirectionArr[1] = true;
 		else
 			_possibleDirectionArr[1] = false;
 
-		if (!_IsWall(_map, -1, 0))
+		if (!_IsNextTileWall(_map, -1, 0))
 			_possibleDirectionArr[2] = true;
 		else
 			_possibleDirectionArr[2] = false;
 
-		if (!_IsWall(_map, 1, 0))
+		if (!_IsNextTileWall(_map, 1, 0))
 			_possibleDirectionArr[3] = true;
 		else
 			_possibleDirectionArr[3] = false;
@@ -180,7 +192,7 @@ MoveDirection Character::_GetRandomDirection()
 	return (MoveDirection)randDirection;
 }
 
-bool Character::_IsPotal(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], int x)
+bool Character::_IsNextTilePotal(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], int x)
 {
 	if (map[_curPosX + x][_curPosY] == MapField::PORTAL)
 		return true;
