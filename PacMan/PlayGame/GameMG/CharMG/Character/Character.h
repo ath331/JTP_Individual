@@ -29,7 +29,7 @@ public:
 	void SetCharPos(int posX, int posY);
 	void MoveCharacter(MapField enemyPath[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X]); //_MoveChacater를 외부에서 호출하기 위한 함수
 private:
-	int enemyPath = 3;
+	int _enemyPath = 3;
 	bool* _isGamePlaying;
 	bool _possibleDirectionArr[4] = { false,true,true,true };
 
@@ -57,6 +57,7 @@ private:
 	bool _IsNextTilePlayer(int x, int y);
 	bool _IsNextTileWall(int x, int y);
 	bool _IsNextTilePotal(int x);
+	bool _IsNextTileEnemyPath(MoveDirection direction);
 
 	MoveDirection _curDirection = MoveDirection::DOWN;
 	MoveDirection _GetRandomDirection();
@@ -64,5 +65,6 @@ private:
 	void _PossibleDirection();
 	void _SetCurDirection(MoveDirection direction);
 	void _SetEnemyPath(MoveDirection curDirection);
+	void _InitEnemyPath(MoveDirection curDirection);
 	bool _CheckEnemyPath(MoveDirection curDirection);
 };
