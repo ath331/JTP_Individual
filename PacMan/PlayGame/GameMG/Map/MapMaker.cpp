@@ -7,6 +7,9 @@ void MapMaker::Init(MapField map[][MAX_MAP_SIZE_X], int mapSizeX, int mapSizeY)
 {
 	_mapSizeX = mapSizeX;
 	_mapSizeY = mapSizeY;
+
+	_CopyArrPtr(map,_map);
+
 	for (int y = 0; y < _mapSizeY; y++)
 	{
 		for (int x = 0; x < _mapSizeX; x++)
@@ -33,22 +36,17 @@ void MapMaker::Init(MapField map[][MAX_MAP_SIZE_X], int mapSizeX, int mapSizeY)
 	_MakeFieldWall();
 
 	_MakeItem();
-
-	//_CopyArr(&_map, map);
 }
 
-void MapMaker::_CopyArr(MapField* array1[][MAX_MAP_SIZE_X], MapField array2[][MAX_MAP_SIZE_X])
+void MapMaker::_CopyArrPtr(MapField array1[][MAX_MAP_SIZE_X], MapField* array2[][MAX_MAP_SIZE_X])
 {
-	/*MapField* p1 = nullptr, * endp1 = nullptr;
-	MapField* p2 = nullptr;
-	p1 = &array1[0][0];
-	p2 = &array2[0][0];
-	endp1 = &array1[MAX_MAP_SIZE_X - 1][MAX_MAP_SIZE_X - 1];
-	while (p1 <= endp1)
+	for (int y = 0; y < _mapSizeY; y++)
 	{
-		*p2 = *p1;
-		p1++; p2++;
-	}*/
+		for (int x = 0; x < _mapSizeX; x++)
+		{
+			array2[y][x] = &array1[y][x];
+		}
+	}
 }
 
 void MapMaker::Draw()

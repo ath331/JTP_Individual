@@ -118,7 +118,7 @@ void Character::_MoveChacter(int x, int y)
 {
 	if (!_IsPlayer())
 	{
-		//_SetEnemyPath(_curDirection);
+		_SetEnemyPath(_curDirection);
 	}
 
 	if (!_IsNextTileWall(x, y))

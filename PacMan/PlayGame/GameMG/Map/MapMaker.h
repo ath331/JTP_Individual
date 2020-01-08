@@ -22,7 +22,7 @@ private:
 	int _wallRatio = 0; //장애물 비율
 	int _itemNum = 0;
 
-	void _CopyArr(MapField* array1[][MAX_MAP_SIZE_X], MapField array2[][MAX_MAP_SIZE_X]);
+	void _CopyArrPtr(MapField array1[][MAX_MAP_SIZE_X], MapField* array2[][MAX_MAP_SIZE_X]);
 
 
 	//맵배치
