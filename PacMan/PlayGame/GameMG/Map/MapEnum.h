@@ -10,7 +10,7 @@ namespace EnumMap
 		EMPTY = 0,
 		//////////////////
 		WALL,
-		LOAD,
+		ROAD,
 		PORTAL,
 		PRISON_WALL,
 		PRISON_ZONE,

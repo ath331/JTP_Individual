@@ -2,6 +2,8 @@
 #include "Character/Character.h"
 
 #include <iostream>
+#include <conio.h>
+#include <windows.h>
 
 void CharMG::InputCharInfo()
 {
@@ -9,25 +11,53 @@ void CharMG::InputCharInfo()
 	std::cin >> _enemyNum;
 }
 
-void CharMG::Init(bool* isGamePlaying,MapField map[][MAX_MAP_SIZE_X], int mapSizeX, int mapSizeY)
+void CharMG::Init(bool* isGamePlaying, MapField map[][MAX_MAP_SIZE_X], int mapSizeX, int mapSizeY)
 {
-	_CopyArr(map, _copyMap);
+	_CopyArr(map, _enemyPathMap);
 	_mapSizeX = mapSizeX;
 	_mapSizeY = mapSizeY;
 
-	_MakePlayerPos(isGamePlaying, map, _mapSizeX / 2, (_mapSizeY / 2 + 2));
+	//_MakePlayer
+	Character* playerCharacter = new Character;
+	playerCharacter->Init(isGamePlaying, map, _enemyPathMap, MapField::PLAYER_, (_mapSizeX / 2), (_mapSizeY / 2) + 2, _mapSizeX, _mapSizeY);
+	charVec.push_back(playerCharacter);
 
+	//_MakeEnemy
 	for (int i = 0; i < _enemyNum; i++)
 	{
 		Character* enemyCharacter = new Character;
-		enemyCharacter->Init(isGamePlaying, map, MapField::ENEMY_, ((_mapSizeX / 2) - 1) + i, _mapSizeY / 2, _mapSizeX, _mapSizeY);
+		enemyCharacter->Init(isGamePlaying, map, _enemyPathMap, MapField::ENEMY_, ((_mapSizeX / 2) - 1) + i, _mapSizeY / 2, _mapSizeX, _mapSizeY);
 		charVec.push_back(enemyCharacter);
 
 		int startPosX = ((_mapSizeX / 2) - 1) + i;
 		int startPosY = _mapSizeY / 2;
 	}
 }
+void CharMG::gotoxy(int x, int y)
+{
+	static HANDLE h = NULL;
+	if (!h)
+		h = GetStdHandle(STD_OUTPUT_HANDLE);
+	COORD c = { x, y };
+	SetConsoleCursorPosition(h, c);
+}
 
+void CharMG::Draw()
+{
+	int posX = 0, posY = 0;
+	for (auto iter = charVec.begin(); iter != charVec.end(); iter++)
+	{
+		posX = (*iter)->GetCurPosX();
+		posY = (*iter)->GetCurPosY();
+
+		gotoxy(posX * 2, posY);
+
+		if ((*iter)->GetCharState() == MapField::ENEMY_)
+			std::cout << "¡â";
+		else if ((*iter)->GetCharState() == MapField::PLAYER_)
+			std::cout << "¡ã";
+	}
+}
 void CharMG::_CopyArr(MapField array1[][MAX_MAP_SIZE_X], MapField array2[][MAX_MAP_SIZE_X])
 {
 	MapField* p1 = nullptr, * endp1 = nullptr;
@@ -46,13 +76,6 @@ void CharMG::Update(MapField map[][MAX_MAP_SIZE_X])
 {
 	for (auto iter = charVec.begin(); iter < charVec.end(); iter++)
 	{
-		(*iter)->MoveCharacter(map,_copyMap);
+		(*iter)->MoveCharacter(_enemyPathMap);
 	}
-}
-
-void CharMG::_MakePlayerPos(bool* isGamePlaying,MapField map[][MAX_MAP_SIZE_X], int posX, int posY)
-{
-	Character* playerCharacter = new Character;
-	playerCharacter->Init(isGamePlaying, map, MapField::PLAYER_, posX, posY, _mapSizeX, _mapSizeY);
-	charVec.push_back(playerCharacter);
 }

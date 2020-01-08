@@ -7,6 +7,7 @@ int main()
 	COORD pos = { 3, 6 };
 	SetConsoleCursorPosition(hConsole, pos);*/
 
+	static HANDLE a;
 	bool isGamePlaying = true;
 
 	GameMG gameMG;
@@ -15,8 +16,8 @@ int main()
 	while (isGamePlaying)
 	{
 		system("cls");
-		gameMG.Draw();
 		gameMG.Update();
+		gameMG.Draw();
 		Sleep(400);
 	}
 }

@@ -13,7 +13,7 @@ void ItemMaker::Init(int itemNum,int mapSizeX, int mapSizeY)
 	_mapSizeY = mapSizeY;
 }
 
-void ItemMaker::SettingItemDebuff(MapField map[][MAX_MAP_SIZE_X])
+void ItemMaker::SettingItemDebuff(MapField* map[][MAX_MAP_SIZE_X])
 {
 	int curLoadNum = 0;
 
@@ -21,7 +21,7 @@ void ItemMaker::SettingItemDebuff(MapField map[][MAX_MAP_SIZE_X])
 	{
 		for (int x = 0; x < _mapSizeX; x++)
 		{
-			if (map[y][x] == MapField::LOAD)
+			if (*map[y][x] == MapField::ROAD)
 			{
 				curLoadNum++;
 			}
@@ -38,7 +38,7 @@ void ItemMaker::SettingItemDebuff(MapField map[][MAX_MAP_SIZE_X])
 	{
 		for (int x = 0; x < _mapSizeX; x++)
 		{
-			if (map[y][x] == MapField::LOAD)
+			if (*map[y][x] == MapField::ROAD)
 			{
 				tempPosVec[i].posX = x;
 				tempPosVec[i].posY = y;
@@ -54,7 +54,7 @@ void ItemMaker::SettingItemDebuff(MapField map[][MAX_MAP_SIZE_X])
 		int tempX = tempPosVec[randNum].posX;
 		int tempY = tempPosVec[randNum].posY;
 
-		map[tempY][tempX] = MapField::ITEM_Debuff;
+		*map[tempY][tempX] = MapField::ITEM_Debuff;
 
 		int i = 0;
 		for (auto iter = tempPosVec.begin(); iter < tempPosVec.end(); iter++)
@@ -70,14 +70,14 @@ void ItemMaker::SettingItemDebuff(MapField map[][MAX_MAP_SIZE_X])
 	}
 }
 
-void ItemMaker::SettingItemCoin(MapField map[][MAX_MAP_SIZE_X])
+void ItemMaker::SettingItemCoin(MapField* map[][MAX_MAP_SIZE_X])
 {
 	for (int y = 0; y < _mapSizeY; y++)
 	{
 		for (int x = 0; x < _mapSizeX; x++)
 		{
-			if (map[y][x] == MapField::LOAD)
-				map[y][x] = MapField::ITEM_COIN;
+			if (*map[y][x] == MapField::ROAD)
+				*map[y][x] = MapField::ITEM_COIN;
 		}
 	}
 }

@@ -14,7 +14,7 @@ void RoadMaker::Init(const int wallRatio, const int mapSizeX, const int mapSizeY
 	_mapSizeY = mapSizeY;
 }
 
-void RoadMaker::MakeLoad(MapField map[][MAX_MAP_SIZE_X])
+void RoadMaker::MakeLoad(MapField* map[][MAX_MAP_SIZE_X])
 {
 	//정사각형의 가로줄 세팅
 	int startX = 1;
@@ -23,8 +23,8 @@ void RoadMaker::MakeLoad(MapField map[][MAX_MAP_SIZE_X])
 	{
 		for (int x = startX; x < endX; x)
 		{
-			if (map[y][x] == EnumMap::MapField::EMPTY)
-				map[y][x] = EnumMap::MapField::LOAD;
+			if (*map[y][x] == EnumMap::MapField::EMPTY)
+				*map[y][x] = EnumMap::MapField::ROAD;
 			x++;
 		}
 
@@ -47,8 +47,8 @@ void RoadMaker::MakeLoad(MapField map[][MAX_MAP_SIZE_X])
 	{
 		for (int x = startX; x < endX; x)
 		{
-			if (map[x][y] == EnumMap::MapField::EMPTY)
-				map[x][y] = EnumMap::MapField::LOAD;
+			if (*map[x][y] == EnumMap::MapField::EMPTY)
+				*map[x][y] = EnumMap::MapField::ROAD;
 			x++;
 		}
 
@@ -68,22 +68,22 @@ void RoadMaker::MakeLoad(MapField map[][MAX_MAP_SIZE_X])
 	_MakeAdditionalLoad(map);
 }
 
-void RoadMaker::_MakeBasicLoad(MapField map[][MAX_MAP_SIZE_X])
+void RoadMaker::_MakeBasicLoad(MapField* map[][MAX_MAP_SIZE_X])
 {
 	//기본적인 길 세팅
 	for (int y = 1; y < _mapSizeY; y++)
 	{
 		for (int x = 1; x < _mapSizeX; x++)
 		{
-			if (map[_mapSizeY / 2][x] == EnumMap::MapField::EMPTY)
-				map[_mapSizeY / 2][x] = EnumMap::MapField::LOAD;
+			if (*map[_mapSizeY / 2][x] == EnumMap::MapField::EMPTY)
+				*map[_mapSizeY / 2][x] = EnumMap::MapField::ROAD;
 
-			if (map[y][_mapSizeX / 2] == EnumMap::MapField::EMPTY)
-				map[y][_mapSizeX / 2] = EnumMap::MapField::LOAD;
+			if (*map[y][_mapSizeX / 2] == EnumMap::MapField::EMPTY)
+				*map[y][_mapSizeX / 2] = EnumMap::MapField::ROAD;
 		}
 	}
 }
-void RoadMaker::_MakeAdditionalLoad(MapField map[][MAX_MAP_SIZE_X])
+void RoadMaker::_MakeAdditionalLoad(MapField* map[][MAX_MAP_SIZE_X])
 {
 	int curWallNum = 0;
 
@@ -91,7 +91,7 @@ void RoadMaker::_MakeAdditionalLoad(MapField map[][MAX_MAP_SIZE_X])
 	{
 		for (int x = 0; x < _mapSizeX; x++)
 		{
-			if (map[y][x] == MapField::EMPTY)
+			if (*map[y][x] == MapField::EMPTY)
 			{
 				curWallNum++;
 			}
@@ -108,7 +108,7 @@ void RoadMaker::_MakeAdditionalLoad(MapField map[][MAX_MAP_SIZE_X])
 	{
 		for (int x = 0; x < _mapSizeX; x++)
 		{
-			if (map[y][x] == MapField::EMPTY)
+			if (*map[y][x] == MapField::EMPTY)
 			{
 				tempPosVec[i].posX = x;
 				tempPosVec[i].posY = y;
@@ -127,7 +127,7 @@ void RoadMaker::_MakeAdditionalLoad(MapField map[][MAX_MAP_SIZE_X])
 		int tempX = tempPosVec[randNum].posX;
 		int tempY = tempPosVec[randNum].posY;
 
-		map[tempY][tempX] = MapField::LOAD;
+		*map[tempY][tempX] = MapField::ROAD;
 
 		int i = 0;
 		for (auto iter = tempPosVec.begin(); iter < tempPosVec.end(); iter++)

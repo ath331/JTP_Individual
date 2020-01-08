@@ -7,7 +7,7 @@ class RoadMaker
 {
 public:
 	void Init(const int wallRatio, const int mapSizeX, const int mapSizeY);
-	void MakeLoad(MapField map[][MAX_MAP_SIZE_X]); //정사각형의 길 만드는 함수
+	void MakeLoad(MapField* map[][MAX_MAP_SIZE_X]); //정사각형의 길 만드는 함수
 
 private:
 	int _wallRatio = 0;
@@ -16,6 +16,6 @@ private:
 	int _mapSizeX = 0;
 	int _mapSizeY = 0;
 
-	void _MakeBasicLoad(MapField map[][MAX_MAP_SIZE_X]); //기본적인 길 세팅
-	void _MakeAdditionalLoad(MapField map[][MAX_MAP_SIZE_X]); //장애물 비율을 맞추기 위한 길 세팅
+	void _MakeBasicLoad(MapField* map[][MAX_MAP_SIZE_X]); //기본적인 길 세팅
+	void _MakeAdditionalLoad(MapField* map[][MAX_MAP_SIZE_X]); //장애물 비율을 맞추기 위한 길 세팅
 };

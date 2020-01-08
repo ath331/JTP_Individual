@@ -24,25 +24,6 @@ void GameMG::Update()
 
 void GameMG::Draw()
 {
-	for (int x = 0; x < _mapSizeX; x++)
-	{
-		for (int y = 0; y < _mapSizeY; y++)
-		{
-			if (_mapField[y][x] == MapField::EMPTY || _mapField[y][x] == MapField::PRISON_ZONE)
-				std::cout << "  ";
-			else if (_mapField[y][x] == MapField::PORTAL || _mapField[y][x] == MapField::LOAD)
-				std::cout << "  ";
-			else if (_mapField[y][x] == MapField::WALL || _mapField[y][x] == MapField::PRISON_WALL)
-				std::cout << "¡á";
-			else if (_mapField[y][x] == MapField::ITEM_COIN)
-				std::cout << "* ";
-			else if (_mapField[y][x] == MapField::ITEM_Debuff)
-				std::cout << "¡Ú";
-			else if (_mapField[y][x] == MapField::PLAYER_)
-				std::cout << "¡ã";
-			else if (_mapField[y][x] == MapField::ENEMY_)
-				std::cout << "¡â";
-		}
-		std::cout << std::endl;
-	}
+	_mapMaker.Draw();
+	_charMG.Draw();
 }
