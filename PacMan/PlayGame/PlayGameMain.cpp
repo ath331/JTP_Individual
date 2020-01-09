@@ -2,7 +2,6 @@
 #include <windows.h>
 int main()
 {
-	static HANDLE a;
 	bool isGamePlaying = true;
 
 	GameMG gameMG;

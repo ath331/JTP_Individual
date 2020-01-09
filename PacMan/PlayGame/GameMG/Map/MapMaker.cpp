@@ -1,5 +1,6 @@
 #include "MapMaker.h"
 #include "MapEnum.h"
+#include "../../ProgramMG/ProgramMG.h"
 
 #include <iostream>
 
@@ -9,14 +10,6 @@ void MapMaker::Init(MapField map[][MAX_MAP_SIZE_X], int mapSizeX, int mapSizeY)
 	_mapSizeY = mapSizeY;
 
 	_CopyArrPtr(map,_map);
-
-	for (int y = 0; y < _mapSizeY; y++)
-	{
-		for (int x = 0; x < _mapSizeX; x++)
-		{
-			_map[y][x] = &map[y][x];
-		}
-	}
 
 	for (int y = 0; y < _mapSizeY; y++)
 	{
@@ -157,6 +150,7 @@ void MapMaker::InputMapInfo()
 {
 	std::cout << "Input MapInfo_ WallRatio(%), ItemNum : " << std::endl;
 	std::cin >> _wallRatio >> _itemNum;
+	ProgramMG::GetInstance()->SetGameInfo(_wallRatio, _itemNum);
 }
 
 void MapMaker::_MakeItem()

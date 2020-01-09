@@ -1,4 +1,5 @@
 #include "GameMG.h"
+#include "../ProgramMG/ProgramMG.h"
 
 #include <iostream>
 
@@ -10,6 +11,8 @@ void GameMG::Init(bool* isGamePlaying)
 	std::cout << "MAX SIZE = " << MAX_MAP_SIZE_X << std::endl;
 	std::cin >> _mapSizeX;
 	_mapSizeY = _mapSizeX;
+
+	ProgramMG::GetInstance()->SetMapSize(_mapSizeX);
 
 	_mapMaker.InputMapInfo();
 	_mapMaker.Init(_mapField, _mapSizeX, _mapSizeY);

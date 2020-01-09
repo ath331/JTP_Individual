@@ -34,6 +34,9 @@
     <Filter Include="GameMG\Map\Road">
       <UniqueIdentifier>{45a990c5-98d7-4fc2-afae-d479ecce54da}</UniqueIdentifier>
     </Filter>
+    <Filter Include="PrgramMG">
+      <UniqueIdentifier>{f02538c8-4f08-4bf5-b63f-d87a87fbaea6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PlayGameMain.cpp">
@@ -60,6 +63,9 @@
     <ClCompile Include="GameMG\Map\Road\RoadMaker.cpp">
       <Filter>GameMG\Map\Road</Filter>
     </ClCompile>
+    <ClCompile Include="ProgramMG\ProgramMG.cpp">
+      <Filter>PrgramMG</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConsoleLogger\ConsoleLogger.h">
@@ -85,6 +91,9 @@
     </ClInclude>
     <ClInclude Include="GameMG\Map\Road\RoadMaker.h">
       <Filter>GameMG\Map\Road</Filter>
+    </ClInclude>
+    <ClInclude Include="ProgramMG\ProgramMG.h">
+      <Filter>PrgramMG</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

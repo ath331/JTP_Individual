@@ -154,6 +154,7 @@
     <ClCompile Include="GameMG\Map\MapMaker.cpp" />
     <ClCompile Include="GameMG\Map\Road\RoadMaker.cpp" />
     <ClCompile Include="PlayGameMain.cpp" />
+    <ClCompile Include="ProgramMG\ProgramMG.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConsoleLogger\ConsoleLogger.h" />
@@ -164,6 +165,7 @@
     <ClInclude Include="GameMG\Map\MapEnum.h" />
     <ClInclude Include="GameMG\Map\MapMaker.h" />
     <ClInclude Include="GameMG\Map\Road\RoadMaker.h" />
+    <ClInclude Include="ProgramMG\ProgramMG.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

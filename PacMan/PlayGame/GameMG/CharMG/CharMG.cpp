@@ -1,5 +1,6 @@
 #include "CharMG.h"
 #include "Character/Character.h"
+#include "../../ProgramMG/ProgramMG.h"
 
 #include <iostream>
 #include <conio.h>
@@ -9,6 +10,7 @@ void CharMG::InputCharInfo()
 {
 	std::cout << "Input CharInfo_ enemyNum(int)" << std::endl;
 	std::cin >> _enemyNum;
+	ProgramMG::GetInstance()->SetEnemyNum(_enemyNum);
 }
 
 void CharMG::Init(bool* isGamePlaying, MapField map[][MAX_MAP_SIZE_X], int mapSizeX, int mapSizeY)
