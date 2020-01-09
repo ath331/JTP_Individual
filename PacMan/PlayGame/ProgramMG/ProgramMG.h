@@ -19,6 +19,8 @@ public:
 	void SetGameInfo(int wallRatio, int itemNum);
 	void SetEnemyNum(int enemyNum);
 
+	void ParsingGameResult();
+
 private:
 	ProgramMG() {};
 	ProgramMG(const ProgramMG& other);

@@ -1,5 +1,8 @@
 #include "GameMG/GameMG.h"
+#include "ProgramMG/ProgramMG.h"
+
 #include <windows.h>
+
 int main()
 {
 	bool isGamePlaying = true;
@@ -14,4 +17,5 @@ int main()
 		gameMG.Draw();
 		Sleep(400);
 	}
+	ProgramMG::GetInstance()->ParsingGameResult();
 }
