@@ -35,6 +35,7 @@ private:
 
 	MapField _charState = MapField::PLAYER_;
 	void _CopyArr(MapField array1[][MAX_MAP_SIZE_X], MapField array2[][MAX_MAP_SIZE_X]);
+	void _CopyArrPtr(MapField array1[][MAX_MAP_SIZE_X], MapField* array2[][MAX_MAP_SIZE_X]);
 
 	MapField* _mapPtr[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X];
 	MapField* _enemyPathPtr[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X];

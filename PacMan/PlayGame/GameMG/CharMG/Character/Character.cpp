@@ -9,22 +9,8 @@ void Character::Init(bool* isGamePlaying, MapField map[MAX_MAP_SIZE_Y][MAX_MAP_S
 
 	_mapSizeX = mapSizeX;
 	_mapSizeY = mapSizeY;
-
-	for (int y = 0; y < _mapSizeY; y++)
-	{
-		for (int x = 0; x < _mapSizeX; x++)
-		{
-			_enemyPathPtr[x][y] = &enemyPath[x][y];
-		}
-	}
-
-	for (int y = 0; y < _mapSizeY; y++)
-	{
-		for (int x = 0; x < _mapSizeX; x++)
-		{
-			_mapPtr[x][y] = &map[x][y];
-		}
-	}
+	_CopyArrPtr(enemyPath, _enemyPathPtr);
+	_CopyArrPtr(map, _mapPtr);
 
 	_startX = startX;
 	_startY = startY;
@@ -33,10 +19,19 @@ void Character::Init(bool* isGamePlaying, MapField map[MAX_MAP_SIZE_Y][MAX_MAP_S
 	_charState = charState;
 
 	_curDirection = _GetRandomDirection();
-	//_PossibleDirection();
 
 	_charMap[startX][startY] = charState;
 	_isGamePlaying = isGamePlaying;
+}
+void Character::_CopyArrPtr(MapField array1[][MAX_MAP_SIZE_X], MapField* array2[][MAX_MAP_SIZE_X])
+{
+	for (int y = 0; y < _mapSizeY; y++)
+	{
+		for (int x = 0; x < _mapSizeX; x++)
+		{
+			array2[x][y] = &array1[x][y];
+		}
+	}
 }
 
 bool Character::_IsPlayer()
@@ -73,31 +68,39 @@ void Character::_SetEnemyPath(MoveDirection curDirection)
 	switch (curDirection)
 	{
 	case UP:
-		for (int i = 0; i < _enemyPath; i++)
+		for (int i = 1; i <= _enemyPath; i++)
 		{
 			if (*_enemyPathPtr[_curPosX][_curPosY - i] != MapField::WALL)
-				* _enemyPathPtr[_curPosX][_curPosY - i] = MapField::ENEMY_PATH;
+				*_enemyPathPtr[_curPosX][_curPosY - i] = MapField::ENEMY_PATH;
+			else if (*_enemyPathPtr[_curPosX][_curPosY - i] == MapField::WALL)
+				break;
 		}
 		break;
 	case DOWN:
-		for (int i = 0; i < _enemyPath; i++)
+		for (int i = 1; i <= _enemyPath; i++)
 		{
 			if (*_enemyPathPtr[_curPosX][_curPosY + i] != MapField::WALL)
-				* _enemyPathPtr[_curPosX][_curPosY + i] = MapField::ENEMY_PATH;
+				*_enemyPathPtr[_curPosX][_curPosY + i] = MapField::ENEMY_PATH;
+			else if (*_enemyPathPtr[_curPosX][_curPosY + i] == MapField::WALL)
+				break;
 		}
 		break;
 	case LEFT:
-		for (int i = 0; i < _enemyPath; i++)
+		for (int i = 1; i <= _enemyPath; i++)
 		{
 			if (*_enemyPathPtr[_curPosX - i][_curPosY] != MapField::WALL)
-				* _enemyPathPtr[_curPosX - i][_curPosY] = MapField::ENEMY_PATH;
+				*_enemyPathPtr[_curPosX - i][_curPosY] = MapField::ENEMY_PATH;
+			else if (*_enemyPathPtr[_curPosX - i][_curPosY] == MapField::WALL)
+				break;
 		}
 		break;
 	case RIGHT:
-		for (int i = 0; i < _enemyPath; i++)
+		for (int i = 1; i <= _enemyPath; i++)
 		{
 			if (*_enemyPathPtr[_curPosX + i][_curPosY] != MapField::WALL)
-				* _enemyPathPtr[_curPosX + i][_curPosY] = MapField::ENEMY_PATH;
+				*_enemyPathPtr[_curPosX + i][_curPosY] = MapField::ENEMY_PATH;
+			else if (*_enemyPathPtr[_curPosX + i][_curPosY] == MapField::WALL)
+				break;
 		}
 		break;
 	default:
@@ -155,35 +158,52 @@ void Character::_InitCurPosState()
 
 void Character::_InitEnemyPath(MoveDirection curDirection)
 {
-	for (int i = 0; i < _enemyPath; i++)
-		switch (curDirection)
+	switch (curDirection)
+	{
+	case UP:
+		for (int i = 1; i <= _enemyPath; i++)
 		{
-		case UP:
 			if (*_enemyPathPtr[_curPosX][_curPosY - i] == MapField::ENEMY_PATH)
-				* _enemyPathPtr[_curPosX][_curPosY - i] = MapField::ROAD;
-			break;
-		case DOWN:
-			if (*_enemyPathPtr[_curPosX][_curPosY + i] == MapField::ENEMY_PATH)
-				* _enemyPathPtr[_curPosX][_curPosY + i] = MapField::ROAD;
-			break;
-		case LEFT:
-			if (*_enemyPathPtr[_curPosX - i][_curPosY] == MapField::ENEMY_PATH)
-				* _enemyPathPtr[_curPosX - i][_curPosY] = MapField::ROAD;
-			break;
-		case RIGHT:
-			if (*_enemyPathPtr[_curPosX + i][_curPosY] == MapField::ENEMY_PATH)
-				* _enemyPathPtr[_curPosX + i][_curPosY] = MapField::ROAD;
-			break;
-		default:
-			break;
+				*_enemyPathPtr[_curPosX][_curPosY - i] = MapField::ROAD;
+			else if (*_enemyPathPtr[_curPosX][_curPosY - i] == MapField::WALL)
+				break;
 		}
+	case DOWN:
+		for (int i = 1; i <= _enemyPath; i++)
+		{
+			if (*_enemyPathPtr[_curPosX][_curPosY + i] == MapField::ENEMY_PATH)
+				*_enemyPathPtr[_curPosX][_curPosY + i] = MapField::ROAD;
+			else if (*_enemyPathPtr[_curPosX][_curPosY + i] == MapField::WALL)
+				break;
+		}
+	case LEFT:
+		for (int i = 1; i <= _enemyPath; i++)
+		{
+			if (*_enemyPathPtr[_curPosX - i][_curPosY] == MapField::ENEMY_PATH)
+				*_enemyPathPtr[_curPosX - i][_curPosY] = MapField::ROAD;
+			else if (*_enemyPathPtr[_curPosX - i][_curPosY] == MapField::WALL)
+				break;
+		}
+	case RIGHT:
+		for (int i = 1; i <= _enemyPath; i++)
+		{
+			if (*_enemyPathPtr[_curPosX + i][_curPosY] == MapField::ENEMY_PATH)
+				*_enemyPathPtr[_curPosX + i][_curPosY] = MapField::ROAD;
+			else if (*_enemyPathPtr[_curPosX + i][_curPosY] == MapField::WALL)
+				break;
+		}
+	default:
+		break;
+	}
 }
 
 
 void Character::MoveCharacter(MapField enemyPath[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X])
 {
 	if (!_IsPlayer())
+	{
 		_InitEnemyPath(_curDirection);
+	}
 	_PossibleDirection();
 	_curDirection = _GetRandomDirection();
 
@@ -211,24 +231,33 @@ bool Character::_IsNextTileEnemyPath(MoveDirection direction)
 		switch (direction)
 		{
 		case UP:
-			if (*_enemyPathPtr[_curPosX][_curPosY - _enemyPath] == MapField::ENEMY_PATH)
+			if (*_enemyPathPtr[_curPosX][_curPosY - i] == (MapField::ENEMY_PATH || MapField::ENEMY_))
 				return true;
+			else
+				return false;
 			break;
 		case DOWN:
-			if (*_enemyPathPtr[_curPosX][_curPosY + _enemyPath] == MapField::ENEMY_PATH)
+			if (*_enemyPathPtr[_curPosX][_curPosY + i] == (MapField::ENEMY_PATH || MapField::ENEMY_))
 				return true;
+			else
+				return false;
 			break;
 		case LEFT:
-			if (*_enemyPathPtr[_curPosX - _enemyPath][_curPosY] == MapField::ENEMY_PATH)
+			if (*_enemyPathPtr[_curPosX - i][_curPosY] == (MapField::ENEMY_PATH || MapField::ENEMY_))
 				return true;
+			else
+				return false;
 			break;
 		case RIGHT:
-			if (*_enemyPathPtr[_curPosX + _enemyPath][_curPosY] == MapField::ENEMY_PATH)
+			if (*_enemyPathPtr[_curPosX + i][_curPosY] == (MapField::ENEMY_PATH || MapField::ENEMY_))
 				return true;
+			else
+				return false;
 			break;
 		default:
 			break;
 		}
+	return false;
 }
 
 void Character::_PossibleDirection()
@@ -236,36 +265,42 @@ void Character::_PossibleDirection()
 	//현재위치에서 갈수있는 방향을 체크. UP, DOWN, LEFT, RIGHT
 	if (_IsPlayer())
 	{
-		for (int i = 0; i < _enemyPath; i++)
+		int impossibleDirectionNum = 0;
+		if (_IsNextTileWall(0, -1) || _IsNextTileEnemyPath(MoveDirection::UP))
 		{
-			if (_IsNextTileWall(0, -1) && _IsNextTileEnemyPath(MoveDirection::UP))
-				_possibleDirectionArr[0] = false;
-			else if (!_IsNextTileWall(0, -1) && !_IsNextTileEnemyPath(MoveDirection::UP))
-				_possibleDirectionArr[0] = true;
+			_possibleDirectionArr[0] = false;
+			impossibleDirectionNum++;
 		}
+		else
+			_possibleDirectionArr[0] = true;
 
-		for (int i = 0; i < _enemyPath; i++)
+		if (_IsNextTileWall(0, 1) || _IsNextTileEnemyPath(MoveDirection::DOWN))
 		{
-			if (_IsNextTileWall(0, 1) && _IsNextTileEnemyPath(MoveDirection::DOWN))
-				_possibleDirectionArr[1] = false;
-			else if (!_IsNextTileWall(0, 1) && !_IsNextTileEnemyPath(MoveDirection::DOWN))
-				_possibleDirectionArr[1] = true;
+			_possibleDirectionArr[1] = false;
+			impossibleDirectionNum++;
 		}
+		else
+			_possibleDirectionArr[1] = true;
 
-		for (int i = 0; i < _enemyPath; i++)
+		if (_IsNextTileWall(-1, 0) || _IsNextTileEnemyPath(MoveDirection::LEFT))
 		{
-			if (_IsNextTileWall(-1, 0) && _IsNextTileEnemyPath(MoveDirection::LEFT))
-				_possibleDirectionArr[2] = false;
-			else if (!_IsNextTileWall(-1, 0) && !_IsNextTileEnemyPath(MoveDirection::LEFT))
-				_possibleDirectionArr[2] = true;
+			_possibleDirectionArr[2] = false;
+			impossibleDirectionNum++;
 		}
+		else
+			_possibleDirectionArr[2] = true;
 
-		for (int i = 0; i < _enemyPath; i++)
+		if (_IsNextTileWall(1, 0) || _IsNextTileEnemyPath(MoveDirection::RIGHT))
 		{
-			if (_IsNextTileWall(1, 0) && _IsNextTileEnemyPath(MoveDirection::RIGHT))
-				_possibleDirectionArr[3] = false;
-			else if (!_IsNextTileWall(1, 0) && !_IsNextTileEnemyPath(MoveDirection::RIGHT))
-				_possibleDirectionArr[3] = true;
+			_possibleDirectionArr[3] = false;
+			impossibleDirectionNum++;
+		}
+		else
+			_possibleDirectionArr[3] = true;
+
+		if (impossibleDirectionNum == 4)
+		{
+			*_isGamePlaying = false;
 		}
 	}
 	else
