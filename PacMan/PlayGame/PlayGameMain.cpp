@@ -12,5 +12,11 @@ int main()
 	ProgramMG::GetInstance()->InputEnemyNum();
 
 	GameMG gameMG;
-	gameMG.Start();
+	while (1)
+	{
+		boost::thread th1(boost::bind(&GameMG::Start, gameMG));
+		th1.join();
+		ProgramMG::GetInstance()->SetGameOver(false);
+		ProgramMG::GetInstance()->SetGameClear(false);
+	}
 }

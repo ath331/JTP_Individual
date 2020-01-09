@@ -4,6 +4,7 @@
 #include <iostream>
 #include <cstring>
 #include <fstream>
+#include <Windows.h>
 
 using namespace std;
 
@@ -35,12 +36,12 @@ void ProgramMG::ParsingGameResult()
 		if (_gameOver)
 			fs << "\n" << _mapSize << ","
 			<< _wallRatio << "," << _itemNum << ","
-			<< _enemyNum << "," << true << "," << false;
+			<< _enemyNum << "," << true << "," << false << "," << GetCurrentThreadId();
 
 		else if (_gameClear)
 			fs << "\n" << _mapSize << ","
 			<< _wallRatio << "," << _itemNum << ","
-			<< _enemyNum << "," << false << "," << true;
+			<< _enemyNum << "," << false << "," << true << "," << GetCurrentThreadId();
 
 		fs.close();
 	}
