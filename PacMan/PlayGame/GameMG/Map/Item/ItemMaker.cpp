@@ -1,14 +1,15 @@
 #include "ItemMaker.h"
+#include "../../../ProgramMG/ProgramMG.h"
 
 #include <cstdlib>
 #include <ctime>
 #include <vector>
 
-void ItemMaker::Init(int itemNum,int mapSizeX, int mapSizeY)
+void ItemMaker::Init(int mapSizeX, int mapSizeY)
 {
 	srand((unsigned int)time(NULL));
 
-	_itemNum = itemNum;
+	_itemNum = ProgramMG::GetInstance()->GetItemNum();
 	_mapSizeX = mapSizeX;
 	_mapSizeY = mapSizeY;
 }

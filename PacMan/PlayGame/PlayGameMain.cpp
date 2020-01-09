@@ -1,23 +1,16 @@
 #include "GameMG/GameMG.h"
 #include "ProgramMG/ProgramMG.h"
 
-#include <windows.h>
+#include <boost/bind.hpp>
+#include <boost/thread/thread.hpp>
+
 
 int main()
 {
-	GameMG gameMG;
-	gameMG.Init();
+	ProgramMG::GetInstance()->InputMapSize();
+	ProgramMG::GetInstance()->InputGameInfo();
+	ProgramMG::GetInstance()->InputEnemyNum();
 
-	while (true)
-	{
-		system("cls");
-		gameMG.Update();
-		gameMG.Draw();
-		Sleep(400);
-		if (ProgramMG::GetInstance()->IsGameClear())
-			break;
-		else if (ProgramMG::GetInstance()->IsGameOver())
-			break;
-	}
-	ProgramMG::GetInstance()->ParsingGameResult();
+	GameMG gameMG;
+	gameMG.Start();
 }

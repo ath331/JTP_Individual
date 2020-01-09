@@ -8,8 +8,7 @@ using namespace EnumMap;
 class MapMaker
 {
 public:
-	void InputMapInfo();
-	void Init(MapField map[][MAX_MAP_SIZE_X],int mapSIzeX, int mapSizeY);
+	void Init(MapField map[][MAX_MAP_SIZE_X]);
 	void Draw();
 private:
 	RoadMaker _roadMaker;
@@ -19,7 +18,6 @@ private:
 
 	int _mapSizeX = 0;
 	int _mapSizeY = 0;
-	int _wallRatio = 0; //장애물 비율
 	int _itemNum = 0;
 
 	void _CopyArrPtr(MapField array1[][MAX_MAP_SIZE_X], MapField* array2[][MAX_MAP_SIZE_X]);

@@ -6,21 +6,12 @@
 #include <conio.h>
 #include <windows.h>
 
-void CharMG::InputCharInfo()
-{
-	while (_enemyNum < 1 || _enemyNum > 5)
-	{
-		std::cout << "Input CharInfo_ enemyNum(min 1 ~ max 5) : ";
-		std::cin >> _enemyNum;
-	}
-	ProgramMG::GetInstance()->SetEnemyNum(_enemyNum);
-}
-
-void CharMG::Init(MapField map[][MAX_MAP_SIZE_X], int mapSizeX, int mapSizeY)
+void CharMG::Init(MapField map[][MAX_MAP_SIZE_X])
 {
 	_CopyArr(map, _enemyPathMap);
-	_mapSizeX = mapSizeX;
-	_mapSizeY = mapSizeY;
+	_mapSizeX = ProgramMG::GetInstance()->GetMapSize();
+	_mapSizeY = _mapSizeX;
+	_enemyNum = ProgramMG::GetInstance()->GetEnemyNum();
 
 	//_MakePlayer
 	Character* playerCharacter = new Character;

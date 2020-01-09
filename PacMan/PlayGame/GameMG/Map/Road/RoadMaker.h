@@ -6,7 +6,7 @@ using namespace EnumMap;
 class RoadMaker
 {
 public:
-	void Init(const int wallRatio, const int mapSizeX, const int mapSizeY);
+	void Init(const int mapSizeX, const int mapSizeY);
 	void MakeLoad(MapField* map[][MAX_MAP_SIZE_X]); //정사각형의 길 만드는 함수
 
 private:

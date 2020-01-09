@@ -7,7 +7,7 @@ using namespace EnumMap;
 class ItemMaker
 {
 public:
-	void Init(int itemNum, int mapSizeX, int mapSizeY);
+	void Init(int mapSizeX, int mapSizeY);
 	void SettingItemDebuff(MapField* map[][MAX_MAP_SIZE_Y]);
 	void SettingItemCoin(MapField* map[][MAX_MAP_SIZE_Y]);
 private:

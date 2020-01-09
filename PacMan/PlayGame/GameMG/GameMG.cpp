@@ -2,34 +2,40 @@
 #include "../ProgramMG/ProgramMG.h"
 
 #include <iostream>
+#include <windows.h>
 
-void GameMG::Init()
+void GameMG::Start()
 {
-	std::fill(&_mapField[0][0], &_mapField[MAX_MAP_SIZE_Y - 1][MAX_MAP_SIZE_X], EnumMap::MapField::EMPTY);
+	_Init();
 
 	while (true)
 	{
-		std::cout << "Input MapSize_ (11, 19, 23) : ";
-		std::cin >> _mapSizeX;
-		if (_mapSizeX == 11 || _mapSizeX == 19 || _mapSizeX == 23)
+		system("cls");
+		_Update();
+		_Draw();
+		Sleep(400);
+		if (ProgramMG::GetInstance()->IsGameClear())
+			break;
+		else if (ProgramMG::GetInstance()->IsGameOver())
 			break;
 	}
-	_mapSizeY = _mapSizeX;
-
-	ProgramMG::GetInstance()->SetMapSize(_mapSizeX);
-
-	_mapMaker.InputMapInfo();
-	_mapMaker.Init(_mapField, _mapSizeX, _mapSizeY);
-	_charMG.InputCharInfo();
-	_charMG.Init(_mapField, _mapSizeX, _mapSizeY);
+	ProgramMG::GetInstance()->ParsingGameResult();
 }
 
-void GameMG::Update()
+void GameMG::_Init()
+{
+	std::fill(&_mapField[0][0], &_mapField[MAX_MAP_SIZE_Y - 1][MAX_MAP_SIZE_X], EnumMap::MapField::EMPTY);
+
+	_mapMaker.Init(_mapField);
+	_charMG.Init(_mapField);
+}
+
+void GameMG::_Update()
 {
 	_charMG.Update(_mapField);
 }
 
-void GameMG::Draw()
+void GameMG::_Draw()
 {
 	_mapMaker.Draw();
 	_charMG.Draw();

@@ -1,15 +1,16 @@
 #include "RoadMaker.h"
+#include "../../../ProgramMG/ProgramMG.h"
 
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
 #include <vector>
 
-void RoadMaker::Init(const int wallRatio, const int mapSizeX, const int mapSizeY)
+void RoadMaker::Init( const int mapSizeX, const int mapSizeY)
 {
 	srand((unsigned int)time(NULL));
 
-	_wallRatio = wallRatio;
+	_wallRatio = ProgramMG::GetInstance()->GetWallRatio();
 	_mapSizeX = mapSizeX;
 	_mapSizeY = mapSizeY;
 }

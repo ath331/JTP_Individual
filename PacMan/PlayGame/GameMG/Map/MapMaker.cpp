@@ -4,10 +4,10 @@
 
 #include <iostream>
 
-void MapMaker::Init(MapField map[][MAX_MAP_SIZE_X], int mapSizeX, int mapSizeY)
+void MapMaker::Init(MapField map[][MAX_MAP_SIZE_X])
 {
-	_mapSizeX = mapSizeX;
-	_mapSizeY = mapSizeY;
+	_mapSizeX = ProgramMG::GetInstance()->GetMapSize();
+	_mapSizeY = _mapSizeX;
 
 	_CopyArrPtr(map, _map);
 
@@ -127,7 +127,7 @@ void MapMaker::_MakeLoad()
 		}
 	}
 
-	_roadMaker.Init(_wallRatio, _mapSizeX, _mapSizeY);
+	_roadMaker.Init(_mapSizeX, _mapSizeY);
 	_roadMaker.MakeLoad(_map);
 }
 
@@ -146,21 +146,9 @@ void MapMaker::_MakeFieldWall()
 	}
 }
 
-void MapMaker::InputMapInfo()
-{
-	while (true)
-	{
-		std::cout << "Input MapInfo_ WallRatio(min 0 ~ max 100), ItemNum(min 0 ~ max 20) : ";
-		std::cin >> _wallRatio >> _itemNum;
-		if ((_wallRatio >= 0 || _wallRatio <= 100) && (_itemNum >= 0 || _itemNum <= 20))
-			break;
-	}
-	ProgramMG::GetInstance()->SetGameInfo(_wallRatio, _itemNum);
-}
-
 void MapMaker::_MakeItem()
 {
-	_itemMaker.Init(_itemNum, _mapSizeX, _mapSizeY);
+	_itemMaker.Init(_mapSizeX, _mapSizeY);
 	_itemMaker.SettingItemDebuff(_map);
 	_itemMaker.SettingItemCoin(_map);
 }

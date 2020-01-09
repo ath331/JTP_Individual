@@ -27,6 +27,15 @@ public:
 	void SetGameOver(bool state);
 	void SetGameClear(bool state);
 
+	void InputMapSize();
+	void InputGameInfo();
+	void InputEnemyNum();
+
+	int GetMapSize();
+	int GetWallRatio();
+	int GetItemNum();
+	int GetEnemyNum();
+
 private:
 	Lock pasingLock;
 	Lock gameEndCheckLock;
