@@ -25,7 +25,7 @@ void ProgramMG::SetEnemyNum(int enemyNum)
 
 void ProgramMG::ParsingGameResult()
 {
-	/*fstream fs("GameResult.csv", ios::out | ios::app);
+	fstream fs("GameResult.csv", ios::out | ios::app);
 
 	if (fs.is_open())
 	{
@@ -37,13 +37,13 @@ void ProgramMG::ParsingGameResult()
 		fs.close();
 	}
 	else
-		exit(1);*/
+		exit(1);
 
-	TiXmlDocument doc;
+	/*TiXmlDocument doc;
 	TiXmlDeclaration* dec1 = new TiXmlDeclaration("1.0", "", "");
 	doc.LinkEndChild(dec1);
 	TiXmlElement* root = new TiXmlElement("GameInfo");
 	doc.LinkEndChild(root);
 
-	doc.SaveFile("GameInfo.xml");
+	doc.SaveFile("GameInfo.xml");*/
 }

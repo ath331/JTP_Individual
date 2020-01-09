@@ -9,6 +9,7 @@ int main()
 
 	GameMG gameMG;
 	gameMG.Init(&isGamePlaying);
+	ProgramMG::GetInstance()->ParsingGameResult();
 
 	while (isGamePlaying)
 	{
@@ -17,5 +18,4 @@ int main()
 		gameMG.Draw();
 		Sleep(400);
 	}
-	ProgramMG::GetInstance()->ParsingGameResult();
 }

@@ -1,5 +1,6 @@
 MapSize,WallRatio(%),ItemNum,EnemyNum
-
+,,,
 19,100,4,3
 19,65,4,2
 23,65,4,4
+19,65,4,5
