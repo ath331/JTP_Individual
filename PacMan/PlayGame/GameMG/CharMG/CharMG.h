@@ -9,7 +9,7 @@ class Character;
 class CharMG
 {
 public:
-	void Init(bool* isGamePlaying, MapField map[][MAX_MAP_SIZE_X], int mapSizeX, int mapSizeY);
+	void Init( MapField map[][MAX_MAP_SIZE_X], int mapSizeX, int mapSizeY);
 	void InputCharInfo();
 	void Update(MapField map[][MAX_MAP_SIZE_X]);
 	void Draw();

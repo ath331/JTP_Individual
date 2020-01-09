@@ -116,5 +116,8 @@
     <ClInclude Include="tinyxml\tinyxml.h">
       <Filter>tinyxml</Filter>
     </ClInclude>
+    <ClInclude Include="Lock.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

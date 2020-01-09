@@ -7,7 +7,7 @@
 class GameMG
 {
 public:
-	void Init(bool* isGamePlaying);
+	void Init();
 	void Update();
 	void Draw();
 

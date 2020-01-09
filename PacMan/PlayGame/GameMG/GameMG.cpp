@@ -3,13 +3,17 @@
 
 #include <iostream>
 
-void GameMG::Init(bool* isGamePlaying)
+void GameMG::Init()
 {
-	std::fill(&_mapField[0][0], &_mapField[MAX_MAP_SIZE_Y - 1 ][MAX_MAP_SIZE_X], EnumMap::MapField::EMPTY);
+	std::fill(&_mapField[0][0], &_mapField[MAX_MAP_SIZE_Y - 1][MAX_MAP_SIZE_X], EnumMap::MapField::EMPTY);
 
-	std::cout << "Input MapSize_ : " << std::endl;
-	std::cout << "MAX SIZE = " << MAX_MAP_SIZE_X << std::endl;
-	std::cin >> _mapSizeX;
+	while (true)
+	{
+		std::cout << "Input MapSize_ (11, 19, 23) : ";
+		std::cin >> _mapSizeX;
+		if (_mapSizeX == 11 || _mapSizeX == 19 || _mapSizeX == 23)
+			break;
+	}
 	_mapSizeY = _mapSizeX;
 
 	ProgramMG::GetInstance()->SetMapSize(_mapSizeX);
@@ -17,7 +21,7 @@ void GameMG::Init(bool* isGamePlaying)
 	_mapMaker.InputMapInfo();
 	_mapMaker.Init(_mapField, _mapSizeX, _mapSizeY);
 	_charMG.InputCharInfo();
-	_charMG.Init(isGamePlaying, _mapField, _mapSizeX, _mapSizeY);
+	_charMG.Init(_mapField, _mapSizeX, _mapSizeY);
 }
 
 void GameMG::Update()

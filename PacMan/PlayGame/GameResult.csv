@@ -1,6 +1,3 @@
-MapSize,WallRatio(%),ItemNum,EnemyNum
-,,,
-19,100,4,3
-19,65,4,2
-23,65,4,4
-19,65,4,5
+MapSize,WallRatio(%),ItemNum,EnemyNum,GameOver?(bool),GameClear?(bool)
+
+11,100,4,3,1,0

@@ -25,25 +25,47 @@ void ProgramMG::SetEnemyNum(int enemyNum)
 
 void ProgramMG::ParsingGameResult()
 {
+	LockGuard pasingLockGuard(pasingLock);
+
 	fstream fs("GameResult.csv", ios::out | ios::app);
 
 	if (fs.is_open())
 	{
 		cout << "File Open" << endl;
-		fs <<"\n"<< _mapSize << ","
+		if (_gameOver)
+			fs << "\n" << _mapSize << ","
 			<< _wallRatio << "," << _itemNum << ","
-			<< _enemyNum;
+			<< _enemyNum << "," << true << "," << false;
+
+		else if (_gameClear)
+			fs << "\n" << _mapSize << ","
+			<< _wallRatio << "," << _itemNum << ","
+			<< _enemyNum << "," << false << "," << true;
 
 		fs.close();
 	}
+
 	else
 		exit(1);
+}
 
-	/*TiXmlDocument doc;
-	TiXmlDeclaration* dec1 = new TiXmlDeclaration("1.0", "", "");
-	doc.LinkEndChild(dec1);
-	TiXmlElement* root = new TiXmlElement("GameInfo");
-	doc.LinkEndChild(root);
-
-	doc.SaveFile("GameInfo.xml");*/
+bool ProgramMG::IsGameOver()
+{
+	LockGuard gameEndCheckLockGuard(gameEndCheckLock);
+	return _gameOver;
+}
+bool ProgramMG::IsGameClear()
+{
+	LockGuard gameEndCheckLockGuard(gameEndCheckLock);
+	return _gameClear;
+}
+void ProgramMG::SetGameOver(bool state)
+{
+	LockGuard gameEndCheckLockGuard(gameEndCheckLock);
+	_gameOver = state;
+}
+void ProgramMG::SetGameClear(bool state)
+{
+	LockGuard gameEndCheckLockGuard(gameEndCheckLock);
+	_gameClear = state;
 }

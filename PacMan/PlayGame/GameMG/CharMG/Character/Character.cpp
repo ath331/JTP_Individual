@@ -1,9 +1,10 @@
 #include "Character.h"
+#include "../../../ProgramMG/ProgramMG.h"
 #include<iostream>
 #include <cstdlib>
 #include <ctime>
 
-void Character::Init(bool* isGamePlaying, MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], MapField enemyPath[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], MapField charState, int startX, int startY, int mapSizeX, int mapSizeY)
+void Character::Init(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], MapField enemyPath[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], MapField charState, int startX, int startY, int mapSizeX, int mapSizeY)
 {
 	_CopyArr(map, _charMap);
 
@@ -21,7 +22,6 @@ void Character::Init(bool* isGamePlaying, MapField map[MAX_MAP_SIZE_Y][MAX_MAP_S
 	_curDirection = _GetRandomDirection();
 
 	_charMap[startX][startY] = charState;
-	_isGamePlaying = isGamePlaying;
 }
 void Character::_CopyArrPtr(MapField array1[][MAX_MAP_SIZE_X], MapField* array2[][MAX_MAP_SIZE_X])
 {
@@ -50,7 +50,7 @@ bool Character::_IsNextTileWall(int x, int y)
 }
 bool Character::_IsNextTileEnemy(int x, int y)
 {
-	if (*_enemyPathPtr[_curPosX + x][_curPosY + y] == MapField::ENEMY_)
+	if (*_enemyPathPtr[_curPosX + x][_curPosY + y] == MapField::ENEMY_ || *_enemyPathPtr[_curPosX][_curPosY] == MapField::ENEMY_)
 		return true;
 	else
 		return false;
@@ -70,36 +70,36 @@ void Character::_SetEnemyPath(MoveDirection curDirection)
 	case UP:
 		for (int i = 1; i <= _enemyPath; i++)
 		{
-			if (*_enemyPathPtr[_curPosX][_curPosY - i] != MapField::WALL)
-				*_enemyPathPtr[_curPosX][_curPosY - i] = MapField::ENEMY_PATH;
-			else if (*_enemyPathPtr[_curPosX][_curPosY - i] == MapField::WALL)
+			if (*_enemyPathPtr[_curPosX][_curPosY - i] != (MapField::WALL || MapField::PRISON_WALL))
+				* _enemyPathPtr[_curPosX][_curPosY - i] = MapField::ENEMY_PATH;
+			else if (*_enemyPathPtr[_curPosX][_curPosY - i] == (MapField::WALL || MapField::PRISON_WALL))
 				break;
 		}
 		break;
 	case DOWN:
 		for (int i = 1; i <= _enemyPath; i++)
 		{
-			if (*_enemyPathPtr[_curPosX][_curPosY + i] != MapField::WALL)
+			if (*_enemyPathPtr[_curPosX][_curPosY + i] != (MapField::WALL || MapField::PRISON_WALL))
 				*_enemyPathPtr[_curPosX][_curPosY + i] = MapField::ENEMY_PATH;
-			else if (*_enemyPathPtr[_curPosX][_curPosY + i] == MapField::WALL)
+			else if (*_enemyPathPtr[_curPosX][_curPosY + i] == (MapField::WALL || MapField::PRISON_WALL))
 				break;
 		}
 		break;
 	case LEFT:
 		for (int i = 1; i <= _enemyPath; i++)
 		{
-			if (*_enemyPathPtr[_curPosX - i][_curPosY] != MapField::WALL)
+			if (*_enemyPathPtr[_curPosX - i][_curPosY] != (MapField::WALL || MapField::PRISON_WALL))
 				*_enemyPathPtr[_curPosX - i][_curPosY] = MapField::ENEMY_PATH;
-			else if (*_enemyPathPtr[_curPosX - i][_curPosY] == MapField::WALL)
+			else if (*_enemyPathPtr[_curPosX - i][_curPosY] == (MapField::WALL || MapField::PRISON_WALL))
 				break;
 		}
 		break;
 	case RIGHT:
 		for (int i = 1; i <= _enemyPath; i++)
 		{
-			if (*_enemyPathPtr[_curPosX + i][_curPosY] != MapField::WALL)
+			if (*_enemyPathPtr[_curPosX + i][_curPosY] != (MapField::WALL || MapField::PRISON_WALL))
 				*_enemyPathPtr[_curPosX + i][_curPosY] = MapField::ENEMY_PATH;
-			else if (*_enemyPathPtr[_curPosX + i][_curPosY] == MapField::WALL)
+			else if (*_enemyPathPtr[_curPosX + i][_curPosY] == (MapField::WALL || MapField::PRISON_WALL))
 				break;
 		}
 		break;
@@ -127,12 +127,14 @@ void Character::_MoveChacter(int x, int y)
 
 		if (_IsNextTileEnemy(x, y) && _IsPlayer())
 		{
-			*_isGamePlaying = false;
+			ProgramMG::GetInstance()->SetGameOver(true);
+			return;
 		}
 
 		else if (_IsNextTilePlayer(x, y) && !_IsPlayer())
 		{
-			*_isGamePlaying = false;
+			ProgramMG::GetInstance()->SetGameOver(true);
+			return;
 		}
 	}
 
@@ -165,7 +167,7 @@ void Character::_InitEnemyPath(MoveDirection curDirection)
 		{
 			if (*_enemyPathPtr[_curPosX][_curPosY - i] == MapField::ENEMY_PATH)
 				*_enemyPathPtr[_curPosX][_curPosY - i] = MapField::ROAD;
-			else if (*_enemyPathPtr[_curPosX][_curPosY - i] == MapField::WALL)
+			else if (*_enemyPathPtr[_curPosX][_curPosY - i] == (MapField::WALL || MapField::PRISON_WALL))
 				break;
 		}
 	case DOWN:
@@ -173,7 +175,7 @@ void Character::_InitEnemyPath(MoveDirection curDirection)
 		{
 			if (*_enemyPathPtr[_curPosX][_curPosY + i] == MapField::ENEMY_PATH)
 				*_enemyPathPtr[_curPosX][_curPosY + i] = MapField::ROAD;
-			else if (*_enemyPathPtr[_curPosX][_curPosY + i] == MapField::WALL)
+			else if (*_enemyPathPtr[_curPosX][_curPosY + i] == (MapField::WALL || MapField::PRISON_WALL))
 				break;
 		}
 	case LEFT:
@@ -181,7 +183,7 @@ void Character::_InitEnemyPath(MoveDirection curDirection)
 		{
 			if (*_enemyPathPtr[_curPosX - i][_curPosY] == MapField::ENEMY_PATH)
 				*_enemyPathPtr[_curPosX - i][_curPosY] = MapField::ROAD;
-			else if (*_enemyPathPtr[_curPosX - i][_curPosY] == MapField::WALL)
+			else if (*_enemyPathPtr[_curPosX - i][_curPosY] == (MapField::WALL || MapField::PRISON_WALL))
 				break;
 		}
 	case RIGHT:
@@ -189,7 +191,7 @@ void Character::_InitEnemyPath(MoveDirection curDirection)
 		{
 			if (*_enemyPathPtr[_curPosX + i][_curPosY] == MapField::ENEMY_PATH)
 				*_enemyPathPtr[_curPosX + i][_curPosY] = MapField::ROAD;
-			else if (*_enemyPathPtr[_curPosX + i][_curPosY] == MapField::WALL)
+			else if (*_enemyPathPtr[_curPosX + i][_curPosY] == (MapField::WALL || MapField::PRISON_WALL))
 				break;
 		}
 	default:
@@ -220,14 +222,14 @@ void Character::MoveCharacter(MapField enemyPath[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X]
 		break;
 	case RIGHT:
 		_MoveChacter(1, 0);
-
+		break;
 	default:
 		break;
 	}
 }
 bool Character::_IsNextTileEnemyPath(MoveDirection direction)
 {
-	for (int i = 0; i < _enemyPath; i++)
+	for (int i = 1; i <= _enemyPath; i++)
 		switch (direction)
 		{
 		case UP:
@@ -300,7 +302,7 @@ void Character::_PossibleDirection()
 
 		if (impossibleDirectionNum == 4)
 		{
-			*_isGamePlaying = false;
+			ProgramMG::GetInstance()->SetGameOver(true);
 		}
 	}
 	else

@@ -1,4 +1,5 @@
 #pragma once
+#include "../Lock.h"
 
 //게임 정보, 결과를 파싱하는 클래스
 class ProgramMG
@@ -21,7 +22,15 @@ public:
 
 	void ParsingGameResult();
 
+	bool IsGameOver();
+	bool IsGameClear();
+	void SetGameOver(bool state);
+	void SetGameClear(bool state);
+
 private:
+	Lock pasingLock;
+	Lock gameEndCheckLock;
+
 	ProgramMG() {};
 	ProgramMG(const ProgramMG& other);
 	static ProgramMG* _instance;
@@ -30,5 +39,8 @@ private:
 	int _wallRatio = 0;
 	int _itemNum = 0;
 	int _enemyNum = 0;
+
+	bool _gameOver = false;
+	bool _gameClear = false;
 };
 

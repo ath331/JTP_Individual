@@ -5,17 +5,19 @@
 
 int main()
 {
-	bool isGamePlaying = true;
-
 	GameMG gameMG;
-	gameMG.Init(&isGamePlaying);
-	ProgramMG::GetInstance()->ParsingGameResult();
+	gameMG.Init();
 
-	while (isGamePlaying)
+	while (true)
 	{
 		system("cls");
 		gameMG.Update();
 		gameMG.Draw();
 		Sleep(400);
+		if (ProgramMG::GetInstance()->IsGameClear())
+			break;
+		else if (ProgramMG::GetInstance()->IsGameOver())
+			break;
 	}
+	ProgramMG::GetInstance()->ParsingGameResult();
 }

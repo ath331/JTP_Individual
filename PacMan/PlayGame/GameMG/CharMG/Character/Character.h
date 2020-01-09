@@ -21,7 +21,7 @@ public:
 class Character
 {
 public:
-	void Init(bool* isGamePlaying, MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], MapField enemyPath[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], MapField charState, int startX, int startY, int mapSizeX, int mapSizeY);
+	void Init(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], MapField enemyPath[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], MapField charState, int startX, int startY, int mapSizeX, int mapSizeY);
 	int GetCurPosX();
 	int GetCurPosY();
 
@@ -30,7 +30,6 @@ public:
 	void MoveCharacter(MapField enemyPath[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X]); //_MoveChacater를 외부에서 호출하기 위한 함수
 private:
 	int _enemyPath = 3;
-	bool* _isGamePlaying;
 	bool _possibleDirectionArr[4] = { false,true,true,true };
 
 	MapField _charState = MapField::PLAYER_;

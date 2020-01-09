@@ -8,12 +8,15 @@
 
 void CharMG::InputCharInfo()
 {
-	std::cout << "Input CharInfo_ enemyNum(int)" << std::endl;
-	std::cin >> _enemyNum;
+	while (_enemyNum < 1 || _enemyNum > 5)
+	{
+		std::cout << "Input CharInfo_ enemyNum(min 1 ~ max 5) : ";
+		std::cin >> _enemyNum;
+	}
 	ProgramMG::GetInstance()->SetEnemyNum(_enemyNum);
 }
 
-void CharMG::Init(bool* isGamePlaying, MapField map[][MAX_MAP_SIZE_X], int mapSizeX, int mapSizeY)
+void CharMG::Init(MapField map[][MAX_MAP_SIZE_X], int mapSizeX, int mapSizeY)
 {
 	_CopyArr(map, _enemyPathMap);
 	_mapSizeX = mapSizeX;
@@ -21,14 +24,14 @@ void CharMG::Init(bool* isGamePlaying, MapField map[][MAX_MAP_SIZE_X], int mapSi
 
 	//_MakePlayer
 	Character* playerCharacter = new Character;
-	playerCharacter->Init(isGamePlaying, map, _enemyPathMap, MapField::PLAYER_, (_mapSizeX / 2), (_mapSizeY / 2) + 2, _mapSizeX, _mapSizeY);
+	playerCharacter->Init(map, _enemyPathMap, MapField::PLAYER_, (_mapSizeX / 2), (_mapSizeY / 2) + 2, _mapSizeX, _mapSizeY);
 	charVec.push_back(playerCharacter);
 
 	//_MakeEnemy
 	for (int i = 0; i < _enemyNum; i++)
 	{
 		Character* enemyCharacter = new Character;
-		enemyCharacter->Init(isGamePlaying, map, _enemyPathMap, MapField::ENEMY_, ((_mapSizeX / 2) - 1) + i, _mapSizeY / 2, _mapSizeX, _mapSizeY);
+		enemyCharacter->Init(map, _enemyPathMap, MapField::ENEMY_, ((_mapSizeX / 2) - 1) + i, _mapSizeY / 2, _mapSizeX, _mapSizeY);
 		charVec.push_back(enemyCharacter);
 
 		int startPosX = ((_mapSizeX / 2) - 1) + i;

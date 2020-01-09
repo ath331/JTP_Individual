@@ -9,7 +9,7 @@ void MapMaker::Init(MapField map[][MAX_MAP_SIZE_X], int mapSizeX, int mapSizeY)
 	_mapSizeX = mapSizeX;
 	_mapSizeY = mapSizeY;
 
-	_CopyArrPtr(map,_map);
+	_CopyArrPtr(map, _map);
 
 	for (int y = 0; y < _mapSizeY; y++)
 	{
@@ -148,8 +148,13 @@ void MapMaker::_MakeFieldWall()
 
 void MapMaker::InputMapInfo()
 {
-	std::cout << "Input MapInfo_ WallRatio(%), ItemNum : " << std::endl;
-	std::cin >> _wallRatio >> _itemNum;
+	while (true)
+	{
+		std::cout << "Input MapInfo_ WallRatio(min 0 ~ max 100), ItemNum(min 0 ~ max 20) : ";
+		std::cin >> _wallRatio >> _itemNum;
+		if ((_wallRatio >= 0 || _wallRatio <= 100) && (_itemNum >= 0 || _itemNum <= 20))
+			break;
+	}
 	ProgramMG::GetInstance()->SetGameInfo(_wallRatio, _itemNum);
 }
 

@@ -169,6 +169,7 @@
     <ClInclude Include="GameMG\Map\MapEnum.h" />
     <ClInclude Include="GameMG\Map\MapMaker.h" />
     <ClInclude Include="GameMG\Map\Road\RoadMaker.h" />
+    <ClInclude Include="Lock.h" />
     <ClInclude Include="ProgramMG\ProgramMG.h" />
     <ClInclude Include="tinyxml\tinystr.h" />
     <ClInclude Include="tinyxml\tinyxml.h" />
