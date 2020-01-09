@@ -21,7 +21,7 @@ public:
 class Character
 {
 public:
-	void Init(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], MapField enemyPath[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], MapField charState, int startX, int startY, int mapSizeX, int mapSizeY);
+	void Init(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], MapField enemyPath[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], MapField charState, int startX, int startY);
 	int GetCurPosX();
 	int GetCurPosY();
 
@@ -66,5 +66,4 @@ private:
 	void _SetCurDirection(MoveDirection direction);
 	void _SetEnemyPath(MoveDirection curDirection);
 	void _InitEnemyPath(MoveDirection curDirection);
-	bool _CheckEnemyPath(MoveDirection curDirection);
 };

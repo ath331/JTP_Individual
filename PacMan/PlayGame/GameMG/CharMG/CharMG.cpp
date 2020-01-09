@@ -15,14 +15,14 @@ void CharMG::Init(MapField map[][MAX_MAP_SIZE_X])
 
 	//_MakePlayer
 	Character* playerCharacter = new Character;
-	playerCharacter->Init(map, _enemyPathMap, MapField::PLAYER_, (_mapSizeX / 2), (_mapSizeY / 2) + 2, _mapSizeX, _mapSizeY);
+	playerCharacter->Init(map, _enemyPathMap, MapField::PLAYER_, (_mapSizeX / 2), (_mapSizeY / 2) + 2);
 	charVec.push_back(playerCharacter);
 
 	//_MakeEnemy
 	for (int i = 0; i < _enemyNum; i++)
 	{
 		Character* enemyCharacter = new Character;
-		enemyCharacter->Init(map, _enemyPathMap, MapField::ENEMY_, ((_mapSizeX / 2) - 1) + i, _mapSizeY / 2, _mapSizeX, _mapSizeY);
+		enemyCharacter->Init(map, _enemyPathMap, MapField::ENEMY_, ((_mapSizeX / 2) - 1) + i, _mapSizeY / 2);
 		charVec.push_back(enemyCharacter);
 
 		int startPosX = ((_mapSizeX / 2) - 1) + i;

@@ -7,7 +7,8 @@
 void GameMG::Start()
 {
 	_Init();
-
+	ProgramMG::GetInstance()->SetGameOver(false);
+	ProgramMG::GetInstance()->SetGameClear(false);
 	while (true)
 	{
 		system("cls");

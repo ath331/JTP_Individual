@@ -4,12 +4,12 @@
 #include <cstdlib>
 #include <ctime>
 
-void Character::Init(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], MapField enemyPath[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], MapField charState, int startX, int startY, int mapSizeX, int mapSizeY)
+void Character::Init(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], MapField enemyPath[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], MapField charState, int startX, int startY)
 {
 	_CopyArr(map, _charMap);
 
-	_mapSizeX = mapSizeX;
-	_mapSizeY = mapSizeY;
+	_mapSizeX = ProgramMG::GetInstance()->GetMapSize();
+	_mapSizeY = _mapSizeX;
 	_CopyArrPtr(enemyPath, _enemyPathPtr);
 	_CopyArrPtr(map, _mapPtr);
 
@@ -71,7 +71,7 @@ void Character::_SetEnemyPath(MoveDirection curDirection)
 		for (int i = 1; i <= _enemyPath; i++)
 		{
 			if (*_enemyPathPtr[_curPosX][_curPosY - i] != (MapField::WALL || MapField::PRISON_WALL))
-				* _enemyPathPtr[_curPosX][_curPosY - i] = MapField::ENEMY_PATH;
+				*_enemyPathPtr[_curPosX][_curPosY - i] = MapField::ENEMY_PATH;
 			else if (*_enemyPathPtr[_curPosX][_curPosY - i] == (MapField::WALL || MapField::PRISON_WALL))
 				break;
 		}
@@ -163,7 +163,7 @@ void Character::_InitEnemyPath(MoveDirection curDirection)
 	switch (curDirection)
 	{
 	case UP:
-		for (int i = 1; i <= _enemyPath; i++)
+		for (int i = 0; i <= _enemyPath; i++)
 		{
 			if (*_enemyPathPtr[_curPosX][_curPosY - i] == MapField::ENEMY_PATH)
 				*_enemyPathPtr[_curPosX][_curPosY - i] = MapField::ROAD;
@@ -229,36 +229,47 @@ void Character::MoveCharacter(MapField enemyPath[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X]
 }
 bool Character::_IsNextTileEnemyPath(MoveDirection direction)
 {
-	for (int i = 1; i <= _enemyPath; i++)
-		switch (direction)
+	switch (direction)
+	{
+	case UP:
+		for (int i = 1; i <= _enemyPath; i++)
 		{
-		case UP:
 			if (*_enemyPathPtr[_curPosX][_curPosY - i] == (MapField::ENEMY_PATH || MapField::ENEMY_))
 				return true;
 			else
 				return false;
-			break;
-		case DOWN:
+		}
+		break;
+	case DOWN:
+		for (int i = 1; i <= _enemyPath; i++)
+		{
 			if (*_enemyPathPtr[_curPosX][_curPosY + i] == (MapField::ENEMY_PATH || MapField::ENEMY_))
 				return true;
 			else
 				return false;
-			break;
-		case LEFT:
+		}
+		break;
+	case LEFT:
+		for (int i = 1; i <= _enemyPath; i++)
+		{
 			if (*_enemyPathPtr[_curPosX - i][_curPosY] == (MapField::ENEMY_PATH || MapField::ENEMY_))
 				return true;
 			else
 				return false;
-			break;
-		case RIGHT:
+		}
+		break;
+	case RIGHT:
+		for (int i = 1; i <= _enemyPath; i++)
+		{
 			if (*_enemyPathPtr[_curPosX + i][_curPosY] == (MapField::ENEMY_PATH || MapField::ENEMY_))
 				return true;
 			else
 				return false;
-			break;
-		default:
-			break;
 		}
+		break;
+	default:
+		break;
+	}
 	return false;
 }
 
@@ -380,45 +391,6 @@ MoveDirection Character::_GetRandomDirection()
 	}
 
 	return (MoveDirection)randDirection;
-}
-
-bool Character::_CheckEnemyPath(MoveDirection curDirection)
-{
-	switch (curDirection)
-	{
-	case UP:
-		for (int i = 0; i < _enemyPath; i++)
-		{
-			if (*_enemyPathPtr[_curPosX][_curPosY - i] == MapField::ENEMY_PATH)
-				return false;
-		}
-
-	case DOWN:
-		for (int i = 0; i < _enemyPath; i++)
-		{
-			if (*_enemyPathPtr[_curPosX][_curPosY + i] == MapField::ENEMY_PATH)
-				return false;
-		}
-
-	case LEFT:
-		for (int i = 0; i < _enemyPath; i++)
-		{
-			if (*_enemyPathPtr[_curPosX - i][_curPosY] == MapField::ENEMY_PATH)
-				return false;
-		}
-
-	case RIGHT:
-		for (int i = 0; i < _enemyPath; i++)
-		{
-			if (*_enemyPathPtr[_curPosX + i][_curPosY] == MapField::ENEMY_PATH)
-				return false;
-		}
-
-	default:
-		return true;
-		break;
-	}
-
 }
 
 MapField Character::GetCharState()
