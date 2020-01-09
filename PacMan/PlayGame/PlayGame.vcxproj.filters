@@ -37,6 +37,9 @@
     <Filter Include="PrgramMG">
       <UniqueIdentifier>{f02538c8-4f08-4bf5-b63f-d87a87fbaea6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="tinyxml">
+      <UniqueIdentifier>{19faf7c3-a1e5-46e7-b246-ede6c29045cd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PlayGameMain.cpp">
@@ -66,6 +69,18 @@
     <ClCompile Include="ProgramMG\ProgramMG.cpp">
       <Filter>PrgramMG</Filter>
     </ClCompile>
+    <ClCompile Include="tinyxml\tinystr.cpp">
+      <Filter>tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxml\tinyxml.cpp">
+      <Filter>tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxml\tinyxmlerror.cpp">
+      <Filter>tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="tinyxml\tinyxmlparser.cpp">
+      <Filter>tinyxml</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConsoleLogger\ConsoleLogger.h">
@@ -94,6 +109,12 @@
     </ClInclude>
     <ClInclude Include="ProgramMG\ProgramMG.h">
       <Filter>PrgramMG</Filter>
+    </ClInclude>
+    <ClInclude Include="tinyxml\tinystr.h">
+      <Filter>tinyxml</Filter>
+    </ClInclude>
+    <ClInclude Include="tinyxml\tinyxml.h">
+      <Filter>tinyxml</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
