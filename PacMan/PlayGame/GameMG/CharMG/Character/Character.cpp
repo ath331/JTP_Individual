@@ -72,7 +72,7 @@ void Character::_SetEnemyPath(MoveDirection curDirection)
 		{
 			if (*_enemyPathPtr[_curPosX][_curPosY - i] != MapField::WALL && *_enemyPathPtr[_curPosX][_curPosY - i] != MapField::PRISON_WALL)
 				*_enemyPathPtr[_curPosX][_curPosY - i] = MapField::ENEMY_PATH;
-			else if (_IsNextTileWall(0,-i))
+			else if (_IsNextTileWall(0, -i))
 				break;
 		}
 		break;
@@ -168,7 +168,7 @@ void Character::_InitEnemyPath(MoveDirection curDirection)
 			if (*_enemyPathPtr[_curPosX][_curPosY - i] == MapField::ENEMY_PATH)
 				*_enemyPathPtr[_curPosX][_curPosY - i] = MapField::ROAD;
 			else if (_IsNextTileWall(0, -i));
-				break;
+			break;
 		}
 	case DOWN:
 		for (int i = 1; i <= _enemyPath; i++)
@@ -207,6 +207,9 @@ void Character::MoveCharacter(MapField enemyPath[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X]
 		_InitEnemyPath(_curDirection);
 	}
 	_PossibleDirection();
+	if (_impossibleDirectionNum == 4)
+		return;
+
 	_curDirection = _GetRandomDirection();
 
 	switch (_curDirection)
@@ -278,11 +281,11 @@ void Character::_PossibleDirection()
 	//현재위치에서 갈수있는 방향을 체크. UP, DOWN, LEFT, RIGHT
 	if (_IsPlayer())
 	{
-		int impossibleDirectionNum = 0;
+		_impossibleDirectionNum = 0;
 		if (_IsNextTileWall(0, -1) || _IsNextTileEnemyPath(MoveDirection::UP))
 		{
 			_possibleDirectionArr[0] = false;
-			impossibleDirectionNum++;
+			_impossibleDirectionNum++;
 		}
 		else
 			_possibleDirectionArr[0] = true;
@@ -290,7 +293,7 @@ void Character::_PossibleDirection()
 		if (_IsNextTileWall(0, 1) || _IsNextTileEnemyPath(MoveDirection::DOWN))
 		{
 			_possibleDirectionArr[1] = false;
-			impossibleDirectionNum++;
+			_impossibleDirectionNum++;
 		}
 		else
 			_possibleDirectionArr[1] = true;
@@ -298,7 +301,7 @@ void Character::_PossibleDirection()
 		if (_IsNextTileWall(-1, 0) || _IsNextTileEnemyPath(MoveDirection::LEFT))
 		{
 			_possibleDirectionArr[2] = false;
-			impossibleDirectionNum++;
+			_impossibleDirectionNum++;
 		}
 		else
 			_possibleDirectionArr[2] = true;
@@ -306,12 +309,12 @@ void Character::_PossibleDirection()
 		if (_IsNextTileWall(1, 0) || _IsNextTileEnemyPath(MoveDirection::RIGHT))
 		{
 			_possibleDirectionArr[3] = false;
-			impossibleDirectionNum++;
+			_impossibleDirectionNum++;
 		}
 		else
 			_possibleDirectionArr[3] = true;
 
-		if (impossibleDirectionNum == 4)
+		if (_impossibleDirectionNum == 4)
 		{
 			ProgramMG::GetInstance()->SetGameOver(true);
 		}

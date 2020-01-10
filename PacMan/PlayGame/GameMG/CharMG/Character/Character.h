@@ -31,6 +31,7 @@ public:
 private:
 	int _enemyPath = 3;
 	bool _possibleDirectionArr[4] = { false,true,true,true };
+	int _impossibleDirectionNum = 0;
 
 	MapField _charState = MapField::PLAYER_;
 	void _CopyArr(MapField array1[][MAX_MAP_SIZE_X], MapField array2[][MAX_MAP_SIZE_X]);

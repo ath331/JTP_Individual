@@ -1,3 +1,7 @@
 MapSize,WallRatio(%),ItemNum,EnemyNum,GameOver?(bool),GameClear?(bool),ThreadID
 
 11,100,4,3,1,0,8368
+11,100,4,4,1,0,11560
+11,100,4,4,1,0,1636
+11,100,4,4,1,0,14256
+11,100,4,4,1,0,14892
