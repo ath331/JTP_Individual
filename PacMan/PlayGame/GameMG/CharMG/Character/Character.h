@@ -73,4 +73,5 @@ private:
 	void _InitEnemyPath(MoveDirection curDirection);
 
 	void _FindNearItem();
+	MoveDirection _GetNearItemDirection();
 };

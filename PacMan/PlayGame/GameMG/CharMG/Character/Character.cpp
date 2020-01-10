@@ -405,7 +405,7 @@ void Character::_FindNearItem()
 
 		while (tempCurRowNum < tempRow) //위로 탐색
 		{
-			if (_IsNextTileItem(tempCurPosX, tempCurPosY, -1, 0))
+			if (_IsNextTileItem(tempCurPosX, tempCurPosY, 0, -1))
 			{
 				_goalPosX = tempCurPosX;
 				_goalPosY = tempCurPosY--;
@@ -433,57 +433,80 @@ void Character::_FindNearItem()
 	}
 }
 
+MoveDirection Character::_GetNearItemDirection()
+{
+	int tempX = _curPosX - _goalPosX;
+	int tempY = _curPosY - _goalPosY;
+
+	if (tempX >= 0)
+		return MoveDirection::LEFT;
+	else if(tempX < 0)
+		return MoveDirection::RIGHT;
+	else if (tempY >= 0)
+		return MoveDirection::DOWN;
+	else if (tempY < 0)
+		return MoveDirection::UP;
+}
+
 MoveDirection Character::_GetRandomDirection()
 {
-	int randDirection = rand() % 4;
-	while (_possibleDirectionArr[randDirection] == false)
+	if (_IsPlayer())
 	{
-		randDirection = rand() % 4; //랜덤이 아닌 목표지점과의 거리,위치를 계산해서 우선순위로 방향을 return
+		return _GetNearItemDirection();
 	}
 
-	int possibleDirectionNum = 0;
-	for (int i = 0; i < 4; i++)
+	else if (!_IsPlayer())
 	{
-		if (_possibleDirectionArr[i] == true)
-			possibleDirectionNum++;
-	}
-
-	MoveDirection tempCurMoveDirection = _curDirection;
-	if (possibleDirectionNum != 1) //진행방향이 뒤만 있는게 아니라면 뒤로 가지 않는다
-	{
-		switch ((MoveDirection)randDirection)
+		int randDirection = rand() % 4;
+		while (_possibleDirectionArr[randDirection] == false)
 		{
-		case UP:
-			if (_curDirection == DOWN)
-			{
-				randDirection = (int)tempCurMoveDirection;
-			}
-			break;
-		case DOWN:
-			if (_curDirection == UP)
-			{
-				randDirection = (int)tempCurMoveDirection;
-			}
-			break;
-		case LEFT:
-			if (_curDirection == RIGHT)
-			{
-				randDirection = (int)tempCurMoveDirection;
-			}
-			break;
-		case RIGHT:
-			if (_curDirection == LEFT)
-			{
-				randDirection = (int)tempCurMoveDirection;
-			}
-			break;
-
-		default:
-			break;
+			randDirection = rand() % 4;
 		}
-	}
 
-	return (MoveDirection)randDirection;
+		int possibleDirectionNum = 0;
+		for (int i = 0; i < 4; i++)
+		{
+			if (_possibleDirectionArr[i] == true)
+				possibleDirectionNum++;
+		}
+
+		MoveDirection tempCurMoveDirection = _curDirection;
+		if (possibleDirectionNum != 1) //진행방향이 뒤만 있는게 아니라면 뒤로 가지 않는다
+		{
+			switch ((MoveDirection)randDirection)
+			{
+			case UP:
+				if (_curDirection == DOWN)
+				{
+					randDirection = (int)tempCurMoveDirection;
+				}
+				break;
+			case DOWN:
+				if (_curDirection == UP)
+				{
+					randDirection = (int)tempCurMoveDirection;
+				}
+				break;
+			case LEFT:
+				if (_curDirection == RIGHT)
+				{
+					randDirection = (int)tempCurMoveDirection;
+				}
+				break;
+			case RIGHT:
+				if (_curDirection == LEFT)
+				{
+					randDirection = (int)tempCurMoveDirection;
+				}
+				break;
+
+			default:
+				break;
+			}
+		}
+
+		return (MoveDirection)randDirection;
+	}
 }
 
 MapField Character::GetCharState()
