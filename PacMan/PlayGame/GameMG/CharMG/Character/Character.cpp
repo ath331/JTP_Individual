@@ -208,6 +208,10 @@ void Character::MoveCharacter(MapField enemyPath[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X]
 	{
 		_InitEnemyPath(_curDirection);
 	}
+	else
+	{
+		_FindNearItem();
+	}
 
 	_SetPossibleDirection();
 	if (_impossibleDirectionNum == 4)
@@ -347,13 +351,94 @@ void Character::_SetPossibleDirection()
 			_possibleDirectionArr[3] = false;
 	}
 }
+bool Character::_IsNextTileItem(int tempCurPosX, int tempCurPosY, int x, int y)
+{
+	if (*_mapPtr[tempCurPosX + x][tempCurPosY + y] == MapField::ITEM_COIN || *_mapPtr[tempCurPosX + x][tempCurPosY + y] == MapField::ITEM_Debuff)
+		return true;
+	else
+		return false;
+}
+
+void Character::_FindNearItem()
+{
+	int tempCurPosX = _curPosX;
+	int tempCurPosY = _curPosY;
+
+	bool verticality = true; //탐색 수직방향
+	bool Horizontal = false; //탐색 수평방향
+
+	int tempRow = 1; //상하로 가야하는 칸수
+	int tempCol = 1; //좌우로 가야하는 칸수
+
+	int tempCurRowNum = 0; //현재 진행한 상하의 칸수
+	int tempCurColNum = 0; //현재 진행한 좌우의 칸수
+
+	while (true)
+	{
+		while (tempCurRowNum < tempRow) //아래로 탐색
+		{
+			if (_IsNextTileItem(tempCurPosX, tempCurPosY, 0, 1))
+			{
+				_goalPosX = tempCurPosX;
+				_goalPosY = tempCurPosY++;
+				return;
+			}
+			tempCurPosY++;
+			tempCurRowNum++;
+		}
+		tempCurRowNum = 0;
+		tempRow++;
+
+		while (tempCurColNum < tempCol) //좌로 탐색
+		{
+			if (_IsNextTileItem(tempCurPosX, tempCurPosY, -1, 0))
+			{
+				_goalPosX = tempCurPosX--;
+				_goalPosY = tempCurPosY;
+				return;
+			}
+			tempCurPosX--;
+			tempCurColNum++;
+		}
+		tempCurColNum = 0;
+		tempCol++;
+
+		while (tempCurRowNum < tempRow) //위로 탐색
+		{
+			if (_IsNextTileItem(tempCurPosX, tempCurPosY, -1, 0))
+			{
+				_goalPosX = tempCurPosX;
+				_goalPosY = tempCurPosY--;
+				return;
+			}
+			tempCurPosY--;
+			tempCurRowNum++;
+		}
+		tempCurRowNum = 0;
+		tempRow++;
+
+		while (tempCurColNum < tempCol) //우로 탐색
+		{
+			if (_IsNextTileItem(tempCurPosX, tempCurPosY, 1, 0))
+			{
+				_goalPosX = tempCurPosX++;
+				_goalPosY = tempCurPosY;
+				return;
+			}
+			tempCurPosX++;
+			tempCurColNum++;
+		}
+		tempCurColNum = 0;
+		tempCol++;
+	}
+}
 
 MoveDirection Character::_GetRandomDirection()
 {
 	int randDirection = rand() % 4;
 	while (_possibleDirectionArr[randDirection] == false)
 	{
-		randDirection = rand() % 4; //랜덤이 아닌 목표지점과의 거리,위치를 계산해서 우선순위로 방행을 뿌리기
+		randDirection = rand() % 4; //랜덤이 아닌 목표지점과의 거리,위치를 계산해서 우선순위로 방향을 return
 	}
 
 	int possibleDirectionNum = 0;

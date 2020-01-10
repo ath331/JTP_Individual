@@ -58,10 +58,11 @@ private:
 
 	bool _IsPlayer();
 	bool _IsNextTileEnemy(int x, int y);
+	bool _IsNextTileEnemyPath(MoveDirection direction);
 	bool _IsNextTilePlayer(int x, int y);
 	bool _IsNextTileWall(int x, int y);
 	bool _IsNextTilePotal(int x);
-	bool _IsNextTileEnemyPath(MoveDirection direction);
+	bool _IsNextTileItem(int tempCurPosX, int tempCurPosY, int x, int y);
 
 	MoveDirection _curDirection = MoveDirection::DOWN;
 	MoveDirection _GetRandomDirection();
@@ -71,5 +72,5 @@ private:
 	void _SetEnemyPath(MoveDirection curDirection);
 	void _InitEnemyPath(MoveDirection curDirection);
 
-	
+	void _FindNearItem();
 };
