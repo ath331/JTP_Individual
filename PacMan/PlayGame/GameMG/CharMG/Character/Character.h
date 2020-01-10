@@ -30,7 +30,7 @@ public:
 	void MoveCharacter(MapField enemyPath[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X]); //_MoveChacater를 외부에서 호출하기 위한 함수
 private:
 	int _enemyPath = 3;
-	bool _possibleDirectionArr[4] = { false,true,true,true };
+	bool _possibleDirectionArr[4] = { true,true,true,true };
 	int _impossibleDirectionNum = 0;
 
 	MapField _charState = MapField::PLAYER_;
@@ -49,6 +49,9 @@ private:
 	int _curPosX = 0;
 	int _curPosY = 0;
 
+	int _goalPosX = 0;
+	int _goalPosY = 0;
+
 	void _SetCurPosX(int posX);
 	void _SetCurPosY(int posY);
 	void _InitCurPosState();
@@ -63,8 +66,10 @@ private:
 	MoveDirection _curDirection = MoveDirection::DOWN;
 	MoveDirection _GetRandomDirection();
 	void _MoveChacter(int x, int y); //실질적인 움직임 함수
-	void _PossibleDirection();
+	void _SetPossibleDirection();
 	void _SetCurDirection(MoveDirection direction);
 	void _SetEnemyPath(MoveDirection curDirection);
 	void _InitEnemyPath(MoveDirection curDirection);
+
+	
 };

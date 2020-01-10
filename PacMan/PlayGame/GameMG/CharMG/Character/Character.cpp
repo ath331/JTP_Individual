@@ -1,8 +1,11 @@
 #include "Character.h"
 #include "../../../ProgramMG/ProgramMG.h"
+
 #include<iostream>
 #include <cstdlib>
 #include <ctime>
+#include <vector>
+#include <algorithm>
 
 void Character::Init(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], MapField enemyPath[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], MapField charState, int startX, int startY)
 {
@@ -205,7 +208,8 @@ void Character::MoveCharacter(MapField enemyPath[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X]
 	{
 		_InitEnemyPath(_curDirection);
 	}
-	_PossibleDirection();
+
+	_SetPossibleDirection();
 	if (_impossibleDirectionNum == 4)
 		return;
 
@@ -275,7 +279,9 @@ bool Character::_IsNextTileEnemyPath(MoveDirection direction)
 	return false;
 }
 
-void Character::_PossibleDirection()
+
+
+void Character::_SetPossibleDirection()
 {
 	//현재위치에서 갈수있는 방향을 체크. UP, DOWN, LEFT, RIGHT
 	if (_IsPlayer())
@@ -347,7 +353,7 @@ MoveDirection Character::_GetRandomDirection()
 	int randDirection = rand() % 4;
 	while (_possibleDirectionArr[randDirection] == false)
 	{
-		randDirection = rand() % 4;
+		randDirection = rand() % 4; //랜덤이 아닌 목표지점과의 거리,위치를 계산해서 우선순위로 방행을 뿌리기
 	}
 
 	int possibleDirectionNum = 0;

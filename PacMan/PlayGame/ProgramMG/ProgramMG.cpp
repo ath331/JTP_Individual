@@ -119,9 +119,9 @@ void ProgramMG::InputEnemyNum()
 {
 	while (true)
 	{
-		std::cout << "Input CharInfo_ enemyNum(min 1 ~ max 5) : ";
+		std::cout << "Input CharInfo_ enemyNum(min 0 ~ max 5) : ";
 		std::cin >> _enemyNum;
-		if (_enemyNum >= 1 && _enemyNum <= 5)
+		if (_enemyNum >= 0 && _enemyNum <= 5)
 			break;
 	}
 }
