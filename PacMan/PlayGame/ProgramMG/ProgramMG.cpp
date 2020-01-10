@@ -36,12 +36,12 @@ void ProgramMG::ParsingGameResult()
 		if (_gameOver)
 			fs << "\n" << _mapSize << ","
 			<< _wallRatio << "," << _itemNum << ","
-			<< _enemyNum << "," << true << "," << false << "," << GetCurrentThreadId();
+			<< _enemyNum << "," << true << "," << false;
 
 		else if (_gameClear)
 			fs << "\n" << _mapSize << ","
 			<< _wallRatio << "," << _itemNum << ","
-			<< _enemyNum << "," << false << "," << true << "," << GetCurrentThreadId();
+			<< _enemyNum << "," << false << "," << true;
 
 		fs.close();
 	}

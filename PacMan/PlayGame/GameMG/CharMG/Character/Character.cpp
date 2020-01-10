@@ -50,14 +50,14 @@ bool Character::_IsNextTileWall(int x, int y)
 }
 bool Character::_IsNextTileEnemy(int x, int y)
 {
-	if (*_enemyPathPtr[_curPosX + x][_curPosY + y] == MapField::ENEMY_ || *_enemyPathPtr[_curPosX][_curPosY] == MapField::ENEMY_)
+	if (*_enemyPathPtr[_curPosX + x][_curPosY + y] == MapField::ENEMY_)
 		return true;
 	else
 		return false;
 }
 bool Character::_IsNextTilePlayer(int x, int y)
 {
-	if (*_enemyPathPtr[_curPosX + x][_curPosY + y] == MapField::PLAYER_ || *_enemyPathPtr[_curPosX][_curPosY] == MapField::PLAYER_)
+	if (*_enemyPathPtr[_curPosX + x][_curPosY + y] == MapField::PLAYER_)
 		return true;
 	else
 		return false;
@@ -123,7 +123,6 @@ void Character::_MoveChacter(int x, int y)
 		}
 		_InitCurPosState();
 		SetCharPos(_curPosX + x, _curPosY + y);
-
 
 		if (_IsNextTileEnemy(x, y) && _IsPlayer())
 		{
