@@ -102,17 +102,26 @@ void ProgramMG::InputGameInfo()
 {
 	while (true)
 	{
-		std::cout << "Input MapInfo_ WallRatio(min 0 ~ max 100), ItemNum(min 0 ~ max 20) : ";
-		std::cin >> _wallRatio >> _itemNum;
-		if ((_wallRatio >= 0 || _wallRatio <= 100) && (_itemNum >= 0 || _itemNum <= 20))
+		std::cout << "Input MapInfo_ WallRatio(min 0 ~ max 100) : ";
+		std::cin >> _wallRatio;
+		if (_wallRatio >= 0 && _wallRatio <= 100)
+			break;
+	}
+	while (true)
+	{
+		std::cout << "Input MapInfo_ ItemNum(min 0 ~ max 20) : ";
+		std::cin >> _itemNum;
+		if (_itemNum >= 0 && _itemNum <= 20)
 			break;
 	}
 }
 void ProgramMG::InputEnemyNum()
 {
-	while (_enemyNum < 1 || _enemyNum > 5)
+	while (true)
 	{
 		std::cout << "Input CharInfo_ enemyNum(min 1 ~ max 5) : ";
 		std::cin >> _enemyNum;
+		if (_enemyNum >= 1 && _enemyNum <= 5)
+			break;
 	}
 }
