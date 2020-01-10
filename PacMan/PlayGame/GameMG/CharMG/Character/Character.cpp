@@ -70,36 +70,36 @@ void Character::_SetEnemyPath(MoveDirection curDirection)
 	case UP:
 		for (int i = 1; i <= _enemyPath; i++)
 		{
-			if (*_enemyPathPtr[_curPosX][_curPosY - i] != (MapField::WALL || MapField::PRISON_WALL))
+			if (*_enemyPathPtr[_curPosX][_curPosY - i] != MapField::WALL && *_enemyPathPtr[_curPosX][_curPosY - i] != MapField::PRISON_WALL)
 				*_enemyPathPtr[_curPosX][_curPosY - i] = MapField::ENEMY_PATH;
-			else if (*_enemyPathPtr[_curPosX][_curPosY - i] == (MapField::WALL || MapField::PRISON_WALL))
+			else if (_IsNextTileWall(0,-i))
 				break;
 		}
 		break;
 	case DOWN:
 		for (int i = 1; i <= _enemyPath; i++)
 		{
-			if (*_enemyPathPtr[_curPosX][_curPosY + i] != (MapField::WALL || MapField::PRISON_WALL))
+			if (*_enemyPathPtr[_curPosX][_curPosY + i] != MapField::WALL && *_enemyPathPtr[_curPosX][_curPosY + i] != MapField::PRISON_WALL)
 				*_enemyPathPtr[_curPosX][_curPosY + i] = MapField::ENEMY_PATH;
-			else if (*_enemyPathPtr[_curPosX][_curPosY + i] == (MapField::WALL || MapField::PRISON_WALL))
+			else if (_IsNextTileWall(0, i))
 				break;
 		}
 		break;
 	case LEFT:
 		for (int i = 1; i <= _enemyPath; i++)
 		{
-			if (*_enemyPathPtr[_curPosX - i][_curPosY] != (MapField::WALL || MapField::PRISON_WALL))
+			if (*_enemyPathPtr[_curPosX - i][_curPosY] != MapField::WALL && *_enemyPathPtr[_curPosX - i][_curPosY] != MapField::PRISON_WALL)
 				*_enemyPathPtr[_curPosX - i][_curPosY] = MapField::ENEMY_PATH;
-			else if (*_enemyPathPtr[_curPosX - i][_curPosY] == (MapField::WALL || MapField::PRISON_WALL))
+			else if (_IsNextTileWall(-i, 0))
 				break;
 		}
 		break;
 	case RIGHT:
 		for (int i = 1; i <= _enemyPath; i++)
 		{
-			if (*_enemyPathPtr[_curPosX + i][_curPosY] != (MapField::WALL || MapField::PRISON_WALL))
+			if (*_enemyPathPtr[_curPosX + i][_curPosY] != MapField::WALL && *_enemyPathPtr[_curPosX + i][_curPosY] != MapField::PRISON_WALL)
 				*_enemyPathPtr[_curPosX + i][_curPosY] = MapField::ENEMY_PATH;
-			else if (*_enemyPathPtr[_curPosX + i][_curPosY] == (MapField::WALL || MapField::PRISON_WALL))
+			else if (_IsNextTileWall(i, 0))
 				break;
 		}
 		break;
@@ -167,7 +167,7 @@ void Character::_InitEnemyPath(MoveDirection curDirection)
 		{
 			if (*_enemyPathPtr[_curPosX][_curPosY - i] == MapField::ENEMY_PATH)
 				*_enemyPathPtr[_curPosX][_curPosY - i] = MapField::ROAD;
-			else if (*_enemyPathPtr[_curPosX][_curPosY - i] == (MapField::WALL || MapField::PRISON_WALL))
+			else if (_IsNextTileWall(0, -i));
 				break;
 		}
 	case DOWN:
@@ -175,7 +175,7 @@ void Character::_InitEnemyPath(MoveDirection curDirection)
 		{
 			if (*_enemyPathPtr[_curPosX][_curPosY + i] == MapField::ENEMY_PATH)
 				*_enemyPathPtr[_curPosX][_curPosY + i] = MapField::ROAD;
-			else if (*_enemyPathPtr[_curPosX][_curPosY + i] == (MapField::WALL || MapField::PRISON_WALL))
+			else if (_IsNextTileWall(0, i))
 				break;
 		}
 	case LEFT:
@@ -183,7 +183,7 @@ void Character::_InitEnemyPath(MoveDirection curDirection)
 		{
 			if (*_enemyPathPtr[_curPosX - i][_curPosY] == MapField::ENEMY_PATH)
 				*_enemyPathPtr[_curPosX - i][_curPosY] = MapField::ROAD;
-			else if (*_enemyPathPtr[_curPosX - i][_curPosY] == (MapField::WALL || MapField::PRISON_WALL))
+			else if (_IsNextTileWall(-i, 0))
 				break;
 		}
 	case RIGHT:
@@ -191,7 +191,7 @@ void Character::_InitEnemyPath(MoveDirection curDirection)
 		{
 			if (*_enemyPathPtr[_curPosX + i][_curPosY] == MapField::ENEMY_PATH)
 				*_enemyPathPtr[_curPosX + i][_curPosY] = MapField::ROAD;
-			else if (*_enemyPathPtr[_curPosX + i][_curPosY] == (MapField::WALL || MapField::PRISON_WALL))
+			else if (_IsNextTileWall(i, 0))
 				break;
 		}
 	default:
@@ -234,37 +234,37 @@ bool Character::_IsNextTileEnemyPath(MoveDirection direction)
 	case UP:
 		for (int i = 1; i <= _enemyPath; i++)
 		{
-			if (*_enemyPathPtr[_curPosX][_curPosY - i] == (MapField::ENEMY_PATH || MapField::ENEMY_))
+			if (*_enemyPathPtr[_curPosX][_curPosY - i] == MapField::ENEMY_PATH || *_enemyPathPtr[_curPosX][_curPosY - i] == MapField::ENEMY_)
 				return true;
-			else
-				return false;
+			else if (_IsNextTileWall(0, -i))
+				break;
 		}
 		break;
 	case DOWN:
 		for (int i = 1; i <= _enemyPath; i++)
 		{
-			if (*_enemyPathPtr[_curPosX][_curPosY + i] == (MapField::ENEMY_PATH || MapField::ENEMY_))
+			if (*_enemyPathPtr[_curPosX][_curPosY + i] == MapField::ENEMY_PATH || *_enemyPathPtr[_curPosX][_curPosY + i] == MapField::ENEMY_)
 				return true;
-			else
-				return false;
+			else if (_IsNextTileWall(0, i))
+				break;
 		}
 		break;
 	case LEFT:
 		for (int i = 1; i <= _enemyPath; i++)
 		{
-			if (*_enemyPathPtr[_curPosX - i][_curPosY] == (MapField::ENEMY_PATH || MapField::ENEMY_))
+			if (*_enemyPathPtr[_curPosX - i][_curPosY] == MapField::ENEMY_PATH || *_enemyPathPtr[_curPosX - i][_curPosY] == MapField::ENEMY_)
 				return true;
-			else
-				return false;
+			else if (_IsNextTileWall(-i, 0))
+				break;
 		}
 		break;
 	case RIGHT:
 		for (int i = 1; i <= _enemyPath; i++)
 		{
-			if (*_enemyPathPtr[_curPosX + i][_curPosY] == (MapField::ENEMY_PATH || MapField::ENEMY_))
+			if (*_enemyPathPtr[_curPosX + i][_curPosY] == MapField::ENEMY_PATH || *_enemyPathPtr[_curPosX + i][_curPosY] == MapField::ENEMY_)
 				return true;
-			else
-				return false;
+			else if (_IsNextTileWall(i, 0))
+				break;
 		}
 		break;
 	default:
