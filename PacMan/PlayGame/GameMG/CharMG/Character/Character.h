@@ -9,6 +9,10 @@ enum MoveDirection
 	DOWN,
 	LEFT,
 	RIGHT,
+	UP_LEFT,
+	UP_RIGHT,
+	DOWN_LEFT,
+	DOWN_RIGHT,
 };
 
 struct CharPos
@@ -74,4 +78,5 @@ private:
 
 	void _FindNearItem();
 	MoveDirection _GetNearItemDirection();
+	MoveDirection _GetDirection(MoveDirection direction); //목표지점과 상대위치를 비교해서 우선순위로 방향을 리턴
 };
