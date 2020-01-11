@@ -18,4 +18,6 @@ private:
 	void _Init();
 	void _Update();
 	void _Draw();
+
+	void _IsItemNumZero();
 };

@@ -14,11 +14,12 @@ void GameMG::Start()
 		system("cls");
 		_Update();
 		_Draw();
-		Sleep(400);
+		_IsItemNumZero();
 		if (ProgramMG::GetInstance()->IsGameClear())
 			break;
 		else if (ProgramMG::GetInstance()->IsGameOver())
 			break;
+		Sleep(400);
 	}
 	ProgramMG::GetInstance()->ParsingGameResult();
 }
@@ -40,4 +41,24 @@ void GameMG::_Draw()
 {
 	_mapMaker.Draw();
 	_charMG.Draw();
+}
+
+void GameMG::_IsItemNumZero()
+{
+	int itemNum = 0;
+	int mapSizeY = ProgramMG::GetInstance()->GetMapSize();
+	int mapSizeX = mapSizeY;
+	for (int y = 0; y < mapSizeY; y++)
+	{
+		for (int x = 0; x < mapSizeX; x++)
+		{
+			if (_mapField[y][x] == MapField::ITEM_COIN || _mapField[y][x] == MapField::ITEM_Debuff)
+				itemNum++;
+		}
+	}
+
+	if (itemNum <= 0)
+	{
+		ProgramMG::GetInstance()->SetGameClear(true);
+	}
 }

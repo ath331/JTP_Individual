@@ -22,7 +22,6 @@ private:
 
 	void _CopyArrPtr(MapField array1[][MAX_MAP_SIZE_X], MapField* array2[][MAX_MAP_SIZE_X]);
 
-
 	//¸Ê¹èÄ¡
 	void _MakePrison();
 	void _MakePotal();

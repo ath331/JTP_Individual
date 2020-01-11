@@ -31,6 +31,9 @@ void MapMaker::Init(MapField map[][MAX_MAP_SIZE_X])
 	_MakeItem();
 }
 
+
+
+
 void MapMaker::_CopyArrPtr(MapField array1[][MAX_MAP_SIZE_X], MapField* array2[][MAX_MAP_SIZE_X])
 {
 	for (int y = 0; y < _mapSizeY; y++)
@@ -123,7 +126,7 @@ void MapMaker::_MakeLoad()
 		for (int x = prisonRoadStartX; x < prisonRoadEndX; x++)
 		{
 			if (*_map[y][x] == MapField::EMPTY)
-				*_map[y][x] = MapField::ROAD;
+				* _map[y][x] = MapField::ROAD;
 		}
 	}
 
