@@ -177,45 +177,43 @@ void Player::MoveCharacter(MapField enemyPath[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X])
 void Player::_SetPossibleDirection()
 {
 	//현재위치에서 갈수있는 방향을 체크. UP, DOWN, LEFT, RIGHT
-	if (_IsPlayer())
+
+	_impossibleDirectionNum = 0;
+	if (_IsNextTileWall(0, -1) || _IsNextTileEnemyPath(MoveDirection::UP))
 	{
-		_impossibleDirectionNum = 0;
-		if (_IsNextTileWall(0, -1) || _IsNextTileEnemyPath(MoveDirection::UP))
-		{
-			_possibleDirectionArr[0] = false;
-			_impossibleDirectionNum++;
-		}
-		else
-			_possibleDirectionArr[0] = true;
+		_possibleDirectionArr[0] = false;
+		_impossibleDirectionNum++;
+	}
+	else
+		_possibleDirectionArr[0] = true;
 
-		if (_IsNextTileWall(0, 1) || _IsNextTileEnemyPath(MoveDirection::DOWN))
-		{
-			_possibleDirectionArr[1] = false;
-			_impossibleDirectionNum++;
-		}
-		else
-			_possibleDirectionArr[1] = true;
+	if (_IsNextTileWall(0, 1) || _IsNextTileEnemyPath(MoveDirection::DOWN))
+	{
+		_possibleDirectionArr[1] = false;
+		_impossibleDirectionNum++;
+	}
+	else
+		_possibleDirectionArr[1] = true;
 
-		if (_IsNextTileWall(-1, 0) || _IsNextTileEnemyPath(MoveDirection::LEFT))
-		{
-			_possibleDirectionArr[2] = false;
-			_impossibleDirectionNum++;
-		}
-		else
-			_possibleDirectionArr[2] = true;
+	if (_IsNextTileWall(-1, 0) || _IsNextTileEnemyPath(MoveDirection::LEFT))
+	{
+		_possibleDirectionArr[2] = false;
+		_impossibleDirectionNum++;
+	}
+	else
+		_possibleDirectionArr[2] = true;
 
-		if (_IsNextTileWall(1, 0) || _IsNextTileEnemyPath(MoveDirection::RIGHT))
-		{
-			_possibleDirectionArr[3] = false;
-			_impossibleDirectionNum++;
-		}
-		else
-			_possibleDirectionArr[3] = true;
+	if (_IsNextTileWall(1, 0) || _IsNextTileEnemyPath(MoveDirection::RIGHT))
+	{
+		_possibleDirectionArr[3] = false;
+		_impossibleDirectionNum++;
+	}
+	else
+		_possibleDirectionArr[3] = true;
 
-		if (_impossibleDirectionNum == 4)
-		{
-			ProgramMG::GetInstance()->SetGameOver(true);
-		}
+	if (_impossibleDirectionNum == 4)
+	{
+		ProgramMG::GetInstance()->SetGameOver(true);
 	}
 }
 
