@@ -1,7 +1,6 @@
 #include "Player.h"
 #include "..//..//..//..//ProgramMG/ProgramMG.h"
 
-
 bool Player::_IsNextTileEnemy(int x, int y)
 {
 	if (*_enemyPathPtr[_curPosX + x][_curPosY + y] == MapField::ENEMY_)

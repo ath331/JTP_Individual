@@ -31,7 +31,7 @@ public:
 
 	MapField GetCharState();
 	void SetCharPos(int posX, int posY);
-	virtual void MoveCharacter(MapField enemyPath[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X]); //_MoveCharacter를 외부에서 호출하기 위한 함수
+	virtual void MoveCharacter(MapField enemyPath[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X]) = 0; //_MoveCharacter를 외부에서 호출하기 위한 함수
 protected:
 	int _enemyPath = 3;
 	bool _possibleDirectionArr[4] = { true,true,true,true };
@@ -58,16 +58,12 @@ protected:
 	void _InitCurPosState();
 
 	bool _IsPlayer();
-	bool _IsNextTilePlayer(int x, int y); //m
 	bool _IsNextTileWall(int x, int y);
 	bool _IsNextTilePotal(int x);
 
-
 	MoveDirection _curDirection = MoveDirection::DOWN;
 	virtual MoveDirection _GetRandomDirection();
-	virtual void _MoveChacter(int x, int y); //실질적인 움직임 함수
+	virtual void _MoveChacter(int x, int y) = 0; //실질적인 움직임 함수
 	virtual void _SetPossibleDirection();
 	void _SetCurDirection(MoveDirection direction);
-	void _SetEnemyPath(MoveDirection curDirection); //m
-	void _InitEnemyPath(MoveDirection curDirection); //m
 };
