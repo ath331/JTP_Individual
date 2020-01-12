@@ -1,5 +1,7 @@
 #include "CharMG.h"
 #include "Character/Character.h"
+#include "Character/Monster/Monster.h"
+#include "Character/Player/Player.h"
 #include "../../ProgramMG/ProgramMG.h"
 
 #include <iostream>
@@ -14,14 +16,14 @@ void CharMG::Init(MapField map[][MAX_MAP_SIZE_X])
 	_enemyNum = ProgramMG::GetInstance()->GetEnemyNum();
 
 	//_MakePlayer
-	Character* playerCharacter = new Character;
+	Character* playerCharacter = new Player;
 	playerCharacter->Init(map, _enemyPathMap, MapField::PLAYER_, (_mapSizeX / 2), (_mapSizeY / 2) + 2);
 	charVec.push_back(playerCharacter);
 
 	//_MakeEnemy
 	for (int i = 0; i < _enemyNum; i++)
 	{
-		Character* enemyCharacter = new Character;
+		Character* enemyCharacter = new Monster;
 		enemyCharacter->Init(map, _enemyPathMap, MapField::ENEMY_, ((_mapSizeX / 2) - 1) + i, _mapSizeY / 2);
 		charVec.push_back(enemyCharacter);
 
@@ -29,7 +31,7 @@ void CharMG::Init(MapField map[][MAX_MAP_SIZE_X])
 		int startPosY = _mapSizeY / 2;
 	}
 }
-void CharMG::gotoxy(int x, int y)
+void CharMG::_gotoxy(int x, int y)
 {
 	static HANDLE h = NULL;
 	if (!h)
@@ -46,7 +48,7 @@ void CharMG::Draw()
 		posX = (*iter)->GetCurPosX();
 		posY = (*iter)->GetCurPosY();
 
-		gotoxy(posX * 2, posY);
+		_gotoxy(posX * 2, posY);
 
 		if ((*iter)->GetCharState() == MapField::ENEMY_)
 			std::cout << "¡â";

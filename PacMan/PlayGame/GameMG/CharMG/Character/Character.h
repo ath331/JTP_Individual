@@ -31,8 +31,8 @@ public:
 
 	MapField GetCharState();
 	void SetCharPos(int posX, int posY);
-	void MoveCharacter(MapField enemyPath[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X]); //_MoveChacater를 외부에서 호출하기 위한 함수
-private:
+	virtual void MoveCharacter(MapField enemyPath[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X]); //_MoveCharacter를 외부에서 호출하기 위한 함수
+protected:
 	int _enemyPath = 3;
 	bool _possibleDirectionArr[4] = { true,true,true,true };
 	int _impossibleDirectionNum = 0;
@@ -53,30 +53,21 @@ private:
 	int _curPosX = 0;
 	int _curPosY = 0;
 
-	int _goalPosX = 0;
-	int _goalPosY = 0;
-
 	void _SetCurPosX(int posX);
 	void _SetCurPosY(int posY);
 	void _InitCurPosState();
 
 	bool _IsPlayer();
-	bool _IsNextTileEnemy(int x, int y);
-	bool _IsNextTileEnemyPath(MoveDirection direction);
-	bool _IsNextTilePlayer(int x, int y);
+	bool _IsNextTilePlayer(int x, int y); //m
 	bool _IsNextTileWall(int x, int y);
 	bool _IsNextTilePotal(int x);
-	bool _IsNextTileItem(int tempCurPosX, int tempCurPosY, int x, int y);
+
 
 	MoveDirection _curDirection = MoveDirection::DOWN;
-	MoveDirection _GetRandomDirection();
-	void _MoveChacter(int x, int y); //실질적인 움직임 함수
-	void _SetPossibleDirection();
+	virtual MoveDirection _GetRandomDirection();
+	virtual void _MoveChacter(int x, int y); //실질적인 움직임 함수
+	virtual void _SetPossibleDirection();
 	void _SetCurDirection(MoveDirection direction);
-	void _SetEnemyPath(MoveDirection curDirection);
-	void _InitEnemyPath(MoveDirection curDirection);
-
-	void _FindNearItem();
-	MoveDirection _GetNearItemDirection();
-	MoveDirection _GetDirection(MoveDirection direction); //목표지점과 상대위치를 비교해서 우선순위로 방향을 리턴
+	void _SetEnemyPath(MoveDirection curDirection); //m
+	void _InitEnemyPath(MoveDirection curDirection); //m
 };

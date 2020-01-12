@@ -40,6 +40,12 @@
     <Filter Include="tinyxml">
       <UniqueIdentifier>{19faf7c3-a1e5-46e7-b246-ede6c29045cd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameMG\CharMG\Char\Player">
+      <UniqueIdentifier>{ee0ea512-0b1f-43c3-9d60-0a4415d5b74e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameMG\CharMG\Char\Monster">
+      <UniqueIdentifier>{96fd5f5a-7721-450a-b5ca-bf7a5e29bece}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PlayGameMain.cpp">
@@ -81,6 +87,12 @@
     <ClCompile Include="tinyxml\tinyxmlparser.cpp">
       <Filter>tinyxml</Filter>
     </ClCompile>
+    <ClCompile Include="GameMG\CharMG\Character\Monster\Monster.cpp">
+      <Filter>GameMG\CharMG\Char\Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="GameMG\CharMG\Character\Player\Player.cpp">
+      <Filter>GameMG\CharMG\Char\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConsoleLogger\ConsoleLogger.h">
@@ -118,6 +130,12 @@
     </ClInclude>
     <ClInclude Include="Lock.h">
       <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMG\CharMG\Character\Monster\Monster.h">
+      <Filter>GameMG\CharMG\Char\Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMG\CharMG\Character\Player\Player.h">
+      <Filter>GameMG\CharMG\Char\Player</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

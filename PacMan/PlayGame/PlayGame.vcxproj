@@ -148,6 +148,8 @@
   <ItemGroup>
     <ClCompile Include="ConsoleLogger\ConsoleLogger.cpp" />
     <ClCompile Include="GameMG\CharMG\Character\Character.cpp" />
+    <ClCompile Include="GameMG\CharMG\Character\Monster\Monster.cpp" />
+    <ClCompile Include="GameMG\CharMG\Character\Player\Player.cpp" />
     <ClCompile Include="GameMG\CharMG\CharMG.cpp" />
     <ClCompile Include="GameMG\GameMG.cpp" />
     <ClCompile Include="GameMG\Map\Item\ItemMaker.cpp" />
@@ -163,6 +165,8 @@
   <ItemGroup>
     <ClInclude Include="ConsoleLogger\ConsoleLogger.h" />
     <ClInclude Include="GameMG\CharMG\Character\Character.h" />
+    <ClInclude Include="GameMG\CharMG\Character\Monster\Monster.h" />
+    <ClInclude Include="GameMG\CharMG\Character\Player\Player.h" />
     <ClInclude Include="GameMG\CharMG\CharMG.h" />
     <ClInclude Include="GameMG\GameMG.h" />
     <ClInclude Include="GameMG\Map\Item\ItemMaker.h" />

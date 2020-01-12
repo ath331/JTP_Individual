@@ -23,5 +23,5 @@ private:
 	int _enemyNum = 0;
 
 	void _CopyArr(MapField array1[][MAX_MAP_SIZE_X], MapField array2[][MAX_MAP_SIZE_X]);
-	void gotoxy(int x, int y);
+	void _gotoxy(int x, int y);
 };
