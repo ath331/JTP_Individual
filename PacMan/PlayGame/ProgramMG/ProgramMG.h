@@ -1,6 +1,7 @@
 #pragma once
 #include "../Lock.h"
 
+
 //게임 정보, 결과를 파싱하는 클래스
 class ProgramMG
 {
@@ -16,9 +17,7 @@ public:
 	}
 	~ProgramMG() {};
 
-	void SetMapSize(int mapSize);
-	void SetGameInfo(int wallRatio, int itemNum);
-	void SetEnemyNum(int enemyNum);
+	void SelectMode();
 
 	void ParsingGameResult();
 
@@ -27,22 +26,26 @@ public:
 	void SetGameOver(bool state);
 	void SetGameClear(bool state);
 
-	void InputMapSize();
-	void InputGameInfo();
-	void InputEnemyNum();
-
 	int GetMapSize();
 	int GetWallRatio();
 	int GetItemNum();
 	int GetEnemyNum();
 
+	int GetMode();
+	void SetRandomParameter();
+
 private:
-	Lock pasingLock;
-	Lock gameEndCheckLock;
+	void _InputMapSize();
+	void _InputGameInfo();
+	void _InputEnemyNum();
+	Lock _writeDataLock;
+	Lock _gameEndCheckLock;
 
 	ProgramMG() {};
 	ProgramMG(const ProgramMG& other);
 	static ProgramMG* _instance;
+
+	int _mode = 0;
 
 	int _mapSize = 0;
 	int _wallRatio = 0;

@@ -7,9 +7,7 @@
 
 int main()
 {
-	ProgramMG::GetInstance()->InputMapSize();
-	ProgramMG::GetInstance()->InputGameInfo();
-	ProgramMG::GetInstance()->InputEnemyNum();
+	ProgramMG::GetInstance()->SelectMode();
 
 	GameMG gameMG;
 	//thread 그룹화시키기

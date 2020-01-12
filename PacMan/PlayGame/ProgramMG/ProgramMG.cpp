@@ -5,28 +5,63 @@
 #include <cstring>
 #include <fstream>
 #include <Windows.h>
+#include <cstdlib>
+#include <ctime>
 
 using namespace std;
 
 ProgramMG* ProgramMG::_instance = nullptr;
 
-void ProgramMG::SetMapSize(int mapSize)
+void ProgramMG::SelectMode()
 {
-	_mapSize = mapSize;
-}
-void ProgramMG::SetGameInfo(int wallRatio, int itemNum)
-{
-	_wallRatio = wallRatio;
-	_itemNum = itemNum;
-}
-void ProgramMG::SetEnemyNum(int enemyNum)
-{
-	_enemyNum = enemyNum;
+
+	while (true)
+	{
+		cout << "Select Mode : (1. Auto Parameters, 2. Input Parameters )";
+		cin >> _mode;
+		if (_mode == 1 || _mode == 2)
+			break;
+	}
+
+	if (_mode == 2)
+	{
+		_InputMapSize();
+		_InputGameInfo();
+		_InputEnemyNum();
+	}
+
 }
 
+void ProgramMG::SetRandomParameter()
+{
+	srand((unsigned int)time(NULL));
+
+	int randMapSize = rand() % 3;
+
+	if (randMapSize == 0)
+		_mapSize = 11;
+	else if (randMapSize == 1)
+		_mapSize = 19;
+	else if (randMapSize == 2)
+		_mapSize = 23;
+
+	int randWallRatioNum = ((rand() % 10) + 1) * 10;
+	_wallRatio = randWallRatioNum;
+
+	int randItemNum = rand() % 21;
+	_itemNum = randItemNum;
+
+	int randEnemyNum = (rand() % 5) + 1;
+	_enemyNum = randEnemyNum;
+}
+
+int ProgramMG::GetMode()
+{
+	return _mode;
+}
 void ProgramMG::ParsingGameResult()
 {
-	LockGuard pasingLockGuard(pasingLock);
+	LockGuard pasingLockGuard(_writeDataLock);
 
 	fstream fs("GameResult.csv", ios::out | ios::app);
 
@@ -49,28 +84,26 @@ void ProgramMG::ParsingGameResult()
 	else
 		exit(1);
 }
-
 bool ProgramMG::IsGameOver()
 {
-	LockGuard gameEndCheckLockGuard(gameEndCheckLock);
+	LockGuard gameEndCheckLockGuard(_gameEndCheckLock);
 	return _gameOver;
 }
 bool ProgramMG::IsGameClear()
 {
-	LockGuard gameEndCheckLockGuard(gameEndCheckLock);
+	LockGuard gameEndCheckLockGuard(_gameEndCheckLock);
 	return _gameClear;
 }
 void ProgramMG::SetGameOver(bool state)
 {
-	LockGuard gameEndCheckLockGuard(gameEndCheckLock);
+	LockGuard gameEndCheckLockGuard(_gameEndCheckLock);
 	_gameOver = state;
 }
 void ProgramMG::SetGameClear(bool state)
 {
-	LockGuard gameEndCheckLockGuard(gameEndCheckLock);
+	LockGuard gameEndCheckLockGuard(_gameEndCheckLock);
 	_gameClear = state;
 }
-
 int ProgramMG::GetMapSize()
 {
 	return _mapSize;
@@ -88,7 +121,7 @@ int ProgramMG::GetEnemyNum()
 	return _enemyNum;
 }
 
-void ProgramMG::InputMapSize()
+void ProgramMG::_InputMapSize()
 {
 	while (true)
 	{
@@ -98,7 +131,7 @@ void ProgramMG::InputMapSize()
 			break;
 	}
 }
-void ProgramMG::InputGameInfo()
+void ProgramMG::_InputGameInfo()
 {
 	while (true)
 	{
@@ -115,7 +148,7 @@ void ProgramMG::InputGameInfo()
 			break;
 	}
 }
-void ProgramMG::InputEnemyNum()
+void ProgramMG::_InputEnemyNum()
 {
 	while (true)
 	{

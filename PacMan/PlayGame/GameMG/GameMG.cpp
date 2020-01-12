@@ -6,6 +6,10 @@
 
 void GameMG::Start()
 {
+	if (ProgramMG::GetInstance()->GetMode() == 1)
+	{
+		ProgramMG::GetInstance()->SetRandomParameter();
+	}
 	_Init();
 	ProgramMG::GetInstance()->SetGameOver(false);
 	ProgramMG::GetInstance()->SetGameClear(false);
@@ -13,7 +17,7 @@ void GameMG::Start()
 	{
 		system("cls");
 		_Update();
-		_Draw();
+		//_Draw();
 		_IsItemNumZero();
 		if (ProgramMG::GetInstance()->IsGameClear())
 			break;

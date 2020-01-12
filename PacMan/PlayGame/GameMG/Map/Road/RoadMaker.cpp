@@ -8,8 +8,6 @@
 
 void RoadMaker::Init( const int mapSizeX, const int mapSizeY)
 {
-	srand((unsigned int)time(NULL));
-
 	_wallRatio = ProgramMG::GetInstance()->GetWallRatio();
 	_mapSizeX = mapSizeX;
 	_mapSizeY = mapSizeY;

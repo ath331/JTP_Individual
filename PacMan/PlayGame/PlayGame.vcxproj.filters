@@ -13,9 +13,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="ConsoleLogger">
-      <UniqueIdentifier>{b41606a9-545f-485a-9944-b6c9b3aa0573}</UniqueIdentifier>
-    </Filter>
     <Filter Include="GameMG">
       <UniqueIdentifier>{290389b7-9513-414c-a69a-dff0dfa9f675}</UniqueIdentifier>
     </Filter>
@@ -50,9 +47,6 @@
   <ItemGroup>
     <ClCompile Include="PlayGameMain.cpp">
       <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="ConsoleLogger\ConsoleLogger.cpp">
-      <Filter>ConsoleLogger</Filter>
     </ClCompile>
     <ClCompile Include="GameMG\CharMG\Character\Character.cpp">
       <Filter>GameMG\CharMG\Char</Filter>
@@ -95,9 +89,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ConsoleLogger\ConsoleLogger.h">
-      <Filter>ConsoleLogger</Filter>
-    </ClInclude>
     <ClInclude Include="GameMG\CharMG\Character\Character.h">
       <Filter>GameMG\CharMG\Char</Filter>
     </ClInclude>

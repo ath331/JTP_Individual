@@ -146,7 +146,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ConsoleLogger\ConsoleLogger.cpp" />
     <ClCompile Include="GameMG\CharMG\Character\Character.cpp" />
     <ClCompile Include="GameMG\CharMG\Character\Monster\Monster.cpp" />
     <ClCompile Include="GameMG\CharMG\Character\Player\Player.cpp" />
@@ -163,7 +162,6 @@
     <ClCompile Include="tinyxml\tinyxmlparser.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ConsoleLogger\ConsoleLogger.h" />
     <ClInclude Include="GameMG\CharMG\Character\Character.h" />
     <ClInclude Include="GameMG\CharMG\Character\Monster\Monster.h" />
     <ClInclude Include="GameMG\CharMG\Character\Player\Player.h" />
