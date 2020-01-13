@@ -8,7 +8,6 @@
 
 void GameMG::Start()
 {
-	srand((unsigned int)time(NULL));
 
 	if (ProgramMG::GetInstance()->GetMode() == 1) //Auto Mode
 	{
@@ -24,9 +23,12 @@ void GameMG::Start()
 	_inputMG.SetGameClear(false);
 	while (true)
 	{
-		system("cls");
 		_Update();
-		_Draw();
+		if (ProgramMG::GetInstance()->GetMode() != 1) //Select Mode
+		{
+			system("cls");
+			_Draw();
+		}
 		_IsItemNumZero();
 		if (_inputMG.IsGameClear() || _inputMG.IsGameOver())
 			break;
@@ -35,7 +37,6 @@ void GameMG::Start()
 	ProgramMG::GetInstance()->ParsingGameResult(_inputMG.GetMapSize(), _inputMG.GetWallRatio(), _inputMG.GetItemNum(), _inputMG.GetEnemyNum(), _inputMG.IsGameClear());
 
 }
-
 void GameMG::_Init()
 {
 	std::fill(&_mapField[0][0], &_mapField[MAX_MAP_SIZE_Y - 1][MAX_MAP_SIZE_X], EnumMap::MapField::EMPTY);

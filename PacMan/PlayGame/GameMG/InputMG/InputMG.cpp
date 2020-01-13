@@ -1,8 +1,14 @@
+#define _CRT_RAND_S  
+
 #include "InputMG.h"
 
+#include <stdlib.h> 
 #include <iostream>
+#include <random>
 #include <cstdlib>
 #include <ctime>
+
+#include <boost/thread.hpp>
 
 void InputMG::SetGameInfo()
 {
@@ -87,24 +93,61 @@ void InputMG::_InputEnemyNum()
 
 void InputMG::SetRandomParameter()
 {
-	srand((unsigned int)time(NULL));
-
-	int randMapSize = rand() % 3;
-
-	if (randMapSize == 0)
+	init_number_generator();
+	unsigned int uNumber = 0U;
+	int randomMapSize = 0;
+	rand_s(&uNumber);
+	randomMapSize = (int)((unsigned int)((double)uNumber / ((double)UINT_MAX + 1.0) * 3) + 0);
+	if (randomMapSize == 0)
 		_mapSize = 11;
-	else if (randMapSize == 1)
+	else if (randomMapSize == 1)
 		_mapSize = 15;
-	else if (randMapSize == 2)
+	else if (randomMapSize == 2)
 		_mapSize = 19;
 
-	int randWallRatioNum = ((rand() % 10) + 1) * 10;
-	_wallRatio = randWallRatioNum;
+	unsigned int uNumber2 = 0U;
+	int randomWallRatio = 0;
+	rand_s(&uNumber2);
+	randomWallRatio = (int)((unsigned int)((double)uNumber / ((double)UINT_MAX + 1.0) * 50) + 30);
+	randomWallRatio = (randomWallRatio / 5) * 5;
+	_wallRatio = randomWallRatio;
 
-	int randItemNum = rand() % 21;
-	_itemNum = randItemNum;
+	unsigned int uNumber3 = 0U;
+	int randomItemNum = 0;
+	rand_s(&uNumber3);
+	//난이도에 따라서 랜덤값 조절
+	if (randomMapSize == 0)
+		randomItemNum = (int)((unsigned int)((double)uNumber / ((double)UINT_MAX + 1.0) * 3) + 0);
+	else if (randomMapSize == 1)
+		randomItemNum = (int)((unsigned int)((double)uNumber / ((double)UINT_MAX + 1.0) * 4) + 4);
+	else if (randomMapSize == 1)
+		randomItemNum = (int)((unsigned int)((double)uNumber / ((double)UINT_MAX + 1.0) * 4) + 4);
+	randomItemNum = (int)((unsigned int)((double)uNumber / ((double)UINT_MAX + 1.0) * 10) + 1);
+	_itemNum = randomItemNum;
 
-	int randEnemyNum = (rand() % 5) + 1;
+	unsigned int uNumber4 = 0U;
+	int randEnemyNum = 0;
+	rand_s(&uNumber4);
+	//난이도에 따라서 랜덤값 조절
+	if (randomMapSize == 0)
+		randEnemyNum = (int)((unsigned int)((double)uNumber / ((double)UINT_MAX + 1.0) * 3) + 1);
+	else if (randomMapSize == 1)
+		randEnemyNum = (int)((unsigned int)((double)uNumber / ((double)UINT_MAX + 1.0) * 4) + 4);
+	else if(randomMapSize == 1)
+		randEnemyNum = (int)((unsigned int)((double)uNumber / ((double)UINT_MAX + 1.0) * 4) + 6);
+
 	_enemyNum = randEnemyNum;
 }
 
+void InputMG::init_number_generator()
+{
+	static boost::thread_specific_ptr<bool> tls;
+	if (!tls.get())
+		tls.reset(new bool(false));
+	if (!*tls)
+	{
+		Sleep(0.01);
+		*tls = true;
+		std::srand(static_cast<unsigned int>(std::time(NULL)));
+	}
+}

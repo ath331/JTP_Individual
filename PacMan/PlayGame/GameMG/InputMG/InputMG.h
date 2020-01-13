@@ -2,6 +2,7 @@
 class InputMG
 {
 public:
+
 	int GetMapSize();
 	int GetWallRatio();
 	int GetItemNum();
@@ -15,6 +16,8 @@ public:
 	void SetRandomParameter();
 	void SetGameInfo();
 private:
+	void init_number_generator();
+
 	void _InputMapSize();
 	void _InputGameInfo();
 	void _InputEnemyNum();
