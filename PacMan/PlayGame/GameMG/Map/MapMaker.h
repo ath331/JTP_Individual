@@ -2,15 +2,17 @@
 #include "MapEnum.h"
 #include "Road/RoadMaker.h"
 #include "Item/ItemMaker.h"
+#include "../InputMG/InputMG.h"
 
 using namespace EnumMap;
 
 class MapMaker
 {
 public:
-	void Init(MapField map[][MAX_MAP_SIZE_X]);
+	void Init(InputMG* inputMG, MapField map[][MAX_MAP_SIZE_X]);
 	void Draw();
 private:
+	InputMG* _inputMG;
 	RoadMaker _roadMaker;
 	ItemMaker _itemMaker;
 

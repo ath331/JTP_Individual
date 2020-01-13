@@ -22,42 +22,17 @@ public:
 
 	void SelectMode();
 
-	void ParsingGameResult();
-
-	bool IsGameOver();
-	bool IsGameClear();
-	void SetGameOver(bool state);
-	void SetGameClear(bool state);
-
-	int GetMapSize();
-	int GetWallRatio();
-	int GetItemNum();
-	int GetEnemyNum();
-
+	void ParsingGameResult(int mapSize,int wallRatio, int itemNum, int enemyNum, bool gameClear);
 	int GetMode();
-	void SetRandomParameter();
 
 private:
-	void _InputMapSize();
-	void _InputGameInfo();
-	void _InputEnemyNum();
-
 	static Lock _dclpLock;
 	Lock _writeDataLock;
-	Lock _gameEndCheckLock;
 
 	ProgramMG() {};
 	ProgramMG(const ProgramMG& other);
 	static ProgramMG* volatile _instance;
 
 	int _mode = 0;
-
-	int _mapSize = 0;
-	int _wallRatio = 0;
-	int _itemNum = 0;
-	int _enemyNum = 0;
-
-	bool _gameOver = false;
-	bool _gameClear = false;
 };
 

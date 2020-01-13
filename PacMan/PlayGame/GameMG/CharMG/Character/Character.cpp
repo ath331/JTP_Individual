@@ -7,11 +7,11 @@
 #include <vector>
 #include <algorithm>
 
-void Character::Init(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], MapField enemyPath[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], MapField charState, int startX, int startY)
+void Character::Init(InputMG* inputMG,MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], MapField enemyPath[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], MapField charState, int startX, int startY)
 {
 	_CopyArr(map, _charMap);
-
-	_mapSizeX = ProgramMG::GetInstance()->GetMapSize();
+	_inputMG = inputMG;
+	_mapSizeX = _inputMG->GetMapSize();
 	_mapSizeY = _mapSizeX;
 	_CopyArrPtr(enemyPath, _enemyPathPtr);
 	_CopyArrPtr(map, _mapPtr);

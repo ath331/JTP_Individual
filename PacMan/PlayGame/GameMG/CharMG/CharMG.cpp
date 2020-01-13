@@ -8,29 +8,31 @@
 #include <conio.h>
 #include <windows.h>
 
-void CharMG::Init(MapField map[][MAX_MAP_SIZE_X])
+void CharMG::Init(InputMG* inputMG, MapField map[][MAX_MAP_SIZE_X])
 {
+	_inputMG = inputMG;
 	_CopyArr(map, _enemyPathMap);
-	_mapSizeX = ProgramMG::GetInstance()->GetMapSize();
+	_mapSizeX = _inputMG->GetMapSize();
 	_mapSizeY = _mapSizeX;
-	_enemyNum = ProgramMG::GetInstance()->GetEnemyNum();
+	_enemyNum = _inputMG->GetEnemyNum();
 
 	//_MakePlayer
 	Character* playerCharacter = new Player;
-	playerCharacter->Init(map, _enemyPathMap, MapField::PLAYER_, (_mapSizeX / 2), (_mapSizeY / 2) + 2);
+	playerCharacter->Init(inputMG,map, _enemyPathMap, MapField::PLAYER_, (_mapSizeX / 2), (_mapSizeY / 2) + 2);
 	charVec.push_back(playerCharacter);
 
 	//_MakeEnemy
 	for (int i = 0; i < _enemyNum; i++)
 	{
 		Character* enemyCharacter = new Monster;
-		enemyCharacter->Init(map, _enemyPathMap, MapField::ENEMY_, ((_mapSizeX / 2) - 1) + i, _mapSizeY / 2);
+		enemyCharacter->Init(inputMG,map, _enemyPathMap, MapField::ENEMY_, ((_mapSizeX / 2) - 1) + i, _mapSizeY / 2);
 		charVec.push_back(enemyCharacter);
 
 		int startPosX = ((_mapSizeX / 2) - 1) + i;
 		int startPosY = _mapSizeY / 2;
 	}
 }
+
 void CharMG::_gotoxy(int x, int y)
 {
 	static HANDLE h = NULL;
@@ -56,6 +58,7 @@ void CharMG::Draw()
 			std::cout << "бу";
 	}
 }
+
 void CharMG::_CopyArr(MapField array1[][MAX_MAP_SIZE_X], MapField array2[][MAX_MAP_SIZE_X])
 {
 	MapField* p1 = nullptr, * endp1 = nullptr;

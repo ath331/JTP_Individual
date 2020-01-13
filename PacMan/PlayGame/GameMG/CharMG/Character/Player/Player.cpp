@@ -212,7 +212,7 @@ void Player::_SetPossibleDirection()
 
 	if (_impossibleDirectionNum == 4)
 	{
-		ProgramMG::GetInstance()->SetGameOver(true);
+		_inputMG->SetGameOver(true);
 	}
 }
 
@@ -227,7 +227,7 @@ void Player::_MoveChacter(int x, int y)
 
 		if (_IsNextTileEnemy(x, y))
 		{
-			ProgramMG::GetInstance()->SetGameOver(true);
+			_inputMG->SetGameOver(true);
 			return;
 		}
 	}

@@ -1,5 +1,6 @@
 #pragma once
 #include "../../Map/MapEnum.h"
+#include"../../InputMG/InputMG.h"
 
 using namespace EnumMap;
 
@@ -25,7 +26,7 @@ public:
 class Character
 {
 public:
-	void Init(MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], MapField enemyPath[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], MapField charState, int startX, int startY);
+	void Init(InputMG* inputMG, MapField map[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], MapField enemyPath[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X], MapField charState, int startX, int startY);
 	int GetCurPosX();
 	int GetCurPosY();
 
@@ -33,6 +34,7 @@ public:
 	void SetCharPos(int posX, int posY);
 	virtual void MoveCharacter(MapField enemyPath[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X]) = 0; //_MoveCharacter를 외부에서 호출하기 위한 함수
 protected:
+	InputMG* _inputMG;
 	int _enemyPath = 3;
 	bool _possibleDirectionArr[4] = { true,true,true,true };
 	int _impossibleDirectionNum = 0;

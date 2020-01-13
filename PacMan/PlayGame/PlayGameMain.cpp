@@ -11,8 +11,9 @@ int main()
 
 	GameMG gameMG;
 	boost::thread_group tg;
-	while (1)
+	while (true)
 	{
+		tg.create_thread(boost::bind(&GameMG::Start, gameMG));
 		tg.create_thread(boost::bind(&GameMG::Start, gameMG));
 		tg.join_all();
 	}

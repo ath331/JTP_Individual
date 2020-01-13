@@ -10,34 +10,38 @@ void GameMG::Start()
 {
 	srand((unsigned int)time(NULL));
 
-	if (ProgramMG::GetInstance()->GetMode() == 1)
+	if (ProgramMG::GetInstance()->GetMode() == 1) //Auto Mode
 	{
-		ProgramMG::GetInstance()->SetRandomParameter();
+		_inputMG.SetRandomParameter();
+	}
+
+	else if (ProgramMG::GetInstance()->GetMode() != 1) //Select Mode
+	{
+		_inputMG.SetGameInfo();
 	}
 	_Init();
-	ProgramMG::GetInstance()->SetGameOver(false);
-	ProgramMG::GetInstance()->SetGameClear(false);
+	_inputMG.SetGameOver(false);
+	_inputMG.SetGameClear(false);
 	while (true)
 	{
 		system("cls");
 		_Update();
 		_Draw();
 		_IsItemNumZero();
-		if (ProgramMG::GetInstance()->IsGameClear())
-			break;
-		else if (ProgramMG::GetInstance()->IsGameOver())
+		if (_inputMG.IsGameClear() || _inputMG.IsGameOver())
 			break;
 		Sleep(400);
 	}
-	ProgramMG::GetInstance()->ParsingGameResult();
+	ProgramMG::GetInstance()->ParsingGameResult(_inputMG.GetMapSize(), _inputMG.GetWallRatio(), _inputMG.GetItemNum(), _inputMG.GetEnemyNum(), _inputMG.IsGameClear());
+
 }
 
 void GameMG::_Init()
 {
 	std::fill(&_mapField[0][0], &_mapField[MAX_MAP_SIZE_Y - 1][MAX_MAP_SIZE_X], EnumMap::MapField::EMPTY);
 
-	_mapMaker.Init(_mapField);
-	_charMG.Init(_mapField);
+	_mapMaker.Init(&_inputMG, _mapField);
+	_charMG.Init(&_inputMG, _mapField);
 }
 
 void GameMG::_Update()
@@ -54,7 +58,7 @@ void GameMG::_Draw()
 void GameMG::_IsItemNumZero()
 {
 	int itemNum = 0;
-	int mapSizeY = ProgramMG::GetInstance()->GetMapSize();
+	int mapSizeY = _inputMG.GetMapSize();
 	int mapSizeX = mapSizeY;
 	for (int y = 0; y < mapSizeY; y++)
 	{
@@ -67,6 +71,6 @@ void GameMG::_IsItemNumZero()
 
 	if (itemNum <= 0)
 	{
-		ProgramMG::GetInstance()->SetGameClear(true);
+		_inputMG.SetGameClear(true);
 	}
 }

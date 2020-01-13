@@ -150,7 +150,7 @@ void Monster::_MoveChacter(int x, int y)
 
 		if (_IsNextTilePlayer(x, y) && !_IsPlayer())
 		{
-			ProgramMG::GetInstance()->SetGameOver(true);
+			_inputMG->SetGameOver(true);
 			return;
 		}
 	}

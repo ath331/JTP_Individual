@@ -1,13 +1,14 @@
 #include "MapMaker.h"
 #include "MapEnum.h"
-#include "../../ProgramMG/ProgramMG.h"
 
 #include <iostream>
 
-void MapMaker::Init(MapField map[][MAX_MAP_SIZE_X])
+void MapMaker::Init(InputMG* inputMG, MapField map[][MAX_MAP_SIZE_X])
 {
-	_mapSizeX = ProgramMG::GetInstance()->GetMapSize();
+	_inputMG = inputMG;
+	_mapSizeX = inputMG->GetMapSize();
 	_mapSizeY = _mapSizeX;
+	_itemNum = inputMG->GetItemNum();
 
 	_CopyArrPtr(map, _map);
 
@@ -30,9 +31,6 @@ void MapMaker::Init(MapField map[][MAX_MAP_SIZE_X])
 
 	_MakeItem();
 }
-
-
-
 
 void MapMaker::_CopyArrPtr(MapField array1[][MAX_MAP_SIZE_X], MapField* array2[][MAX_MAP_SIZE_X])
 {
@@ -130,7 +128,7 @@ void MapMaker::_MakeLoad()
 		}
 	}
 
-	_roadMaker.Init(_mapSizeX, _mapSizeY);
+	_roadMaker.Init(_mapSizeX, _mapSizeY, _inputMG->GetWallRatio());
 	_roadMaker.MakeLoad(_map);
 }
 
@@ -151,7 +149,7 @@ void MapMaker::_MakeFieldWall()
 
 void MapMaker::_MakeItem()
 {
-	_itemMaker.Init(_mapSizeX, _mapSizeY);
+	_itemMaker.Init(_mapSizeX, _mapSizeY,_itemNum);
 	_itemMaker.SettingItemDebuff(_map);
 	_itemMaker.SettingItemCoin(_map);
 }

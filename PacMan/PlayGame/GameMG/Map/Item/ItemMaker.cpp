@@ -1,15 +1,11 @@
 #include "ItemMaker.h"
 #include "../../../ProgramMG/ProgramMG.h"
 
-#include <cstdlib>
-#include <ctime>
 #include <vector>
 
-void ItemMaker::Init(int mapSizeX, int mapSizeY)
+void ItemMaker::Init(int mapSizeX, int mapSizeY,int itemNum)
 {
-	srand((unsigned int)time(NULL));
-
-	_itemNum = ProgramMG::GetInstance()->GetItemNum();
+	_itemNum = itemNum;
 	_mapSizeX = mapSizeX;
 	_mapSizeY = mapSizeY;
 }
@@ -33,6 +29,7 @@ void ItemMaker::SettingItemDebuff(MapField* map[][MAX_MAP_SIZE_X])
 	{
 		int posX, posY;
 	};
+
 	std::vector<tempPosXY> tempPosVec(curLoadNum);
 	int i = 0;
 	for (int y = 0; y < _mapSizeY; y++)

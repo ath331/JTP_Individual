@@ -43,6 +43,9 @@
     <Filter Include="GameMG\CharMG\Char\Monster">
       <UniqueIdentifier>{96fd5f5a-7721-450a-b5ca-bf7a5e29bece}</UniqueIdentifier>
     </Filter>
+    <Filter Include="GameMG\InputMG">
+      <UniqueIdentifier>{9fd0336b-bae0-4a62-83b7-fd96214caa8e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PlayGameMain.cpp">
@@ -88,7 +91,7 @@
       <Filter>GameMG\CharMG\Char\Player</Filter>
     </ClCompile>
     <ClCompile Include="GameMG\InputMG\InputMG.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>GameMG\InputMG</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -132,7 +135,7 @@
       <Filter>GameMG\CharMG\Char\Player</Filter>
     </ClInclude>
     <ClInclude Include="GameMG\InputMG\InputMG.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>GameMG\InputMG</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
