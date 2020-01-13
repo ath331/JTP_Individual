@@ -231,7 +231,7 @@ void Player::_MoveChacter(int x, int y)
 		_InitCurPosState();
 		SetCharPos(_curPosX + x, _curPosY + y);
 
-		if (_IsNextTileEnemy(x, y))
+		if (_IsNextTileEnemy(x, y) && *_mapPtr[_curPosX][_curPosY] == MapField::ENEMY_)
 		{
 			_inputMG->SetGameOver(true);
 			return;

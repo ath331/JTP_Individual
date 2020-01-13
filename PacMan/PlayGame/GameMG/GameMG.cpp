@@ -8,7 +8,6 @@
 
 void GameMG::Start()
 {
-
 	if (ProgramMG::GetInstance()->GetMode() == 1) //Auto Mode
 	{
 		_inputMG.SetRandomParameter();

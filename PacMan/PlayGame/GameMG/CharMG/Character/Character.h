@@ -74,7 +74,7 @@ protected:
 	bool _IsNextTilePotal(int x);
 
 	MoveDirection _curDirection = MoveDirection::DOWN;
-	virtual MoveDirection _GetRandomDirection() =0;
+	virtual MoveDirection _GetRandomDirection() = 0;
 	virtual void _MoveChacter(int x, int y) = 0; //실질적인 움직임 함수
 	virtual void _SetPossibleDirection();
 	void _SetCurDirection(MoveDirection direction);

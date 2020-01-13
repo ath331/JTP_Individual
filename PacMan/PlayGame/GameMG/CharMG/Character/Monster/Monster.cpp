@@ -10,12 +10,12 @@ bool Monster::_IsNextTilePlayer(int x, int y)
 }
 MoveDirection Monster::_GetRandomDirection()
 {
-	if (_playerStateGetItem)
+	/*if (_playerStateGetItem)
 	{
 		return _GetNearGoalPosDirection();
 	}
 
-	else if (!_playerStateGetItem)
+	else if (!_playerStateGetItem)*/
 	{
 		int randDirection = rand() % 4;
 		while (_possibleDirectionArr[randDirection] == false)
@@ -152,7 +152,7 @@ void Monster::_MoveChacter(int x, int y)
 		_InitCurPosState();
 		SetCharPos(_curPosX + x, _curPosY + y);
 
-		if (_IsNextTilePlayer(x, y) && !_IsPlayer())
+		if (_IsNextTilePlayer(x, y) || *_mapPtr[_curPosX][_curPosY] == MapField::PLAYER_)
 		{
 			_inputMG->SetGameOver(true);
 			return;
