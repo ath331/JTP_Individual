@@ -39,10 +39,6 @@ void ProgramMG::ParsingGameResult(int mapSize, int wallRatio, int itemNum, int e
 			<< enemyNum << "," << !gameClear << "," << gameClear;
 
 		fs.close();
-		std::cout << mapSize << ","
-			<< wallRatio << "," << itemNum << ","
-			<< enemyNum << "," << !gameClear << "," << gameClear
-			<< std::endl;
 	}
 	else
 		std::cout << "File Open error" << std::endl;

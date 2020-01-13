@@ -135,8 +135,6 @@ void InputMG::SetRandomParameter()
 	else if(randomMapSize == 2)
 		randEnemyNum = (int)((unsigned int)((double)uNumber / ((double)UINT_MAX + 1.0) * 2) + 5);
 	_enemyNum = randEnemyNum;
-
-	std::cout << _mapSize << " " << _wallRatio << " " << _itemNum << " " << _enemyNum << std::endl;
 }
 
 void InputMG::init_number_generator()
