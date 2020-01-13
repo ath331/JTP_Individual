@@ -122,6 +122,7 @@ void RoadMaker::_MakeAdditionalLoad(MapField* map[][MAX_MAP_SIZE_X])
 
 	while (wallNum > 0)
 	{
+		srand((unsigned int)time(NULL));
 		int randNum = rand() % tempPosVec.size();
 		int tempX = tempPosVec[randNum].posX;
 		int tempY = tempPosVec[randNum].posY;

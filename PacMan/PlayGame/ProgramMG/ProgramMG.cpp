@@ -10,7 +10,8 @@
 
 using namespace std;
 
-ProgramMG* ProgramMG::_instance = nullptr;
+ProgramMG* volatile ProgramMG::_instance = nullptr;
+Lock ProgramMG::_dclpLock;
 
 void ProgramMG::SelectMode()
 {
@@ -41,9 +42,9 @@ void ProgramMG::SetRandomParameter()
 	if (randMapSize == 0)
 		_mapSize = 11;
 	else if (randMapSize == 1)
-		_mapSize = 19;
+		_mapSize = 15;
 	else if (randMapSize == 2)
-		_mapSize = 23;
+		_mapSize = 19;
 
 	int randWallRatioNum = ((rand() % 10) + 1) * 10;
 	_wallRatio = randWallRatioNum;
@@ -125,9 +126,9 @@ void ProgramMG::_InputMapSize()
 {
 	while (true)
 	{
-		std::cout << "Input MapSize_ (11, 19, 23) : ";
+		std::cout << "Input MapSize_ (11, 15, 19) : ";
 		std::cin >> _mapSize;
-		if (_mapSize == 11 || _mapSize == 19 || _mapSize == 23)
+		if (_mapSize == 11 || _mapSize == 15 || _mapSize == 19)
 			break;
 	}
 }

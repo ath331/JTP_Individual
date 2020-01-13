@@ -151,6 +151,7 @@
     <ClCompile Include="GameMG\CharMG\Character\Player\Player.cpp" />
     <ClCompile Include="GameMG\CharMG\CharMG.cpp" />
     <ClCompile Include="GameMG\GameMG.cpp" />
+    <ClCompile Include="GameMG\InputMG\InputMG.cpp" />
     <ClCompile Include="GameMG\Map\Item\ItemMaker.cpp" />
     <ClCompile Include="GameMG\Map\MapMaker.cpp" />
     <ClCompile Include="GameMG\Map\Road\RoadMaker.cpp" />
@@ -167,6 +168,7 @@
     <ClInclude Include="GameMG\CharMG\Character\Player\Player.h" />
     <ClInclude Include="GameMG\CharMG\CharMG.h" />
     <ClInclude Include="GameMG\GameMG.h" />
+    <ClInclude Include="GameMG\InputMG\InputMG.h" />
     <ClInclude Include="GameMG\Map\Item\ItemMaker.h" />
     <ClInclude Include="GameMG\Map\MapEnum.h" />
     <ClInclude Include="GameMG\Map\MapMaker.h" />

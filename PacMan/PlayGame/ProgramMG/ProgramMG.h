@@ -1,16 +1,19 @@
 #pragma once
 #include "../Lock.h"
-
+#include <mutex>
 
 //게임 정보, 결과를 파싱하는 클래스
 class ProgramMG
 {
 public:
-	static ProgramMG* GetInstance()
+	static ProgramMG* volatile GetInstance()
 	{
 		if (_instance == nullptr)
+			LockGuard _dclpLockGuard(_dclpLock);
+
+		if (_instance == nullptr)
 		{
-			_instance = new ProgramMG;
+			_instance = new ProgramMG();
 		}
 
 		return _instance;
@@ -38,12 +41,14 @@ private:
 	void _InputMapSize();
 	void _InputGameInfo();
 	void _InputEnemyNum();
+
+	static Lock _dclpLock;
 	Lock _writeDataLock;
 	Lock _gameEndCheckLock;
 
 	ProgramMG() {};
 	ProgramMG(const ProgramMG& other);
-	static ProgramMG* _instance;
+	static ProgramMG* volatile _instance;
 
 	int _mode = 0;
 

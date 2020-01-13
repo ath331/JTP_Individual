@@ -10,10 +10,10 @@ int main()
 	ProgramMG::GetInstance()->SelectMode();
 
 	GameMG gameMG;
-	//thread 그룹화시키기
+	boost::thread_group tg;
 	while (1)
 	{
-		boost::thread th1(boost::bind(&GameMG::Start, gameMG));
-		th1.join();
+		tg.create_thread(boost::bind(&GameMG::Start, gameMG));
+		tg.join_all();
 	}
 }

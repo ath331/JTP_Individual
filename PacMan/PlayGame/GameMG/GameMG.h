@@ -3,6 +3,7 @@
 #include "Map/MapMaker.h"
 #include "Map/MapEnum.h"
 #include "CharMG/CharMG.h"
+#include "InputMG/InputMG.h"
 
 class GameMG
 {
@@ -10,6 +11,7 @@ public:
 	void Start();
 
 private:
+	InputMG _inputMG;
 	MapMaker _mapMaker;
 	CharMG _charMG;
 

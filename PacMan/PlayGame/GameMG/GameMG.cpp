@@ -3,9 +3,13 @@
 
 #include <iostream>
 #include <windows.h>
+#include <cstdlib>
+#include <ctime>
 
 void GameMG::Start()
 {
+	srand((unsigned int)time(NULL));
+
 	if (ProgramMG::GetInstance()->GetMode() == 1)
 	{
 		ProgramMG::GetInstance()->SetRandomParameter();
@@ -17,7 +21,7 @@ void GameMG::Start()
 	{
 		system("cls");
 		_Update();
-		//_Draw();
+		_Draw();
 		_IsItemNumZero();
 		if (ProgramMG::GetInstance()->IsGameClear())
 			break;
