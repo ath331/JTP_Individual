@@ -30,7 +30,6 @@ int ProgramMG::GetMode()
 void ProgramMG::ParsingGameResult(int mapSize, int wallRatio, int itemNum, int enemyNum, bool gameClear)
 {
 	LockGuard pasingLockGuard(_writeDataLock);
-
 	fstream fs("GameResult.csv", ios::out | ios::app);
 
 	if (fs.is_open())

@@ -34,9 +34,12 @@ void GameMG::Start()
 			break;
 		Sleep(400);
 	}
-	ProgramMG::GetInstance()->ParsingGameResult(_inputMG.GetMapSize(), _inputMG.GetWallRatio(), _inputMG.GetItemNum(), _inputMG.GetEnemyNum(), _inputMG.IsGameClear());
+	{
+		ProgramMG::GetInstance()->ParsingGameResult(_inputMG.GetMapSize(), _inputMG.GetWallRatio(), _inputMG.GetItemNum(), _inputMG.GetEnemyNum(), _inputMG.IsGameClear());
+	}
 
 }
+
 void GameMG::_Init()
 {
 	std::fill(&_mapField[0][0], &_mapField[MAX_MAP_SIZE_Y - 1][MAX_MAP_SIZE_X], EnumMap::MapField::EMPTY);

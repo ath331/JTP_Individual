@@ -129,11 +129,11 @@ void InputMG::SetRandomParameter()
 	rand_s(&uNumber4);
 	//난이도에 따라서 랜덤값 조절
 	if (randomMapSize == 0)
-		randEnemyNum = (int)((unsigned int)((double)uNumber / ((double)UINT_MAX + 1.0) * 3) + 1);
+		randEnemyNum = (int)((unsigned int)((double)uNumber / ((double)UINT_MAX + 1.0) * 2) + 1);
 	else if (randomMapSize == 1)
-		randEnemyNum = (int)((unsigned int)((double)uNumber / ((double)UINT_MAX + 1.0) * 3) + 5);
+		randEnemyNum = (int)((unsigned int)((double)uNumber / ((double)UINT_MAX + 1.0) * 2) + 3);
 	else if(randomMapSize == 2)
-		randEnemyNum = (int)((unsigned int)((double)uNumber / ((double)UINT_MAX + 1.0) * 3) + 7);
+		randEnemyNum = (int)((unsigned int)((double)uNumber / ((double)UINT_MAX + 1.0) * 2) + 5);
 	_enemyNum = randEnemyNum;
 
 	std::cout << _mapSize << " " << _wallRatio << " " << _itemNum << " " << _enemyNum << std::endl;

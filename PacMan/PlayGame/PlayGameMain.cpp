@@ -10,21 +10,20 @@
 
 int main()
 {
-	Lock randomSettingLock;
 	SYSTEM_INFO systemInfo;
 	GetSystemInfo(&systemInfo);
 
 	ProgramMG::GetInstance()->SelectMode();
 
-	GameMG gameMG[12];
+	GameMG gameMG;
 	boost::thread_group tg;
 	while (true)
 	{
-		tg.create_thread(boost::bind(&GameMG::Start, gameMG[0]));
+		tg.create_thread(boost::bind(&GameMG::Start, gameMG));
 		if (ProgramMG::GetInstance()->GetMode() == 1)
-			for (int i = 1; i < systemInfo.dwNumberOfProcessors; i++)
+			for (int i = 0; i < systemInfo.dwNumberOfProcessors - 1; i++)
 			{
-				tg.create_thread(boost::bind(&GameMG::Start, gameMG[i]));
+				tg.create_thread(boost::bind(&GameMG::Start, gameMG));
 			}
 		tg.join_all();
 	}
