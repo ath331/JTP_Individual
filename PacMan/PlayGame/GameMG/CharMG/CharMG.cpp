@@ -18,14 +18,14 @@ void CharMG::Init(InputMG* inputMG, MapField map[][MAX_MAP_SIZE_X])
 
 	//_MakePlayer
 	Character* playerCharacter = new Player;
-	playerCharacter->Init(inputMG,map, _enemyPathMap, MapField::PLAYER_, (_mapSizeX / 2), (_mapSizeY / 2) + 2);
+	playerCharacter->Init(inputMG, map, _enemyPathMap, MapField::PLAYER_, (_mapSizeX / 2), (_mapSizeY / 2) + 2);
 	charVec.push_back(playerCharacter);
 
 	//_MakeEnemy
 	for (int i = 0; i < _enemyNum; i++)
 	{
 		Character* enemyCharacter = new Monster;
-		enemyCharacter->Init(inputMG,map, _enemyPathMap, MapField::ENEMY_, ((_mapSizeX / 2) - 1) + i, _mapSizeY / 2);
+		enemyCharacter->Init(inputMG, map, _enemyPathMap, MapField::ENEMY_, ((_mapSizeX / 2) - 1) + i, _mapSizeY / 2);
 		charVec.push_back(enemyCharacter);
 
 		int startPosX = ((_mapSizeX / 2) - 1) + i;
@@ -79,4 +79,11 @@ void CharMG::Update(MapField map[][MAX_MAP_SIZE_X])
 	{
 		(*iter)->MoveCharacter(_enemyPathMap);
 	}
+
+	//Player가 아이템을 먹었는지 체크해서 Monster 객체들에게 알려준다
+	if (charVec[0]->IsGetItem())
+		for (auto iter = charVec.begin() + 1; iter < charVec.end(); iter++)
+		{
+			(*iter)->SetGoalPos();
+		}
 }

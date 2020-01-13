@@ -98,13 +98,6 @@ void Monster::_SetPossibleDirection()
 	}
 }
 
-void Monster::SetGoalPos()
-{
-	_goalPosX = _mapSizeX / 2;
-	_goalPosY = _mapSizeY / 2;
-
-	_playerStateGetItem = true;
-}
 
 void Monster::_SetEnemyPath(MoveDirection curDirection)
 {

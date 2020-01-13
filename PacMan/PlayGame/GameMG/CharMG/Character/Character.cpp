@@ -158,6 +158,25 @@ MoveDirection Character::_GetNearGoalPosDirection()
 	return _GetDirection(direction);
 }
 
+bool Character::IsGetItem()
+{
+	return _getItem;
+}
+
+
+void Character::SetGoalPos()
+{
+	_goalPosX = _mapSizeX / 2;
+	_goalPosY = _mapSizeY / 2;
+
+	_playerStateGetItem = true;
+}
+
+void Character::SetgetItem(bool state)
+{
+	_getItem = state;
+}
+
 bool Character::_IsPlayer()
 {
 	if (_charState == MapField::PLAYER_)

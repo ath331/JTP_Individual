@@ -146,6 +146,8 @@ MoveDirection Player::_GetRandomDirection()
 	return _GetNearGoalPosDirection();
 }
 
+
+
 void Player::MoveCharacter(MapField enemyPath[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X])
 {
 	_FindNearItem();
@@ -175,8 +177,12 @@ void Player::MoveCharacter(MapField enemyPath[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X])
 }
 void Player::_SetPossibleDirection()
 {
-	//현재위치에서 갈수있는 방향을 체크. UP, DOWN, LEFT, RIGHT
+	if (*_mapPtr[_curPosX][_curPosY] == MapField::ITEM_Debuff)
+	{
+		_getItem = true;
+	}
 
+	//현재위치에서 갈수있는 방향을 체크. UP, DOWN, LEFT, RIGHT
 	_impossibleDirectionNum = 0;
 	if (_IsNextTileWall(0, -1) || _IsNextTileEnemyPath(MoveDirection::UP))
 	{
