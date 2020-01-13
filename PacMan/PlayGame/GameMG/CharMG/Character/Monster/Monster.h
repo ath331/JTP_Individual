@@ -5,8 +5,11 @@
 class Monster : public Character
 {
 public:
+	void SetGoalPos();
 	virtual void MoveCharacter(MapField enemyPath[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X]);
 private:
+	bool _playerStateGetItem = false;
+
 	bool _IsNextTilePlayer(int x, int y);
 	void _SetEnemyPath(MoveDirection curDirection);
 	void _InitEnemyPath(MoveDirection curDirection);

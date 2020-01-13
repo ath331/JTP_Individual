@@ -10,59 +10,70 @@ bool Monster::_IsNextTilePlayer(int x, int y)
 }
 MoveDirection Monster::_GetRandomDirection()
 {
-	int randDirection = rand() % 4;
-	while (_possibleDirectionArr[randDirection] == false)
+	if (_playerStateGetItem)
 	{
-		randDirection = rand() % 4;
+		return _GetNearGoalPosDirection();
 	}
 
-	int possibleDirectionNum = 0;
-	for (int i = 0; i < 4; i++)
+	else if (!_playerStateGetItem)
 	{
-		if (_possibleDirectionArr[i] == true)
-			possibleDirectionNum++;
-	}
-
-	MoveDirection tempCurMoveDirection = _curDirection;
-	if (possibleDirectionNum != 1) //진행방향이 뒤만 있는게 아니라면 뒤로 가지 않는다
-	{
-		switch ((MoveDirection)randDirection)
+		int randDirection = rand() % 4;
+		while (_possibleDirectionArr[randDirection] == false)
 		{
-		case UP:
-			if (_curDirection == DOWN)
-			{
-				randDirection = (int)tempCurMoveDirection;
-			}
-			break;
-		case DOWN:
-			if (_curDirection == UP)
-			{
-				randDirection = (int)tempCurMoveDirection;
-			}
-			break;
-		case LEFT:
-			if (_curDirection == RIGHT)
-			{
-				randDirection = (int)tempCurMoveDirection;
-			}
-			break;
-		case RIGHT:
-			if (_curDirection == LEFT)
-			{
-				randDirection = (int)tempCurMoveDirection;
-			}
-			break;
-
-		default:
-			break;
+			randDirection = rand() % 4;
 		}
-	}
 
-	return (MoveDirection)randDirection;
+		int possibleDirectionNum = 0;
+		for (int i = 0; i < 4; i++)
+		{
+			if (_possibleDirectionArr[i] == true)
+				possibleDirectionNum++;
+		}
+
+		MoveDirection tempCurMoveDirection = _curDirection;
+		if (possibleDirectionNum != 1) //진행방향이 뒤만 있는게 아니라면 뒤로 가지 않는다
+		{
+			switch ((MoveDirection)randDirection)
+			{
+			case UP:
+				if (_curDirection == DOWN)
+				{
+					randDirection = (int)tempCurMoveDirection;
+				}
+				break;
+			case DOWN:
+				if (_curDirection == UP)
+				{
+					randDirection = (int)tempCurMoveDirection;
+				}
+				break;
+			case LEFT:
+				if (_curDirection == RIGHT)
+				{
+					randDirection = (int)tempCurMoveDirection;
+				}
+				break;
+			case RIGHT:
+				if (_curDirection == LEFT)
+				{
+					randDirection = (int)tempCurMoveDirection;
+				}
+				break;
+
+			default:
+				break;
+			}
+		}
+
+		return (MoveDirection)randDirection;
+	}
 }
 
 void Monster::_SetPossibleDirection()
 {
+	if (*_mapPtr[_curPosX][_curPosY] == MapField::PRISON_ZONE)
+		_playerStateGetItem = false;
+
 	//현재위치에서 갈수있는 방향을 체크. UP, DOWN, LEFT, RIGHT
 	{
 		if (!_IsNextTileWall(0, -1))
@@ -87,6 +98,14 @@ void Monster::_SetPossibleDirection()
 	}
 }
 
+void Monster::SetGoalPos()
+{
+	_goalPosX = _mapSizeX / 2;
+	_goalPosY = _mapSizeY / 2;
+
+	_playerStateGetItem = true;
+}
+
 void Monster::_SetEnemyPath(MoveDirection curDirection)
 {
 	switch (curDirection)
@@ -95,7 +114,7 @@ void Monster::_SetEnemyPath(MoveDirection curDirection)
 		for (int i = 1; i <= _enemyPath; i++)
 		{
 			if (*_enemyPathPtr[_curPosX][_curPosY - i] != MapField::WALL && *_enemyPathPtr[_curPosX][_curPosY - i] != MapField::PRISON_WALL)
-				* _enemyPathPtr[_curPosX][_curPosY - i] = MapField::ENEMY_PATH;
+				*_enemyPathPtr[_curPosX][_curPosY - i] = MapField::ENEMY_PATH;
 			else if (_IsNextTileWall(0, -i))
 				break;
 		}
@@ -104,7 +123,7 @@ void Monster::_SetEnemyPath(MoveDirection curDirection)
 		for (int i = 1; i <= _enemyPath; i++)
 		{
 			if (*_enemyPathPtr[_curPosX][_curPosY + i] != MapField::WALL && *_enemyPathPtr[_curPosX][_curPosY + i] != MapField::PRISON_WALL)
-				* _enemyPathPtr[_curPosX][_curPosY + i] = MapField::ENEMY_PATH;
+				*_enemyPathPtr[_curPosX][_curPosY + i] = MapField::ENEMY_PATH;
 			else if (_IsNextTileWall(0, i))
 				break;
 		}
@@ -113,7 +132,7 @@ void Monster::_SetEnemyPath(MoveDirection curDirection)
 		for (int i = 1; i <= _enemyPath; i++)
 		{
 			if (*_enemyPathPtr[_curPosX - i][_curPosY] != MapField::WALL && *_enemyPathPtr[_curPosX - i][_curPosY] != MapField::PRISON_WALL)
-				* _enemyPathPtr[_curPosX - i][_curPosY] = MapField::ENEMY_PATH;
+				*_enemyPathPtr[_curPosX - i][_curPosY] = MapField::ENEMY_PATH;
 			else if (_IsNextTileWall(-i, 0))
 				break;
 		}
@@ -122,7 +141,7 @@ void Monster::_SetEnemyPath(MoveDirection curDirection)
 		for (int i = 1; i <= _enemyPath; i++)
 		{
 			if (*_enemyPathPtr[_curPosX + i][_curPosY] != MapField::WALL && *_enemyPathPtr[_curPosX + i][_curPosY] != MapField::PRISON_WALL)
-				* _enemyPathPtr[_curPosX + i][_curPosY] = MapField::ENEMY_PATH;
+				*_enemyPathPtr[_curPosX + i][_curPosY] = MapField::ENEMY_PATH;
 			else if (_IsNextTileWall(i, 0))
 				break;
 		}
@@ -134,17 +153,9 @@ void Monster::_SetEnemyPath(MoveDirection curDirection)
 
 void Monster::_MoveChacter(int x, int y)
 {
-	if (!_IsPlayer())
-	{
-		_SetEnemyPath(_curDirection);
-	}
-
+	_SetEnemyPath(_curDirection);
 	if (!_IsNextTileWall(x, y))
 	{
-		if (_IsPlayer())
-		{
-			*_mapPtr[_curPosX][_curPosY] = MapField::ROAD;
-		}
 		_InitCurPosState();
 		SetCharPos(_curPosX + x, _curPosY + y);
 
@@ -205,7 +216,7 @@ void Monster::_InitEnemyPath(MoveDirection curDirection)
 		for (int i = 0; i <= _enemyPath; i++)
 		{
 			if (*_enemyPathPtr[_curPosX][_curPosY - i] == MapField::ENEMY_PATH)
-				* _enemyPathPtr[_curPosX][_curPosY - i] = MapField::ROAD;
+				*_enemyPathPtr[_curPosX][_curPosY - i] = MapField::ROAD;
 			else if (_IsNextTileWall(0, -i))
 				break;
 		}
@@ -213,7 +224,7 @@ void Monster::_InitEnemyPath(MoveDirection curDirection)
 		for (int i = 1; i <= _enemyPath; i++)
 		{
 			if (*_enemyPathPtr[_curPosX][_curPosY + i] == MapField::ENEMY_PATH)
-				* _enemyPathPtr[_curPosX][_curPosY + i] = MapField::ROAD;
+				*_enemyPathPtr[_curPosX][_curPosY + i] = MapField::ROAD;
 			else if (_IsNextTileWall(0, i))
 				break;
 		}
@@ -221,7 +232,7 @@ void Monster::_InitEnemyPath(MoveDirection curDirection)
 		for (int i = 1; i <= _enemyPath; i++)
 		{
 			if (*_enemyPathPtr[_curPosX - i][_curPosY] == MapField::ENEMY_PATH)
-				* _enemyPathPtr[_curPosX - i][_curPosY] = MapField::ROAD;
+				*_enemyPathPtr[_curPosX - i][_curPosY] = MapField::ROAD;
 			else if (_IsNextTileWall(-i, 0))
 				break;
 		}
@@ -229,7 +240,7 @@ void Monster::_InitEnemyPath(MoveDirection curDirection)
 		for (int i = 1; i <= _enemyPath; i++)
 		{
 			if (*_enemyPathPtr[_curPosX + i][_curPosY] == MapField::ENEMY_PATH)
-				* _enemyPathPtr[_curPosX + i][_curPosY] = MapField::ROAD;
+				*_enemyPathPtr[_curPosX + i][_curPosY] = MapField::ROAD;
 			else if (_IsNextTileWall(i, 0))
 				break;
 		}

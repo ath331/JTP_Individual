@@ -1,1 +1,3 @@
 ﻿MapSize,WallRatio(%),ItemNum,EnemyNum,GameOver?(bool),GameClear?(bool)
+
+11,0,0,2,0,1

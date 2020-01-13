@@ -143,7 +143,7 @@ void Player::_FindNearItem()
 
 MoveDirection Player::_GetRandomDirection()
 {
-	return _GetNearItemDirection();
+	return _GetNearGoalPosDirection();
 }
 
 void Player::MoveCharacter(MapField enemyPath[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X])
@@ -244,128 +244,5 @@ void Player::_MoveChacter(int x, int y)
 			SetCharPos(0, _curPosY);
 			_curDirection = MoveDirection::RIGHT;
 		}
-	}
-}
-
-MoveDirection Player::_GetNearItemDirection()
-{
-	//1 왼쪽위 2오른쪽위 3왼쪽아래 4오른쪽아래
-	//5 위직선 6왼직선 7아래직선 8우직선     
-	MoveDirection direction = MoveDirection::DOWN;
-	int tempX = _curPosX - _goalPosX;
-	int tempY = _curPosY - _goalPosY;
-
-	//목표지점이 대각선인지 체크
-	{
-		if (tempX > 0 && tempY > 0)
-			direction = MoveDirection::UP_LEFT;
-		else if (tempX < 0 && tempY > 0)
-			direction = MoveDirection::UP_RIGHT;
-		else if (tempX > 0 && tempY < 0)
-			direction = MoveDirection::DOWN_LEFT;
-		else if (tempX < 0 && tempY < 0)
-			direction = MoveDirection::DOWN_RIGHT;
-	}
-	//목표지점이 일직선방향인지 체크
-	{
-		if (tempX == 0 && tempY > 0)
-			direction = MoveDirection::UP;
-		else if (tempX == 0 && tempY < 0)
-			direction = MoveDirection::DOWN;
-		else if (tempX > 0 && tempY == 0)
-			direction = MoveDirection::LEFT;
-		else if (tempX < 0 && tempY == 0)
-			direction = MoveDirection::RIGHT;
-	}
-
-	return _GetDirection(direction);
-}
-
-MoveDirection Player::_GetDirection(MoveDirection direction)
-{
-	switch (direction)
-	{
-	case UP:
-		if (_possibleDirectionArr[0])
-			return MoveDirection::UP;
-		else if (_possibleDirectionArr[2])
-			return MoveDirection::LEFT;
-		else if (_possibleDirectionArr[3])
-			return MoveDirection::RIGHT;
-		else if (_possibleDirectionArr[1])
-			return MoveDirection::DOWN;
-		break;
-	case DOWN:
-		if (_possibleDirectionArr[1])
-			return MoveDirection::DOWN;
-		else if (_possibleDirectionArr[2])
-			return MoveDirection::LEFT;
-		else if (_possibleDirectionArr[3])
-			return MoveDirection::RIGHT;
-		else if (_possibleDirectionArr[0])
-			return MoveDirection::UP;
-		break;
-	case LEFT:
-		if (_possibleDirectionArr[2])
-			return MoveDirection::LEFT;
-		else if (_possibleDirectionArr[1])
-			return MoveDirection::DOWN;
-		else if (_possibleDirectionArr[0])
-			return MoveDirection::UP;
-		else if (_possibleDirectionArr[3])
-			return MoveDirection::RIGHT;
-		break;
-	case RIGHT:
-		if (_possibleDirectionArr[3])
-			return MoveDirection::RIGHT;
-		else if (_possibleDirectionArr[1])
-			return MoveDirection::DOWN;
-		else if (_possibleDirectionArr[0])
-			return MoveDirection::UP;
-		else if (_possibleDirectionArr[2])
-			return MoveDirection::LEFT;
-		break;
-	case UP_LEFT:
-		if (_possibleDirectionArr[2])
-			return MoveDirection::LEFT;
-		else if (_possibleDirectionArr[0])
-			return MoveDirection::UP;
-		else if (_possibleDirectionArr[1])
-			return MoveDirection::DOWN;
-		else if (_possibleDirectionArr[3])
-			return MoveDirection::RIGHT;
-		break;
-	case UP_RIGHT:
-		if (_possibleDirectionArr[0])
-			return MoveDirection::UP;
-		else if (_possibleDirectionArr[3])
-			return MoveDirection::RIGHT;
-		else if (_possibleDirectionArr[2])
-			return MoveDirection::LEFT;
-		else if (_possibleDirectionArr[1])
-			return MoveDirection::DOWN;
-		break;
-	case DOWN_LEFT:
-		if (_possibleDirectionArr[2])
-			return MoveDirection::LEFT;
-		else if (_possibleDirectionArr[1])
-			return MoveDirection::DOWN;
-		else if (_possibleDirectionArr[0])
-			return MoveDirection::UP;
-		else if (_possibleDirectionArr[3])
-			return MoveDirection::RIGHT;
-		break;
-	case DOWN_RIGHT:
-		if (_possibleDirectionArr[1])
-			return MoveDirection::DOWN;
-		else if (_possibleDirectionArr[3])
-			return MoveDirection::RIGHT;
-		else if (_possibleDirectionArr[0])
-			return MoveDirection::UP;
-		else if (_possibleDirectionArr[2])
-			return MoveDirection::LEFT;
-		break;
-	default:
-		break;
 	}
 }

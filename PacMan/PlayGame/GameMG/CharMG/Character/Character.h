@@ -47,6 +47,9 @@ protected:
 	MapField* _enemyPathPtr[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X];
 	MapField _charMap[MAX_MAP_SIZE_Y][MAX_MAP_SIZE_X];
 
+	int _goalPosX = 0;
+	int _goalPosY = 0;
+
 	int _mapSizeX = 0;
 	int _mapSizeY = 0;
 
@@ -64,8 +67,11 @@ protected:
 	bool _IsNextTilePotal(int x);
 
 	MoveDirection _curDirection = MoveDirection::DOWN;
-	virtual MoveDirection _GetRandomDirection();
+	virtual MoveDirection _GetRandomDirection() =0;
 	virtual void _MoveChacter(int x, int y) = 0; //실질적인 움직임 함수
 	virtual void _SetPossibleDirection();
 	void _SetCurDirection(MoveDirection direction);
+
+	MoveDirection _GetNearGoalPosDirection();
+	MoveDirection _GetDirection(MoveDirection direction); //목표지점과 상대위치를 비교해서 우선순위로 방향을 리턴
 };

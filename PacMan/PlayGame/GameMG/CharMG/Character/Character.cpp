@@ -37,6 +37,127 @@ void Character::_CopyArrPtr(MapField array1[][MAX_MAP_SIZE_X], MapField* array2[
 	}
 }
 
+
+MoveDirection Character::_GetDirection(MoveDirection direction)
+{
+	switch (direction)
+	{
+	case UP:
+		if (_possibleDirectionArr[0])
+			return MoveDirection::UP;
+		else if (_possibleDirectionArr[2])
+			return MoveDirection::LEFT;
+		else if (_possibleDirectionArr[3])
+			return MoveDirection::RIGHT;
+		else if (_possibleDirectionArr[1])
+			return MoveDirection::DOWN;
+		break;
+	case DOWN:
+		if (_possibleDirectionArr[1])
+			return MoveDirection::DOWN;
+		else if (_possibleDirectionArr[2])
+			return MoveDirection::LEFT;
+		else if (_possibleDirectionArr[3])
+			return MoveDirection::RIGHT;
+		else if (_possibleDirectionArr[0])
+			return MoveDirection::UP;
+		break;
+	case LEFT:
+		if (_possibleDirectionArr[2])
+			return MoveDirection::LEFT;
+		else if (_possibleDirectionArr[1])
+			return MoveDirection::DOWN;
+		else if (_possibleDirectionArr[0])
+			return MoveDirection::UP;
+		else if (_possibleDirectionArr[3])
+			return MoveDirection::RIGHT;
+		break;
+	case RIGHT:
+		if (_possibleDirectionArr[3])
+			return MoveDirection::RIGHT;
+		else if (_possibleDirectionArr[1])
+			return MoveDirection::DOWN;
+		else if (_possibleDirectionArr[0])
+			return MoveDirection::UP;
+		else if (_possibleDirectionArr[2])
+			return MoveDirection::LEFT;
+		break;
+	case UP_LEFT:
+		if (_possibleDirectionArr[2])
+			return MoveDirection::LEFT;
+		else if (_possibleDirectionArr[0])
+			return MoveDirection::UP;
+		else if (_possibleDirectionArr[1])
+			return MoveDirection::DOWN;
+		else if (_possibleDirectionArr[3])
+			return MoveDirection::RIGHT;
+		break;
+	case UP_RIGHT:
+		if (_possibleDirectionArr[0])
+			return MoveDirection::UP;
+		else if (_possibleDirectionArr[3])
+			return MoveDirection::RIGHT;
+		else if (_possibleDirectionArr[2])
+			return MoveDirection::LEFT;
+		else if (_possibleDirectionArr[1])
+			return MoveDirection::DOWN;
+		break;
+	case DOWN_LEFT:
+		if (_possibleDirectionArr[2])
+			return MoveDirection::LEFT;
+		else if (_possibleDirectionArr[1])
+			return MoveDirection::DOWN;
+		else if (_possibleDirectionArr[0])
+			return MoveDirection::UP;
+		else if (_possibleDirectionArr[3])
+			return MoveDirection::RIGHT;
+		break;
+	case DOWN_RIGHT:
+		if (_possibleDirectionArr[1])
+			return MoveDirection::DOWN;
+		else if (_possibleDirectionArr[3])
+			return MoveDirection::RIGHT;
+		else if (_possibleDirectionArr[0])
+			return MoveDirection::UP;
+		else if (_possibleDirectionArr[2])
+			return MoveDirection::LEFT;
+		break;
+	default:
+		break;
+	}
+}
+MoveDirection Character::_GetNearGoalPosDirection()
+{
+	MoveDirection direction = MoveDirection::DOWN;
+	int tempX = _curPosX - _goalPosX;
+	int tempY = _curPosY - _goalPosY;
+
+	//목표지점이 대각선인지 체크
+	{
+		if (tempX > 0 && tempY > 0)
+			direction = MoveDirection::UP_LEFT;
+		else if (tempX < 0 && tempY > 0)
+			direction = MoveDirection::UP_RIGHT;
+		else if (tempX > 0 && tempY < 0)
+			direction = MoveDirection::DOWN_LEFT;
+		else if (tempX < 0 && tempY < 0)
+			direction = MoveDirection::DOWN_RIGHT;
+	}
+	//목표지점이 일직선방향인지 체크
+	{
+		if (tempX == 0 && tempY > 0)
+			direction = MoveDirection::UP;
+		else if (tempX == 0 && tempY < 0)
+			direction = MoveDirection::DOWN;
+		else if (tempX > 0 && tempY == 0)
+			direction = MoveDirection::LEFT;
+		else if (tempX < 0 && tempY == 0)
+			direction = MoveDirection::RIGHT;
+	}
+
+	return _GetDirection(direction);
+}
+
 bool Character::_IsPlayer()
 {
 	if (_charState == MapField::PLAYER_)
@@ -83,62 +204,7 @@ void Character::_SetPossibleDirection()
 	}
 }
 
-MoveDirection Character::_GetRandomDirection()
-{
-	if (!_IsPlayer())
-	{
 
-		int randDirection = rand() % 4;
-		while (_possibleDirectionArr[randDirection] == false)
-		{
-			randDirection = rand() % 4;
-		}
-
-		int possibleDirectionNum = 0;
-		for (int i = 0; i < 4; i++)
-		{
-			if (_possibleDirectionArr[i] == true)
-				possibleDirectionNum++;
-		}
-
-		MoveDirection tempCurMoveDirection = _curDirection;
-		if (possibleDirectionNum != 1) //진행방향이 뒤만 있는게 아니라면 뒤로 가지 않는다
-		{
-			switch ((MoveDirection)randDirection)
-			{
-			case UP:
-				if (_curDirection == DOWN)
-				{
-					randDirection = (int)tempCurMoveDirection;
-				}
-				break;
-			case DOWN:
-				if (_curDirection == UP)
-				{
-					randDirection = (int)tempCurMoveDirection;
-				}
-				break;
-			case LEFT:
-				if (_curDirection == RIGHT)
-				{
-					randDirection = (int)tempCurMoveDirection;
-				}
-				break;
-			case RIGHT:
-				if (_curDirection == LEFT)
-				{
-					randDirection = (int)tempCurMoveDirection;
-				}
-				break;
-
-			default:
-				break;
-			}
-		}
-
-		return (MoveDirection)randDirection;
-	}
-}
 
 MapField Character::GetCharState()
 {
