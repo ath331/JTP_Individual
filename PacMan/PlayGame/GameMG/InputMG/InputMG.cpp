@@ -93,7 +93,6 @@ void InputMG::_InputEnemyNum()
 
 void InputMG::SetRandomParameter()
 {
-	init_number_generator();
 	unsigned int uNumber = 0U;
 	int randomMapSize = 0;
 	rand_s(&uNumber);
@@ -119,9 +118,9 @@ void InputMG::SetRandomParameter()
 	if (randomMapSize == 0)
 		randomItemNum = (int)((unsigned int)((double)uNumber / ((double)UINT_MAX + 1.0) * 3) + 0);
 	else if (randomMapSize == 1)
-		randomItemNum = (int)((unsigned int)((double)uNumber / ((double)UINT_MAX + 1.0) * 4) + 4);
-	else if (randomMapSize == 1)
-		randomItemNum = (int)((unsigned int)((double)uNumber / ((double)UINT_MAX + 1.0) * 4) + 4);
+		randomItemNum = (int)((unsigned int)((double)uNumber / ((double)UINT_MAX + 1.0) * 3) + 5);
+	else if (randomMapSize == 2)
+		randomItemNum = (int)((unsigned int)((double)uNumber / ((double)UINT_MAX + 1.0) * 3) + 7);
 	randomItemNum = (int)((unsigned int)((double)uNumber / ((double)UINT_MAX + 1.0) * 10) + 1);
 	_itemNum = randomItemNum;
 
@@ -132,11 +131,12 @@ void InputMG::SetRandomParameter()
 	if (randomMapSize == 0)
 		randEnemyNum = (int)((unsigned int)((double)uNumber / ((double)UINT_MAX + 1.0) * 3) + 1);
 	else if (randomMapSize == 1)
-		randEnemyNum = (int)((unsigned int)((double)uNumber / ((double)UINT_MAX + 1.0) * 4) + 4);
-	else if(randomMapSize == 1)
-		randEnemyNum = (int)((unsigned int)((double)uNumber / ((double)UINT_MAX + 1.0) * 4) + 6);
-
+		randEnemyNum = (int)((unsigned int)((double)uNumber / ((double)UINT_MAX + 1.0) * 3) + 5);
+	else if(randomMapSize == 2)
+		randEnemyNum = (int)((unsigned int)((double)uNumber / ((double)UINT_MAX + 1.0) * 3) + 7);
 	_enemyNum = randEnemyNum;
+
+	std::cout << _mapSize << " " << _wallRatio << " " << _itemNum << " " << _enemyNum << std::endl;
 }
 
 void InputMG::init_number_generator()
