@@ -27,11 +27,11 @@ void GameMG::Start()
 		{
 			system("cls");
 			_Draw();
+			Sleep(400);
 		}
 		_IsItemNumZero();
 		if (_inputMG.IsGameClear() || _inputMG.IsGameOver())
 			break;
-		Sleep(400);
 	}
 	{
 		ProgramMG::GetInstance()->ParsingGameResult(_inputMG.GetMapSize(), _inputMG.GetWallRatio(), _inputMG.GetItemNum(), _inputMG.GetEnemyNum(), _inputMG.IsGameClear());

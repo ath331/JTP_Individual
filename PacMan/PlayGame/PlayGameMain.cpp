@@ -1,12 +1,12 @@
 #include "GameMG/GameMG.h"
 #include "ProgramMG/ProgramMG.h"
-#include "Lock.h"
 
 #include <boost/bind.hpp>
 #include <boost/thread/thread.hpp>
 
 #include <process.h>
 
+//MG = Manager = ¸Å´ÏÀú 
 
 int main()
 {
@@ -20,8 +20,9 @@ int main()
 	while (true)
 	{
 		tg.create_thread(boost::bind(&GameMG::Start, gameMG));
+
 		if (ProgramMG::GetInstance()->GetMode() == 1)
-			for (int i = 0; i < systemInfo.dwNumberOfProcessors - 1; i++)
+			for (int i = 0; i < systemInfo.dwNumberOfProcessors - 1 ; i++)
 			{
 				tg.create_thread(boost::bind(&GameMG::Start, gameMG));
 			}

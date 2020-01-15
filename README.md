@@ -38,29 +38,5 @@ private:
 
 
 
-
-## 제작환경
-
-	-VS2019에서 콘솔창 2개를 이용하여 제작
-
-	-ConsoleLoggerHelper 라이브러리 사용
-	
-	-boost 라이브러리 사용
-
-#### 1콘솔(기존콘솔) = 게임이 돌아감(자동)
-
-	-콘솔창에서 Draw()함수를 이용하여 그리면서 게임진행을 하는 방식
-
-	-매개변수입력으로 맵 자동생성 후 실행
-
-	-길찾기 알고리즘을 이용해서 캐릭터와 AI의 움직임을 보여준다
-
-#### 2콘솔 = 게임 결과값이 출력됨
-
-	-출력된 결과는 XML파일로 파싱해서 저장(승률을 보기위해)
-
-
-
-
 ## Game구조
 [GameStructLink](https://github.com/ath331/JTP_Individual/tree/master/PacMan/PlayGame)

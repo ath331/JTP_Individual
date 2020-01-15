@@ -6,7 +6,7 @@
 class ProgramMG
 {
 public:
-	static ProgramMG* volatile GetInstance()
+	static ProgramMG* GetInstance()
 	{
 		if (_instance == nullptr)
 			LockGuard _dclpLockGuard(_dclpLock);
@@ -35,4 +35,3 @@ private:
 
 	int _mode = 0;
 };
-
